@@ -1,6 +1,6 @@
 import {VoidFunc} from "../typings/index";
 import {join} from 'path';
-import {compScreen, log, openIntercepRequest, screenshot, waitElementVisiable} from './util'
+import {compScreen, log, openIntercepRequest, screenshot, sleep, waitElementVisiable} from './util';
 
 /**
  * @desc
@@ -4247,8 +4247,3 @@ async function test(page) {
   await sleep(1);
 }
 
-function sleep(time: number) {
-  return new Promise(resolve => {
-    setTimeout(resolve, time * 1000);
-  });
-}

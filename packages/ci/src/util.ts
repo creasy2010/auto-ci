@@ -110,11 +110,21 @@ export async function compScreen(): Promise<IMatchResultItem[]> {
             let [, jsonStr] = stdout.match(compJsonReg);
             let result: IMatchResultItem[] = JSON.parse(jsonStr);
             console.log('jsonStr', jsonStr);
+            resolve(result);
+            return ;
           }
+        }else {
+          console.warn('can\'t find result or the compare !' );
+          resolve([]);
         }
-        resolve();
       },
     );
+  });
+}
+
+export function sleep(time: number) {
+  return new Promise(resolve => {
+    setTimeout(resolve, time * 1000);
   });
 }
 
