@@ -1,6 +1,7 @@
 import {Page} from 'puppeteer';
 import {IUseCase} from '../typings';
 import {createOperator} from './factory';
+import {sleep} from "./util";
 
 /**
  * @desc
@@ -29,6 +30,7 @@ export default class Scene {
       let userCase = this.userCases[i];
       let operator = createOperator(this.page, userCase);
       await operator.run();
+      await sleep(3);
     }
 
     await this.clean();

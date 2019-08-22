@@ -49,5 +49,9 @@ export default class Operator {
     await this.clean();
   }
 
-  private clean() {}
+  private async clean() {
+    if(this.cancelFunc){
+      await this.cancelFunc();
+    }
+  }
 }
