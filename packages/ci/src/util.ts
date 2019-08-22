@@ -12,14 +12,13 @@ import {IMatchResultItem, UnListenFunc} from "../typings/index";
 /**
  * 设置页面网络请求拦截处理
  * @param page
- * @param mockDataFunc
+ * @param mockData
  * @returns {Promise<UnListenFunc>} 取消请求拦截设置;
  */
-export async function openIntercepRequest(page, mockDataFunc): Promise<UnListenFunc> {
+export async function openIntercepRequest(page, mockData): Promise<UnListenFunc> {
   await page.setRequestInterception(true);
 
   let interceptFunc = async interceptedRequest => {
-    let mockData = await mockDataFunc();
     let method = interceptedRequest.method();
     let url = interceptedRequest.url();
     let key = `${url}:[${method}]`;

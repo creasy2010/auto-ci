@@ -1,4 +1,14 @@
-import {Page} from "puppeteer";
+import {Page} from 'puppeteer';
+import {IUseCase} from '../typings';
+import {
+  openIntercepRequest,
+  sleep,
+  log,
+  screenshot,
+  waitElementVisiable,
+} from './util';
+
+let ConstUtil = {sleep, log, screenshot, waitElementVisiable};
 
 /**
  * @desc
@@ -7,26 +17,37 @@ import {Page} from "puppeteer";
  *
  * @Date    2019/8/22
  **/
+export default class Operator {
+  page: Page;
+  useCase: IUseCase;
 
-export default  class Operator {
+  cancelFunc = null;
 
-  page:Page;
-
-  constructor() {
-
+  constructor(page, useCase: IUseCase) {
+    this.page = page;
+    this.useCase = useCase;
   }
 
-  init() {
-
+  private async init() {
+    if (this.useCase.neworkMock) {
+      this.cancelFunc = await openIntercepRequest(
+        this.page,
+        this.useCase.neworkMock,
+      );
+    }
   }
 
-  run() {
+  async run() {
+    await this.init();
+    await this.useCase.exec(
+      {
+        page: this.page,
+      },
+      ConstUtil,
+    );
 
-
+    await this.clean();
   }
 
-  clean() {
-
-
-  }
+  private clean() {}
 }
