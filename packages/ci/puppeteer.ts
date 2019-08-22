@@ -1,3 +1,9 @@
+import {VoidFunc} from "./typings";
+import {join} from 'path';
+import {exec} from 'child_process';
+
+import {openIntercepRequest, waitElementVisiable} from './util'
+
 /**
  * @desc
  *
@@ -7,8 +13,6 @@
  * @Date    2019/7/27
  **/
 const puppeteer = require('puppeteer');
-import {join} from 'path';
-import {exec} from 'child_process';
 
 (async () => {
 
@@ -55,62 +59,6 @@ import {exec} from 'child_process';
   await browser.close();
 })();
 
-interface VoidFunc {
-  (): void;
-}
-
-interface UnListenFunc {
-  (): void;
-}
-
-async function openIntercepRequest(page, mockDataFunc): Promise<UnListenFunc> {
-  await page.setRequestInterception(true);
-
-  let interceptFunc = async interceptedRequest => {
-    let mockData = await mockDataFunc();
-    let method = interceptedRequest.method();
-    let url = interceptedRequest.url();
-    let key = `${url}:[${method}]`;
-
-    if (mockData[key]) {
-      let requestInfo = mockData[key].shift();
-      if (requestInfo) {
-        interceptedRequest.respond({
-          status: requestInfo.response.status,
-          headers: requestInfo.response.headers,
-          contentType:
-            requestInfo.response.headers['Content-Type'] || 'text/plain',
-          body: requestInfo.response.body,
-        });
-        console.log('拦截后返回值: ', url);
-      } else {
-        console.warn('mock数据已用尽,访问真正接口 ', url, requestInfo.response.body);
-        interceptedRequest.continue();
-      }
-    } else {
-      interceptedRequest.continue();
-    }
-  };
-
-  page.on('request', interceptFunc);
-
-  return async () => {
-    await page.setRequestInterception(true);
-    await page.off('request', interceptFunc);
-  };
-}
-
-/**
- * 等待元素, 判断是否唯一等信息;
- */
-async function waitElementVisiable(page, selector) {
-  await page.waitForSelector(selector);
-  let result = await page.$$(selector);
-
-  if (result.length > 1) {
-    throw new Error(`selector:${selector},会对应多个对象`);
-  }
-}
 
 function log(content: string) {
   console.log(content);
