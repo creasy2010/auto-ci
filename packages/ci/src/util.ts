@@ -7,7 +7,9 @@
  * @Date    2019/8/22
  **/
 
-import {UnListenFunc} from "./typings";
+import {join} from 'path';
+import {exec} from 'child_process';
+import {IMatchResultItem, UnListenFunc} from "../typings/index";
 
 /**
  * 设置页面网络请求拦截处理
@@ -62,5 +64,57 @@ export async function waitElementVisiable(page, selector) {
   if (result.length > 1) {
     throw new Error(`selector:${selector},会对应多个对象`);
   }
+}
+
+export async function screenshot(page,imageName:string) {
+  console.log('开始截图!!!');
+  await page.screenshot({
+    path: join(__dirname, 'screenshot', imageName + '.png'),
+    fullPage: true,
+  });
+}
+
+export function log(content: string) {
+  console.log(content);
+}
+
+const countReg = /inconsistent pictures:: ([0-9]+)/;
+const compJsonReg = /checkResult start:: (.*) checkResult ent::/;
+
+/**
+ * 将两次的结果进行对比, 把相似度不为100的区分 出来
+ * @returns {Promise<IMatchResultItem[]>}
+ */
+export async function compScreen(): Promise<IMatchResultItem[]> {
+  let baseDir = join(__dirname, 'screenshot-base'),
+    compDir = join(__dirname, 'screenshot');
+  return new Promise<IMatchResultItem[]>((resolve, reject) => {
+    exec(
+      `./copmarePicture.py ${baseDir} ${compDir}`,
+      {
+        cwd: __dirname,
+      },
+      (err, stdout, stderr) => {
+        if (err) {
+          console.error(err);
+          reject();
+          return;
+        }
+        console.log('截图对比结果:', stdout);
+
+        let result = stdout.match(countReg);
+        if (result && result[1]) {
+          let errorCount = parseInt(result[1]);
+          console.log(errorCount);
+          if (errorCount !== 0) {
+            let [, jsonStr] = stdout.match(compJsonReg);
+            let result: IMatchResultItem[] = JSON.parse(jsonStr);
+            console.log('jsonStr', jsonStr);
+          }
+        }
+        resolve();
+      },
+    );
+  });
 }
 

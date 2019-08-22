@@ -1,8 +1,6 @@
-import {VoidFunc} from "./typings";
+import {VoidFunc} from "../typings/index";
 import {join} from 'path';
-import {exec} from 'child_process';
-
-import {openIntercepRequest, waitElementVisiable} from './util'
+import {compScreen, log, openIntercepRequest, screenshot, waitElementVisiable} from './util'
 
 /**
  * @desc
@@ -25,7 +23,7 @@ const puppeteer = require('puppeteer');
   });
   const [page] = await browser.pages();
 
-  await page.setViewport({ width: 0, height: 0})
+  await page.setViewport({ width: 0, height: 0});
   // page.on('requestfinished', req => {
   //   console.log(`请求完成: ${req.url()}`);
   // });
@@ -60,68 +58,16 @@ const puppeteer = require('puppeteer');
 })();
 
 
-function log(content: string) {
-  console.log(content);
-}
-
 const Speed = 1;
 
-let imageCount = 0;
 
-async function screenshot(page) {
-  console.log('开始截图!!!');
-  await page.screenshot({
-    path: join(__dirname, 'screenshot', imageCount++ + '.png'),
-    fullPage: true,
-  });
-}
 
-const countReg = /inconsistent pictures:: ([0-9]+)/;
-const compJsonReg = /checkResult start:: (.*) checkResult ent::/;
 
-interface IMatchResultItem {
-  fileName: string;
-  score: number;
-  img: string;
-}
-
-async function compScreen() {
-  let baseDir = join(__dirname, 'screenshot-base'),
-    compDir = join(__dirname, 'screenshot');
-  return new Promise((resolve, reject) => {
-    exec(
-      `./copmarePicture.py ${baseDir} ${compDir}`,
-      {
-        cwd: __dirname,
-      },
-      (err, stdout, stderr) => {
-        if (err) {
-          console.error(err);
-          reject();
-          return;
-        }
-        console.log('截图对比结果:', stdout);
-
-        let result = stdout.match(countReg);
-        if (result && result[1]) {
-          let errorCount = parseInt(result[1]);
-          console.log(errorCount);
-          if (errorCount !== 0) {
-            let [, jsonStr] = stdout.match(compJsonReg);
-            let result: IMatchResultItem[] = JSON.parse(jsonStr);
-
-            console.log('jsonStr', jsonStr);
-          }
-        }
-        resolve();
-      },
-    );
-  });
-}
 
 async function testCaseFormCheckbox(page): Promise<VoidFunc> {
   let clean = await openIntercepRequest(page, () => neworkMock);
   async function TestCase() {
+
     await page.evaluate(
       `window.__testContext__.goto('/rechargeable-card-add')`,
     );
@@ -137,7 +83,7 @@ async function testCaseFormCheckbox(page): Promise<VoidFunc> {
     await page.click('.ant-row #recharge-form_rechargeableCardName');
     await sleep(1 * Speed);
 
-    await screenshot(page);
+    await screenshot(page,"0");
 
     await page.waitForSelector('.ant-row #recharge-form_rechargeableCardName');
     await page.type('.ant-row #recharge-form_rechargeableCardName', '1');
@@ -170,7 +116,7 @@ async function testCaseFormCheckbox(page): Promise<VoidFunc> {
     );
     await sleep(1 * Speed);
 
-    await screenshot(page);
+    await screenshot(page,"1");
 
     await page.waitForSelector(
       '#recharge-form_price > .ant-col > .ant-input-group-wrapper > .ant-input-wrapper > .ant-input',
@@ -188,7 +134,7 @@ async function testCaseFormCheckbox(page): Promise<VoidFunc> {
       '0',
     );
 
-    await screenshot(page);
+    await screenshot(page,"2");
 
     log(`[clicking] `);
     await waitElementVisiable(
@@ -226,7 +172,8 @@ async function testCaseFormCheckbox(page): Promise<VoidFunc> {
     );
     await sleep(1 * Speed);
 
-    await screenshot(page);
+    await screenshot(page,"3");
+
 
     await page.waitForSelector(
       '.ant-form-item-children > .ant-radio-group > .ant-radio-wrapper-checked > .ant-radio > .ant-radio-input',
@@ -244,7 +191,8 @@ async function testCaseFormCheckbox(page): Promise<VoidFunc> {
     await page.click('.ant-radio-wrapper #recharge-form_validityDays');
     await sleep(1 * Speed);
 
-    await screenshot(page);
+    await screenshot(page,"4");
+
 
     await page.waitForSelector(
       '.ant-radio-wrapper #recharge-form_validityDays',
@@ -256,7 +204,8 @@ async function testCaseFormCheckbox(page): Promise<VoidFunc> {
     );
     await page.type('.ant-radio-wrapper #recharge-form_validityDays', '0');
 
-    await screenshot(page);
+    await screenshot(page,"5");
+
     log(`[clicking]永久有效 `);
     await waitElementVisiable(
       page,
@@ -285,7 +234,8 @@ async function testCaseFormCheckbox(page): Promise<VoidFunc> {
     );
     await sleep(1 * Speed);
 
-    await screenshot(page);
+    await screenshot(page,"6");
+
 
     log(`[clicking] `);
     await waitElementVisiable(
@@ -339,7 +289,9 @@ async function testCaseFormCheckbox(page): Promise<VoidFunc> {
     );
     await sleep(1 * Speed);
 
-    await screenshot(page);
+
+    await screenshot(page,"7");
+
     await page.waitForSelector(
       '.ant-form-item-children > #recharge-form_distributionChannels > .ant-checkbox-wrapper-checked > .ant-checkbox > .ant-checkbox-input',
     );
@@ -358,7 +310,9 @@ async function testCaseFormCheckbox(page): Promise<VoidFunc> {
     );
     await sleep(1 * Speed);
 
-    await screenshot(page);
+
+    await screenshot(page,"8");
+
 
     await page.waitForSelector(
       '.ant-form-item-children > #recharge-form_distributionChannels > .ant-checkbox-wrapper:nth-child(2) > .ant-checkbox > .ant-checkbox-input',
@@ -378,7 +332,9 @@ async function testCaseFormCheckbox(page): Promise<VoidFunc> {
     );
     await sleep(1 * Speed);
 
-    await screenshot(page);
+
+    await screenshot(page,"9");
+
 
     log(`[clicking]上 架 `);
     await waitElementVisiable(
@@ -390,7 +346,7 @@ async function testCaseFormCheckbox(page): Promise<VoidFunc> {
     );
     await sleep(1 * Speed);
 
-    await screenshot(page);
+    await screenshot(page,"10");
 
     await clean();
   }
