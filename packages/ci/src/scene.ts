@@ -11,9 +11,9 @@ import {createOperator} from './factory';
  **/
 
 export default class Scene {
-  page: Page;
+ private page: Page;
 
-  userCases: IUseCase[];
+ private userCases: IUseCase[];
 
   constructor(page, userCases: IUseCase[]) {
     this.page = page;
