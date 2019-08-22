@@ -1,4 +1,4 @@
-import {IContext, IUtil} from "../../../../ci/typings";
+import {IContext, IUtil} from '../../../../ci/typings';
 
 /**
  * @desc
@@ -9,14 +9,11 @@ import {IContext, IUtil} from "../../../../ci/typings";
  * @Date    2019/8/22
  **/
 
-export async function exec({
-  page, }:IContext,{
-  sleep,log,screenshot,waitElementVisiable
-}:IUtil) {
-
-  await page.evaluate(
-    `window.__testContext__.goto('/rechargeable-card-add')`,
-  );
+export async function exec(
+  {page}: IContext,
+  {sleep, log, screenshot, waitElementVisiable}: IUtil,
+) {
+  await page.evaluate(`window.__testContext__.goto('/rechargeable-card-add')`);
   await sleep(2);
 
   // await page.setViewport({ width: 2133, height: 1105 })
@@ -27,7 +24,7 @@ export async function exec({
     '.ant-row #recharge-form_rechargeableCardName',
   );
   await page.click('.ant-row #recharge-form_rechargeableCardName');
-  await sleep(1 );
+  await sleep(1);
 
   await screenshot(page, '0');
 
@@ -60,7 +57,7 @@ export async function exec({
   await page.click(
     '#recharge-form_price > .ant-col > .ant-input-group-wrapper > .ant-input-wrapper > .ant-input',
   );
-  await sleep(1 );
+  await sleep(1);
 
   await screenshot(page, '1');
 
@@ -90,7 +87,7 @@ export async function exec({
   await page.click(
     '#recharge-form_presentPrice > .ant-col > .ant-input-group-wrapper > .ant-input-wrapper > .ant-input',
   );
-  await sleep(1 );
+  await sleep(1);
 
   await page.waitForSelector(
     '#recharge-form_presentPrice > .ant-col > .ant-input-group-wrapper > .ant-input-wrapper > .ant-input',
@@ -116,7 +113,7 @@ export async function exec({
   await page.click(
     '.ant-form-item-children > .ant-radio-group > .ant-radio-wrapper:nth-child(2) > .ant-radio > .ant-radio-input',
   );
-  await sleep(1 );
+  await sleep(1);
 
   await screenshot(page, '3');
 
@@ -134,18 +131,14 @@ export async function exec({
     '.ant-radio-wrapper #recharge-form_validityDays',
   );
   await page.click('.ant-radio-wrapper #recharge-form_validityDays');
-  await sleep(1 );
+  await sleep(1);
 
   await screenshot(page, '4');
 
-  await page.waitForSelector(
-    '.ant-radio-wrapper #recharge-form_validityDays',
-  );
+  await page.waitForSelector('.ant-radio-wrapper #recharge-form_validityDays');
   await page.type('.ant-radio-wrapper #recharge-form_validityDays', '1');
 
-  await page.waitForSelector(
-    '.ant-radio-wrapper #recharge-form_validityDays',
-  );
+  await page.waitForSelector('.ant-radio-wrapper #recharge-form_validityDays');
   await page.type('.ant-radio-wrapper #recharge-form_validityDays', '0');
 
   await screenshot(page, '5');
@@ -158,7 +151,7 @@ export async function exec({
   await page.click(
     '.ant-form-item-control > .ant-form-item-children > .ant-radio-group > .ant-radio-wrapper:nth-child(1) > span:nth-child(2)',
   );
-  await sleep(1 );
+  await sleep(1);
 
   await page.waitForSelector(
     '.ant-form-item-children > .ant-radio-group > .ant-radio-wrapper-checked > .ant-radio > .ant-radio-input',
@@ -176,7 +169,7 @@ export async function exec({
   await page.click(
     '.ant-form-item-control > .ant-form-item-children > .ant-radio-group > .ant-radio-wrapper-checked > span:nth-child(2)',
   );
-  await sleep(1 );
+  await sleep(1);
 
   await screenshot(page, '6');
 
@@ -188,7 +181,7 @@ export async function exec({
   await page.click(
     '.ant-row:nth-child(5) > .ant-col > .ant-form-item-control > .ant-form-item-children > .ant-input',
   );
-  await sleep(1 );
+  await sleep(1);
 
   await page.waitForSelector(
     '.ant-row:nth-child(5) > .ant-col > .ant-form-item-control > .ant-form-item-children > .ant-input',
@@ -230,7 +223,7 @@ export async function exec({
   await page.click(
     '.ant-form-item-control > .ant-form-item-children > #recharge-form_distributionChannels > .ant-checkbox-wrapper:nth-child(1) > span:nth-child(2)',
   );
-  await sleep(1 );
+  await sleep(1);
 
   await screenshot(page, '7');
 
@@ -250,7 +243,7 @@ export async function exec({
   await page.click(
     '.ant-form-item-control > .ant-form-item-children > #recharge-form_distributionChannels > .ant-checkbox-wrapper:nth-child(2) > span:nth-child(2)',
   );
-  await sleep(1 );
+  await sleep(1);
 
   await screenshot(page, '8');
 
@@ -270,7 +263,7 @@ export async function exec({
   await page.click(
     '.ant-form-item-control > .ant-form-item-children > .ant-row > .ant-col:nth-child(2) > .ant-btn',
   );
-  await sleep(1 );
+  await sleep(1);
 
   await screenshot(page, '9');
 
@@ -282,13 +275,12 @@ export async function exec({
   await page.click(
     '.ant-form-item-control > .ant-form-item-children > .ant-row > .ant-col > .ant-btn-background-ghost',
   );
-  await sleep(1 );
+  await sleep(1);
 
   await screenshot(page, '10');
 }
 
-
-export const  neworkMock = {
+export const neworkMock = {
   'http://localhost:3001/__get-internal-source?fileName=webpack-internal%3A%2F%2F%2F.%2Fnode_modules%2Fwhatwg-fetch%2Ffetch.js:[GET]': [
     {
       request: {
@@ -389,4 +381,4 @@ export const  neworkMock = {
       response: {headers: {}, mimeType: 'application/json', status: 200},
     },
   ],
-}
+};
