@@ -30,7 +30,7 @@ export default class Scene {
       let userCase = this.userCases[i];
       let operator = createOperator(this.page, userCase);
       await operator.run();
-      await sleep(3);
+      await sleep(5);
     }
 
     await this.clean();
