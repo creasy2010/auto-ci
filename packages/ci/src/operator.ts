@@ -62,7 +62,13 @@ export default class Operator {
       this.util,
     );
 
+    await this.check();
     await this.clean();
+  }
+
+  private async check(){
+
+
   }
 
   private async clean() {

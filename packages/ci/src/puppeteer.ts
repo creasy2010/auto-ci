@@ -30,6 +30,7 @@ import {createScreen} from './factory';
   let userCases = [
     '../../projects/supplier/scene/use-case/login',
     '../../projects/supplier/scene/use-case/form',
+    '../../projects/supplier/scene/use-case/form-checkbox',
   ];
 
   let screen = createScreen(
