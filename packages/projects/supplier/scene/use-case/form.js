@@ -28,7 +28,7 @@ module.exports =   {
     await page.click('.ant-row #recharge-form_rechargeableCardName');
     await sleep(1);
 
-    await screenshot(page, '0');
+    await screenshot( '0');
 
     await page.waitForSelector('.ant-row #recharge-form_rechargeableCardName');
     await page.type('.ant-row #recharge-form_rechargeableCardName', '1');
@@ -53,7 +53,6 @@ module.exports =   {
 
     log(`[clicking] `);
     await waitElementVisiable(
-      page,
       '#recharge-form_price > .ant-col > .ant-input-group-wrapper > .ant-input-wrapper > .ant-input',
     );
     await page.click(
@@ -61,7 +60,7 @@ module.exports =   {
     );
     await sleep(1);
 
-    await screenshot(page, '1');
+    await screenshot('1');
 
     await page.waitForSelector(
       '#recharge-form_price > .ant-col > .ant-input-group-wrapper > .ant-input-wrapper > .ant-input',
@@ -79,7 +78,7 @@ module.exports =   {
       '0',
     );
 
-    await screenshot(page, '2');
+    await screenshot('2');
 
     log(`[clicking] `);
     await waitElementVisiable(
@@ -117,7 +116,7 @@ module.exports =   {
     );
     await sleep(1);
 
-    await screenshot(page, '3');
+    await screenshot('3');
 
     await page.waitForSelector(
       '.ant-form-item-children > .ant-radio-group > .ant-radio-wrapper-checked > .ant-radio > .ant-radio-input',
@@ -135,7 +134,7 @@ module.exports =   {
     await page.click('.ant-radio-wrapper #recharge-form_validityDays');
     await sleep(1);
 
-    await screenshot(page, '4');
+    await screenshot('4');
 
     await page.waitForSelector('.ant-radio-wrapper #recharge-form_validityDays');
     await page.type('.ant-radio-wrapper #recharge-form_validityDays', '1');
@@ -143,11 +142,10 @@ module.exports =   {
     await page.waitForSelector('.ant-radio-wrapper #recharge-form_validityDays');
     await page.type('.ant-radio-wrapper #recharge-form_validityDays', '0');
 
-    await screenshot(page, '5');
+    await screenshot('5');
 
     log(`[clicking]永久有效 `);
     await waitElementVisiable(
-      page,
       '.ant-form-item-control > .ant-form-item-children > .ant-radio-group > .ant-radio-wrapper:nth-child(1) > span:nth-child(2)',
     );
     await page.click(
@@ -173,7 +171,7 @@ module.exports =   {
     );
     await sleep(1);
 
-    await screenshot(page, '6');
+    await screenshot( '6');
 
     log(`[clicking] `);
     await waitElementVisiable(
@@ -227,7 +225,7 @@ module.exports =   {
     );
     await sleep(1);
 
-    await screenshot(page, '7');
+    await screenshot( '7');
 
     await page.waitForSelector(
       '.ant-form-item-children > #recharge-form_distributionChannels > .ant-checkbox-wrapper-checked > .ant-checkbox > .ant-checkbox-input',
@@ -247,7 +245,7 @@ module.exports =   {
     );
     await sleep(1);
 
-    await screenshot(page, '8');
+    await screenshot( '8');
 
     await page.waitForSelector(
       '.ant-form-item-children > #recharge-form_distributionChannels > .ant-checkbox-wrapper:nth-child(2) > .ant-checkbox > .ant-checkbox-input',
@@ -267,7 +265,7 @@ module.exports =   {
     );
     await sleep(1);
 
-    await screenshot(page, '9');
+    await screenshot( '9');
 
     log(`[clicking]上 架 `);
     await waitElementVisiable(
@@ -279,7 +277,7 @@ module.exports =   {
     );
     await sleep(1);
 
-    await screenshot(page, '10');
+    await screenshot( '10');
   },
   neworkMock : {
     'https://sellerbff.s2btest.kstore.shop/marketing/rechargeable-card:[POST]': [
