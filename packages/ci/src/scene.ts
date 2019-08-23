@@ -1,5 +1,5 @@
 import {Page} from 'puppeteer';
-import {IUseCase} from '../typings';
+import {IEcecuteContext, IUseCase} from '../typings';
 import {createOperator} from './factory';
 import {sleep} from "./util";
 
@@ -12,13 +12,17 @@ import {sleep} from "./util";
  **/
 
 export default class Scene {
- private page: Page;
+
+ private context:IEcecuteContext;
 
  private userCases: IUseCase[];
 
-  constructor(page, userCases: IUseCase[]) {
-    this.page = page;
+  constructor(page, userCases: IUseCase[],dir:string) {
     this.userCases = userCases;
+    this.context = {
+      dir,
+      page,
+    }
   }
 
   private init() {}
@@ -28,7 +32,7 @@ export default class Scene {
 
     for (let i = 0, iLen = this.userCases.length; i < iLen; i++) {
       let userCase = this.userCases[i];
-      let operator = createOperator(this.page, userCase);
+      let operator = createOperator(this.context, userCase);
       await operator.run();
       await sleep(5);
     }

@@ -9,11 +9,11 @@ import {IContext, IUtil} from '../../../../ci/typings';
  * @Date    2019/8/22
  **/
 
-export default {
+module.exports =   {
   desc:"form表单组件操作",
   async exec(
-    {page}: IContext,
-    {sleep, log, screenshot, waitElementVisiable}: IUtil,
+    {page},
+    {sleep, log, screenshot, waitElementVisiable},
   ) {
     await page.evaluate(`window.__testContext__.goto('/rechargeable-card-add')`);
     await sleep(2);

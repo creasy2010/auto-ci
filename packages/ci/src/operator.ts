@@ -1,5 +1,4 @@
-import {Page} from 'puppeteer';
-import {IUseCase} from '../typings';
+import {IEcecuteContext, IUseCase} from '../typings';
 import {
   openIntercepRequest,
   sleep,
@@ -7,8 +6,6 @@ import {
   screenshot,
   waitElementVisiable,
 } from './util';
-
-let ConstUtil = {sleep, log, screenshot, waitElementVisiable};
 
 /**
  * @desc
@@ -18,39 +15,50 @@ let ConstUtil = {sleep, log, screenshot, waitElementVisiable};
  * @Date    2019/8/22
  **/
 export default class Operator {
-  page: Page;
   useCase: IUseCase;
-
+  context: IEcecuteContext;
   cancelFunc = null;
+  util = null;
 
-  constructor(page, useCase: IUseCase) {
-    this.page = page;
+  constructor(context, useCase: IUseCase) {
+    this.context = context;
     this.useCase = useCase;
   }
 
   private async init() {
     if (this.useCase.neworkMock) {
       this.cancelFunc = await openIntercepRequest(
-        this.page,
+        this.context.page,
         this.useCase.neworkMock,
       );
     }
+
+    this.util = {
+      sleep,
+      log,
+      screenshot:async (name:string)=>{
+       await screenshot(this.context.page,name,{dir:this.context.dir});
+      },
+      waitElementVisiable:async(selector:string)=>{
+        await waitElementVisiable(this.context.page,selector);
+      },
+    };
   }
 
   async run() {
     await this.init();
     await this.useCase.exec(
       {
-        page: this.page,
+        page: this.context.page,
       },
-      ConstUtil,
+      this.util,
     );
 
     await this.clean();
   }
 
   private async clean() {
-    if(this.cancelFunc){
+    if (this.cancelFunc) {
       await this.cancelFunc();
     }
   }

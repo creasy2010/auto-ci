@@ -9,15 +9,15 @@
 
 
 import Operator from  './operator'
-import {IContext, IUseCase} from "../typings";
+import {IContext, IEcecuteContext, IUseCase} from "../typings";
 import Scene from "./scene";
 
 
-export function createOperator(page,useCase:IUseCase):Operator{
+export function createOperator({page}:IEcecuteContext,useCase:IUseCase):Operator{
 
   return new Operator(page,useCase);
 }
 
-export function createScreen(page,useCases:IUseCase[]):Scene{
-  return new Scene(page,useCases);
+export function createScreen(page,useCases:IUseCase[],dir:string):Scene{
+  return new Scene(page,useCases,dir);
 }

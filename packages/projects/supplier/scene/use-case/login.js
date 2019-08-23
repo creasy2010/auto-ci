@@ -1,4 +1,3 @@
-import {IContext, IUtil} from "../../../../ci/typings";
 /**
  * @desc
  *
@@ -7,11 +6,11 @@ import {IContext, IUtil} from "../../../../ci/typings";
  * @coder.yang2010@gmail.com
  * @Date    2019/8/22
  **/
-export default {
+module.exports={
   desc:"登录",
   async exec(
-    {page}: IContext,
-    {sleep, log, screenshot, waitElementVisiable}: IUtil,
+    {page},
+    {sleep, log, screenshot, waitElementVisiable},
   ) {
 
     await page.evaluate(`window.__testContext__.goto('/login')`);

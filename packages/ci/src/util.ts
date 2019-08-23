@@ -63,10 +63,14 @@ export async function waitElementVisiable(page, selector) {
   }
 }
 
-export async function screenshot(page,imageName:string) {
-  console.log('开始截图!!!');
+export async function screenshot(page,imageName:string,{
+  dir
+}:{dir?:string} = {}) {
+  if(!dir) {
+    dir= process.cwd();
+  }
   await page.screenshot({
-    path: join(__dirname, 'screenshot', imageName + '.png'),
+    path: join(dir, 'screenshot', imageName + '.png'),
     fullPage: true,
   });
 }

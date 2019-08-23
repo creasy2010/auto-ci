@@ -10,8 +10,6 @@ import {
 } from './util';
 import * as puppeteer from 'puppeteer';
 import {createScreen} from "./factory";
-import from from '../../projects/supplier/scene/use-case/form'
-import login from '../../projects/supplier/scene/use-case/login'
 
 /**
  * @desc
@@ -37,12 +35,19 @@ import login from '../../projects/supplier/scene/use-case/login'
 
   await page.goto('http://127.0.0.1:3001/');
 
-  let screen = createScreen(page,[login,from]);
+  let userCases=[
+    '../../projects/supplier/scene/use-case/login',
+    '../../projects/supplier/scene/use-case/form'
+  ];
+
+  let screen = createScreen(page,userCases.map(item=>require(item)));
   await screen.run();
 
   await sleep(5);
 
   // await compScreen();
-
+  userCases.map(item=>{
+    delete require.cache[require.resolve('./server.js')]
+  });
   await browser.close();
 })();
