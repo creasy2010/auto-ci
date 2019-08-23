@@ -1,4 +1,3 @@
-import {IContext, IUtil} from '../../../../ci/typings';
 
 /**
  * @desc
