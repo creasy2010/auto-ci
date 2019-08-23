@@ -22,7 +22,6 @@ module.exports =   {
 
     log(`[clicking] `);
     await waitElementVisiable(
-      page,
       '.ant-row #recharge-form_rechargeableCardName',
     );
     await page.click('.ant-row #recharge-form_rechargeableCardName');
@@ -82,7 +81,6 @@ module.exports =   {
 
     log(`[clicking] `);
     await waitElementVisiable(
-      page,
       '#recharge-form_presentPrice > .ant-col > .ant-input-group-wrapper > .ant-input-wrapper > .ant-input',
     );
     await page.click(
@@ -108,7 +106,6 @@ module.exports =   {
 
     log(`[clicking] `);
     await waitElementVisiable(
-      page,
       '.ant-form-item-children > .ant-radio-group > .ant-radio-wrapper:nth-child(2) > .ant-radio > .ant-radio-input',
     );
     await page.click(
@@ -128,7 +125,6 @@ module.exports =   {
 
     log(`[clicking] `);
     await waitElementVisiable(
-      page,
       '.ant-radio-wrapper #recharge-form_validityDays',
     );
     await page.click('.ant-radio-wrapper #recharge-form_validityDays');
@@ -163,7 +159,6 @@ module.exports =   {
 
     log(`[clicking]永久有效 `);
     await waitElementVisiable(
-      page,
       '.ant-form-item-control > .ant-form-item-children > .ant-radio-group > .ant-radio-wrapper-checked > span:nth-child(2)',
     );
     await page.click(
@@ -175,7 +170,6 @@ module.exports =   {
 
     log(`[clicking] `);
     await waitElementVisiable(
-      page,
       '.ant-row:nth-child(5) > .ant-col > .ant-form-item-control > .ant-form-item-children > .ant-input',
     );
     await page.click(
@@ -217,7 +211,6 @@ module.exports =   {
 
     log(`[clicking]门店收银 `);
     await waitElementVisiable(
-      page,
       '.ant-form-item-control > .ant-form-item-children > #recharge-form_distributionChannels > .ant-checkbox-wrapper:nth-child(1) > span:nth-child(2)',
     );
     await page.click(
@@ -237,7 +230,6 @@ module.exports =   {
 
     log(`[clicking]小程序商城 `);
     await waitElementVisiable(
-      page,
       '.ant-form-item-control > .ant-form-item-children > #recharge-form_distributionChannels > .ant-checkbox-wrapper:nth-child(2) > span:nth-child(2)',
     );
     await page.click(
@@ -257,7 +249,6 @@ module.exports =   {
 
     log(`[clicking]保 存 `);
     await waitElementVisiable(
-      page,
       '.ant-form-item-control > .ant-form-item-children > .ant-row > .ant-col:nth-child(2) > .ant-btn',
     );
     await page.click(
@@ -269,7 +260,6 @@ module.exports =   {
 
     log(`[clicking]上 架 `);
     await waitElementVisiable(
-      page,
       '.ant-form-item-control > .ant-form-item-children > .ant-row > .ant-col > .ant-btn-background-ghost',
     );
     await page.click(

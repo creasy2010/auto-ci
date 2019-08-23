@@ -21,7 +21,6 @@ module.exports = {
 
     log(`[clicking]输入会员手机号 `);
     await waitElementVisiable(
-      page,
       '.fl > .ant-select > .ant-select-selection > .ant-select-selection__rendered > .ant-select-selection__placeholder',
     );
     await page.click(
@@ -58,7 +57,6 @@ module.exports = {
 
     log(`[clicking]确 定 `);
     await waitElementVisiable(
-      page,
       '.cart > .cartHeader > div > .fl > .ant-btn',
     );
     await page.click('.cart > .cartHeader > div > .fl > .ant-btn');
