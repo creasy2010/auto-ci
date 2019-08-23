@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/fs-extra": "^8.0.0",
     "@types/puppeteer": "^1.19.1",
+    "fs-extra": "^8.1.0",
     "puppeteer": "^1.19.0"
   }
 }

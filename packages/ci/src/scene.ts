@@ -2,6 +2,7 @@ import {Page} from 'puppeteer';
 import {IEcecuteContext, IUseCase} from '../typings';
 import {createOperator} from './factory';
 import {sleep} from "./util";
+import {ensureDirSync} from  'fs-extra';
 
 /**
  * @desc
@@ -25,7 +26,9 @@ export default class Scene {
     }
   }
 
-  private init() {}
+  private init() {
+    ensureDirSync(this.context.dir);
+  }
 
   async run() {
     await this.init();

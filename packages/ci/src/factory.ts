@@ -13,9 +13,8 @@ import {IContext, IEcecuteContext, IUseCase} from "../typings";
 import Scene from "./scene";
 
 
-export function createOperator({page}:IEcecuteContext,useCase:IUseCase):Operator{
-
-  return new Operator(page,useCase);
+export function createOperator(context:IEcecuteContext,useCase:IUseCase):Operator{
+  return new Operator(context,useCase);
 }
 
 export function createScreen(page,useCases:IUseCase[],dir:string):Scene{

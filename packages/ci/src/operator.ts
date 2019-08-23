@@ -7,6 +7,7 @@ import {
   waitElementVisiable,
 } from './util';
 import {join} from 'path';
+import {ensureDirSync} from "fs-extra";
 
 /**
  * @desc
@@ -17,6 +18,7 @@ import {join} from 'path';
  **/
 export default class Operator {
   useCase: IUseCase;
+  //当前用例可操作的目录;
   dir: string;
   context: IEcecuteContext;
   cancelFunc = null;
@@ -35,6 +37,9 @@ export default class Operator {
         this.useCase.neworkMock,
       );
     }
+
+    ensureDirSync(this.dir);
+    ensureDirSync(join(this.dir,"screenshot"));
 
     this.util = {
       sleep,

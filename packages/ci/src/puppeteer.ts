@@ -1,12 +1,6 @@
-import {VoidFunc} from '../typings/index';
 import {join} from 'path';
 import {
-  compScreen,
-  log,
-  openIntercepRequest,
-  screenshot,
   sleep,
-  waitElementVisiable,
 } from './util';
 import * as puppeteer from 'puppeteer';
 import {createScreen} from './factory';
@@ -41,7 +35,7 @@ import {createScreen} from './factory';
   let screen = createScreen(
     page,
     userCases.map(item => require(item)),
-    join(__dirname, '测试'),
+    join(__dirname, '场景测试'),
   );
   await screen.run();
 
