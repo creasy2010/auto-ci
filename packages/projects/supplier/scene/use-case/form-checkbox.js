@@ -10,6 +10,7 @@
 
 module.exports = {
   desc:"form表单组件select操作",
+  id:"45645",
   async exec(
     {page},
     {sleep, log, screenshot, waitElementVisiable},

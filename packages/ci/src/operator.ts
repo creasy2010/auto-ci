@@ -6,6 +6,7 @@ import {
   screenshot,
   waitElementVisiable,
 } from './util';
+import {join} from 'path';
 
 /**
  * @desc
@@ -16,13 +17,15 @@ import {
  **/
 export default class Operator {
   useCase: IUseCase;
+  dir: string;
   context: IEcecuteContext;
   cancelFunc = null;
   util = null;
 
-  constructor(context, useCase: IUseCase) {
+  constructor(context: IEcecuteContext, useCase: IUseCase) {
     this.context = context;
     this.useCase = useCase;
+    this.dir = join(context.dir, useCase.id);
   }
 
   private async init() {
@@ -36,11 +39,11 @@ export default class Operator {
     this.util = {
       sleep,
       log,
-      screenshot:async (name:string)=>{
-       await screenshot(this.context.page,name,{dir:this.context.dir});
+      screenshot: async (name: string) => {
+        await screenshot(this.context.page, name, {dir: this.dir});
       },
-      waitElementVisiable:async(selector:string)=>{
-        await waitElementVisiable(this.context.page,selector);
+      waitElementVisiable: async (selector: string) => {
+        await waitElementVisiable(this.context.page, selector);
       },
     };
   }

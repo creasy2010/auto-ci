@@ -8,6 +8,7 @@
  **/
 module.exports={
   desc:"登录",
+  id:"78979",
   async exec(
     {page},
     {sleep, log, screenshot, waitElementVisiable},

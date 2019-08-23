@@ -9,7 +9,7 @@ import {
   waitElementVisiable,
 } from './util';
 import * as puppeteer from 'puppeteer';
-import {createScreen} from "./factory";
+import {createScreen} from './factory';
 
 /**
  * @desc
@@ -18,8 +18,6 @@ import {createScreen} from "./factory";
  *
  * @Date    2019/7/27
  **/
-// const puppeteer = require('puppeteer');
-
 (async () => {
   const browser = await puppeteer.launch({
     ignoreHTTPSErrors: true,
@@ -35,19 +33,22 @@ import {createScreen} from "./factory";
 
   await page.goto('http://127.0.0.1:3001/');
 
-  let userCases=[
+  let userCases = [
     '../../projects/supplier/scene/use-case/login',
-    '../../projects/supplier/scene/use-case/form'
+    '../../projects/supplier/scene/use-case/form',
   ];
 
-  let screen = createScreen(page,userCases.map(item=>require(item)));
+  let screen = createScreen(
+    page,
+    userCases.map(item => require(item)),
+    join(__dirname, '测试'),
+  );
   await screen.run();
 
   await sleep(5);
 
-  // await compScreen();
-  userCases.map(item=>{
-    delete require.cache[require.resolve('./server.js')]
+  userCases.map(item => {
+    delete require.cache[require.resolve(item)];
   });
   await browser.close();
 })();
