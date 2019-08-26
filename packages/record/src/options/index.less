@@ -1,0 +1,81 @@
+@import "../style/_variables";
+
+.options {
+  height: 100%;
+  min-height: 580px;
+  background: @gray-lighter;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: auto;
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  .container {
+    padding: 0 2 * @spacer;
+    width: 550px;
+    margin: 0 auto;
+
+    .content {
+      background: white;
+      padding: 2 * @spacer;
+      border-radius: 4px;
+      min-height: 500px;
+    }
+
+    .footer {
+    @include footer();
+      background: @gray-lighter;
+      font-weight: normal;
+      justify-content: center;
+      img {
+        margin-left: 8px;
+        width: 80px;
+        vertical-align: middle;
+      }
+    }
+
+    .header {
+    @include header();
+      background: @gray-lighter;
+      justify-content: space-between;
+    }
+
+    .settings-block {
+
+      .settings-label {
+        display: block;
+        text-transform: uppercase;
+        font-size: .75rem;
+        font-weight: 500;
+        margin-bottom: @spacer;
+      }
+
+      .settings-block-title {
+        margin: 0;
+        padding-bottom: @spacer;
+        border-bottom: 1px solid @gray-light;
+      }
+      .settings-block-main {
+        padding: @spacer 0;
+        margin-bottom: @spacer;
+
+        .settings-group {
+          margin-bottom: @spacer;
+          display: block;
+        }
+      }
+      input[type="text"] {
+        margin-bottom: 10px;
+        width: 100%;
+        border: 1px solid @gray-light;
+        padding-left: 15px;
+        height: 38px;
+        font-size: 14px;
+        border-radius: 10px;
+        -webkit-box-sizing: border-box;
+      }
+    }
+  }
+}

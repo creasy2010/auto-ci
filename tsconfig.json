@@ -3,6 +3,7 @@
     "module": "commonjs",
     "target": "es2017",
     "noImplicitAny": false,
+    "jsx": "react",
     "sourceMap": false,
     "noEmit": true,
     "lib": ["es2015","es2017"]
