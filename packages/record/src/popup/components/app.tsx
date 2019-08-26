@@ -13,6 +13,7 @@ import RecordingTab from './recording-tab';
 import ResultsTab from './results-tab';
 import CodeGenerator from '../../code-generator/CodeGenerator';
 import actions from '../../models/extension-ui-actions';
+import 'app.less';
 
 interface IAppP {
   [name: string]: any;
@@ -113,13 +114,12 @@ export default class App extends React.Component<IAppP, IAppS> {
             ? <HelpTab v-show="showHelp" />
             : <div className="tabs" v-show="!showHelp">
                 <RecordingTab
-                //            :code="code" :is-recording="isRecording"
-                //            :live-events="liveEvents" v-show="!showResultsTab"
-                />
+                  isRecording={this.state.isRecording}
+                  liveEvents={this.state.liveEvents}
+                  />
                 <div className="recording-footer" v-show="!showResultsTab">
-                  <button className="btn btn-sm">
-                  //              @click="toggleRecord"
-                  //              :className="isRecording ? 'btn-danger' : 'btn-primary'"
+                  <button className={"btn btn-sm "+(this.state.isRecording?"btn-danger":"btn-primary")}
+                  >
                     {this.state.isRecording ? 'Stop' : 'Record'}
                   </button>
                   <button className="btn btn-sm btn-primary btn-outline-primary">
@@ -131,7 +131,9 @@ export default class App extends React.Component<IAppP, IAppS> {
                     view code
                   </a>
                 </div>
-                <ResultsTab />
+                <ResultsTab
+                 code={this.state.code}
+                />
               </div>}
         </div>
       </div>

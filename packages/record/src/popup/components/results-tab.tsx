@@ -8,6 +8,7 @@
  **/
 
 import * as React from 'react';
+import './results-tab.less';
 
 interface IResultsTabP {
   code: string;

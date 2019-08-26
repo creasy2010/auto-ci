@@ -7,6 +7,7 @@
  * @Date    2019/8/26
  **/
 import * as React from 'react';
+import './recording-tab.less';
 
 interface IRecordingTabP {
   isRecording: boolean;

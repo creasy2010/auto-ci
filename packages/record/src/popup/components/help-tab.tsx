@@ -8,6 +8,7 @@
  **/
 
 import * as React from 'react';
+import './help-tab.less';
 
 interface IHelpTabP {
   [name: string]: any;
