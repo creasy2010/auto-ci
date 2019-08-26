@@ -150,6 +150,8 @@ export default class App extends React.Component<IAppP, IAppS> {
     });
     this.storeState();
   };
+
+
   togglePause = () => {
     if (this.state.isPaused) {
       this.bus.postMessage({action: actions.UN_PAUSE});
@@ -164,12 +166,16 @@ export default class App extends React.Component<IAppP, IAppS> {
     }
     this.storeState();
   };
+
+
   start = () => {
     this.trackEvent('Start');
     this.cleanUp();
     console.debug('start recorder');
     this.bus.postMessage({action: actions.START});
   };
+
+
   stop = () => {
     this.trackEvent('Stop');
     console.debug('stop recorder');
@@ -195,11 +201,15 @@ export default class App extends React.Component<IAppP, IAppS> {
       },
     );
   };
+
+
   restart = () => {
     console.log('restart');
     this.cleanUp();
     this.bus.postMessage({action: actions.CLEAN_UP});
   };
+
+
   cleanUp = () => {
     this.setState({
       recording: [],
@@ -211,12 +221,16 @@ export default class App extends React.Component<IAppP, IAppS> {
     });
     this.storeState();
   };
+
+
   openOptions = () => {
     this.trackEvent('Options');
     if (this.$chrome.runtime.openOptionsPage) {
       this.$chrome.runtime.openOptionsPage();
     }
   };
+
+
   loadState = cb => {
     this.$chrome.storage.local.get(
       ['controls', 'code', 'options'],
@@ -249,6 +263,8 @@ export default class App extends React.Component<IAppP, IAppS> {
       },
     );
   };
+
+
   storeState = () => {
     this.$chrome.storage.local.set({
       code: this.state.code,
@@ -258,6 +274,8 @@ export default class App extends React.Component<IAppP, IAppS> {
       },
     });
   };
+
+
   setCopying = () => {
     this.trackEvent('Copy');
     this.setState({
@@ -269,6 +287,8 @@ export default class App extends React.Component<IAppP, IAppS> {
       });
     }, 1500);
   };
+
+
   goHome = () => {
     this.setState({
       showResultsTab : false,
@@ -282,6 +302,8 @@ export default class App extends React.Component<IAppP, IAppS> {
       showHelp : this.state.showHelp
     });
   }
+
+
   trackEvent = event => {
     // if (
     //   this.state.options &&
@@ -291,6 +313,8 @@ export default class App extends React.Component<IAppP, IAppS> {
     //   if (window._gaq) window._gaq.push(['_trackEvent', event, 'clicked']);
     // }
   }
+
+
   trackPageView = () => {
     // if (
     //   this.options &&
