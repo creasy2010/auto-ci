@@ -6,3 +6,30 @@
  * @coder.yang2010@gmail.com
  * @Date    2019/8/26
  **/
+
+@import "../../style/_variables.less";
+
+.results-tab {
+  .content {
+    display:flex;
+    flex-direction:column;
+    height:100%;
+    .generated-code {
+      flex: 1;
+      height:100%;
+      overflow: auto;
+      display: flex;
+      flex-direction: column-reverse;
+      max-height: @max-content-height;
+    }
+
+    pre {
+      padding: 0 @spacer;
+      font-size: 12px;
+    }
+    .code {
+      font-family: Consolas, Monaco, monospace;
+      padding: @spacer;
+    }
+  }
+}
