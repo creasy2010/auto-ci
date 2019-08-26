@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["es5", "es6", "dom","es7","esnext"],
+    "module": "esnext",
+    "sourceMap": false,
+    "noImplicitAny": false,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "rootDirs": ["src", "web_modules","."],
+    "paths": {
+      "@/*": ["./src/*","./src/web_modules/*"],
+      "@/typings": ["./typings"],
+      "biz": ["./src/web_modules/biz"],
+      "api": ["./src/web_modules/api"],
+      "api/*": ["./src/web_modules/api/*"],
+      "kit": ["./src/web_modules/kit"],
+      "kit/*": ["./src/web_modules/kit/*"],
+      "uikit/*": ["./uikit/*"],
+      "typings": ["./typings"],
+      "components/*": ["./components/*"]
+    },
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
+  },
+  "exclude": ["node_modules", "dist"],
+  "awesomeTypescriptLoaderOptions": {
+    "useCache": true,
+    "useBabel": true,
+    "isolatedModules": true,
+    "forceIsolatedModules": true,
+    "transpileOnly": true,
+    "reportFiles": ["src/**/*.{ts,tsx}", "web_modules/**/*.{ts,tsx}"]
+  }
+}

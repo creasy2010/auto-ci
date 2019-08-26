@@ -1,0 +1,10 @@
+node_modules
+dist
+build
+*.log
+.idea
+.DS_Store
+.vscode
+.vscode/settings.json
+.awcache
+web_modules/qmkit/config.ts

@@ -1,0 +1,99 @@
+{
+  "type": "h5-redux",
+  "api": {
+    "swaggerUrl": "http://172.19.25.7:8390/v2/api-docs",
+    "dir": "./web_modules/api",
+    "mock": {
+      "mockApi": {
+        "PetOrderController": [],
+        "PetRecordController": [
+        ],
+        "CouponCodeBaseController": [
+          "listMyCouponList"
+        ],
+        "CustomerCardController": [
+          "rechargeableCardPage",
+          "rechargeableCardDetail",
+          "timingCardPage",
+          "timingCardDetail"
+        ],
+        "PetRoleController": [
+          "add",
+          "edit"
+        ],
+        "CustomerForPetController": [
+          "upload",
+          "importCustomer"
+        ],
+        "LocalConfigController": [],
+        "StampCardController": [
+          "modifyRemark"
+        ],
+        "PetAppointmentController": [
+          "page"
+        ],
+        "SmsSendRecordController": [
+          "add",
+          "deleteByIdList_",
+          "getList",
+          "modify",
+          "sendSms",
+          "getById",
+          "deleteById_"
+        ],
+        "SmsTemplateController": [
+          "add",
+          "deleteByIdList_",
+          "getList",
+          "modify",
+          "getPage",
+          "getById",
+          "deleteById_"
+        ],
+        "StoreSmsController": [
+          "add",
+          "deleteByIdList_",
+          "getList",
+          "modify",
+          "deleteById_"
+        ]
+      },
+      "ignoreApi": {
+        "PetPayCallbackController": []
+      }
+    },
+    "exclude": [
+      "SmsSupplierController",
+      "CaptchaController",
+      "ResourceServerController",
+      "StoreExpressCompanyController",
+      "CheckAuthController",
+      "PayCallbackController",
+      "CustomerController",
+      "FreightTemplateController",
+      "EmployeeReportController",
+      "ImageServerController",
+      "StoreExpressCompanyController",
+      "MarketingController",
+      "CustomerDetailController",
+      "CustomerDistrReportController",
+      "CustomerDrawCashController",
+      "EmployeeBaseController",
+      "EmployeeController",
+      "InvoiceProjectBaseController",
+      "MarketingController",
+      "PayManageController",
+      "RefundOrderController",
+      "ReturnOrderController",
+      "RoleInfoController",
+      "StoreCustomerLevelController",
+      "StoreEvaluateController",
+      "StoreImageCateController",
+      "StoreResourceCateController",
+      "SwitchController",
+      "TradeController",
+      "TradeReportController",
+      "TradeSettingController"
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "prefixUrl": "http://oss-hz.qianmi.com",
+  "accessKeyId": "1yzuSWW5owwEYcCI",
+  "accessKeySecret": "oQnsEeeg6LAhJDWZEdWmGFNxcs3KVF",
+  "prefix":"card/prod",
+  "timeout": 30000
+}
