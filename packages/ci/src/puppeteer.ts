@@ -1,7 +1,4 @@
 import {join} from 'path';
-import {
-  sleep,
-} from './util';
 import * as puppeteer from 'puppeteer';
 import {createScreen} from './factory';
 
@@ -39,8 +36,6 @@ import {createScreen} from './factory';
     join(__dirname, '场景测试'),
   );
   await screen.run();
-
-  await sleep(5);
 
   userCases.map(item => {
     delete require.cache[require.resolve(item)];

@@ -12,7 +12,9 @@
   "dependencies": {
     "@types/fs-extra": "^8.0.0",
     "@types/puppeteer": "^1.19.1",
+    "@types/urllib": "^2.33.0",
     "fs-extra": "^8.1.0",
-    "puppeteer": "^1.19.0"
+    "puppeteer": "^1.19.0",
+    "urllib": "^2.34.0"
   }
 }
