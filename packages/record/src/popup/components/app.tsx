@@ -88,7 +88,7 @@ export default class App extends React.Component<IAppP, IAppS> {
             {this.state.isRecording
               ? <div className="recording-badge" v-show="isRecording">
                   <span className="red-dot" />
-                  {this.state.recordingBadgeText}
+                  {this.state.isPaused ? 'paused' : 'recording'}
                 </div>
               : null}
             <a
