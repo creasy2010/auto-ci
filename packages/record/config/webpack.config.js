@@ -84,11 +84,19 @@ module.exports = function(webpackEnv,envCode='prod') {
         ? 'source-map'
         : false
       : isEnvDevelopment && 'eval-source-map',
-    entry: [
-      isEnvDevelopment &&
-        require.resolve('react-dev-utils/webpackHotDevClient'),
-      paths.appIndexJs,
-    ].filter(Boolean),
+    entry:
+        // [
+    //   isEnvDevelopment &&
+    //     require.resolve('react-dev-utils/webpackHotDevClient'),
+    //   paths.appIndexJs,
+    // ].filter(Boolean)
+        {
+            background:"./src/background/index.ts",
+            content:"./src/content-scripts/index.ts",
+            options:"./src/options/index.tsx",
+            popup:"./src/popup/index.tsx",
+        }
+      ,
     output: {
       path: isEnvProduction ? paths.appBuild : undefined,
       pathinfo: isEnvDevelopment,

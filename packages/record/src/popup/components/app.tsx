@@ -13,7 +13,7 @@ import RecordingTab from './recording-tab';
 import ResultsTab from './results-tab';
 import CodeGenerator from '../../code-generator/CodeGenerator';
 import actions from '../../models/extension-ui-actions';
-import 'app.less';
+import './app.less';
 
 interface IAppP {
   [name: string]: any;

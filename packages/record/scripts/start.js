@@ -36,9 +36,9 @@ const useYarn = fs.existsSync(paths.yarnLockFile);
 const isInteractive = process.stdout.isTTY;
 
 // Warn and crash if required files are missing
-if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
-  process.exit(1);
-}
+// if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
+//   process.exit(1);
+// }
 
 // Tools like Cloud9 rely on this.
 const HOST = process.env.HOST || '0.0.0.0';

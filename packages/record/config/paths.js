@@ -73,7 +73,7 @@ module.exports = {
   dllBuild: resolveApp('public/javascript/dll/'),//生成目录
   appPublic: resolveApp('public'),//
   appHtml: resolveApp('public/index.html'),
-  appIndexJs: resolveModule(resolveApp, 'src/pages/index'),//入口js
+  // appIndexJs: resolveModule(resolveApp, 'src/pages/index'),//入口js
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
   webNodeModules: resolveApp('web_modules'),
