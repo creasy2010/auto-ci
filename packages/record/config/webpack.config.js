@@ -79,17 +79,13 @@ module.exports = function(webpackEnv,envCode='prod') {
   return {
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     bail: isEnvProduction,
-    devtool: isEnvProduction
-      ? shouldUseSourceMap
-        ? 'source-map'
-        : false
-      : isEnvDevelopment && 'eval-source-map',
+    devtool:"source-map",
+    // devtool: isEnvProduction
+    //   ? shouldUseSourceMap
+    //     ? 'source-map'
+    //     : false
+    //   : isEnvDevelopment && 'eval-source-map',
     entry:
-        // [
-    //   isEnvDevelopment &&
-    //     require.resolve('react-dev-utils/webpackHotDevClient'),
-    //   paths.appIndexJs,
-    // ].filter(Boolean)
         {
             background:"./src/background/index.ts",
             content:"./src/content-scripts/index.ts",
@@ -102,7 +98,7 @@ module.exports = function(webpackEnv,envCode='prod') {
       pathinfo: isEnvDevelopment,
       filename: isEnvProduction
         ? 'static/js/[name].[chunkhash:8].js'
-        : isEnvDevelopment && 'static/js/bundle.js?t='+Date.now(),
+        : isEnvDevelopment && 'static/js/[name]-bundle.js?t='+Date.now(),
       chunkFilename: isEnvProduction
         ? 'static/js/[name].[chunkhash:8].chunk.js'
         : isEnvDevelopment && 'static/js/[name].chunk.js?t='+Date.now(),
@@ -158,7 +154,7 @@ module.exports = function(webpackEnv,envCode='prod') {
         chunks: 'all',
         name: false,
       },
-      runtimeChunk: true,
+      // runtimeChunk: true,
     },
     externals: {
     },
@@ -345,7 +341,9 @@ module.exports = function(webpackEnv,envCode='prod') {
           {
             dllName:isEnvProduction?require('./compile-env.json').prodDll:require('./compile-env.json').testDll,
             inject: true,
-            template: paths.appHtml,
+            template: "./public/index.html",
+              filename: 'index.html',
+            chunks: ['popup']
           },
           isEnvProduction
             ? {
@@ -365,16 +363,44 @@ module.exports = function(webpackEnv,envCode='prod') {
             : undefined
         )
       ),
-      isEnvProduction &&
-        shouldInlineRuntimeChunk &&
-        new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime~.+[.]js/]),
+        new HtmlWebpackPlugin(
+            Object.assign(
+                {},
+                {
+                    dllName:isEnvProduction?require('./compile-env.json').prodDll:require('./compile-env.json').testDll,
+                    inject: true,
+                    template: "./public/options.html",
+                    filename: 'options.html',
+                    chunks: ['options']
+                },
+                isEnvProduction
+                    ? {
+                        minify: {
+                            removeComments: true,
+                            collapseWhitespace: true,
+                            removeRedundantAttributes: true,
+                            useShortDoctype: true,
+                            removeEmptyAttributes: true,
+                            removeStyleLinkTypeAttributes: true,
+                            keepClosingSlash: true,
+                            minifyJS: true,
+                            minifyCSS: true,
+                            minifyURLs: true,
+                        },
+                    }
+                    : undefined
+            )
+        ),
+      // isEnvProduction &&
+      //   shouldInlineRuntimeChunk &&
+      //   new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime~.+[.]js/]),
       new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
       new ModuleNotFoundPlugin(paths.appPath),
       new webpack.DefinePlugin({... env.stringified ,__DEV__:!isEnvProduction}),
       new webpack.DllReferencePlugin({
         manifest: isEnvProduction?require("../public/javascript/dll/vendor-manifest-prod.json"):require("../public/javascript/dll/vendor-manifest.json") // eslint-disable-line
       }),
-      isEnvDevelopment && new webpack.HotModuleReplacementPlugin(),
+      // isEnvDevelopment && new webpack.HotModuleReplacementPlugin(),
       isEnvDevelopment && new CaseSensitivePathsPlugin(),
       isEnvDevelopment &&
         new WatchMissingNodeModulesPlugin(paths.appNodeModules),

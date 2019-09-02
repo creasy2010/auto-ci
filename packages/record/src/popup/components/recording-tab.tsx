@@ -38,41 +38,32 @@ export default class RecordingTab extends React.Component<
         <div className="content">
           {this.props.isRecording
             ? <div className="events" v-show="isRecording">
-                <p
-                  className="text-muted text-center loading"
-                  v-show="liveEvents.length === 0"
-                >
-                  Waiting for events
-                </p>
-                <ul className="event-list">
-
-                  {this.props.liveEvents.map((event, index) =>
-                    <li className="event-list-item">
-                      <div className="event-label">
-                        {index + 1}
-                      </div>
-                      <div className="event-description">
-                        <div className="event-action">{event.action}</div>
-                        <div className="event-props text-muted">
-                          {event.selector || this.parseEventValue(event)} :{event.value}{' '}
-                        </div>
-                      </div>
-                    </li>,
-                  )}
-                </ul>
+                {this.props.liveEvents.length === 0
+                  ? <p
+                      className="text-muted text-center loading"
+                    >
+                      Waiting for events
+                    </p>
+                  : <ul className="event-list">
+                      {this.props.liveEvents.map((event, index) =>
+                        <li className="event-list-item">
+                          <div className="event-label">
+                            {index + 1}
+                          </div>
+                          <div className="event-description">
+                            <div className="event-action">{event.action}</div>
+                            <div className="event-props text-muted">
+                              {event.selector || this.parseEventValue(event)} :{event.value}{' '}
+                            </div>
+                          </div>
+                        </li>,
+                      )}
+                    </ul>}
               </div>
             : <div className="empty">
                 <img src="/images/Desert.svg" alt="desert" width="78px" />
                 <h3>No recorded events yet</h3>
                 <p className="text-muted">Click record to begin</p>
-                <div className="nag-cta">
-                  <a
-                    href="https://surveys.hotjar.com/s?siteId=717179&surveyId=137462"
-                    target="_blank"
-                  >
-                    ⚡️ Puppeteer Recorder Pro is coming →
-                  </a>
-                </div>
               </div>}
         </div>
       </div>

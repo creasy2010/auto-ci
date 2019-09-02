@@ -6,7 +6,6 @@ import actions from '../models/extension-ui-actions'
 //@ts-ignore
 let $chrome  = chrome;
 
-
 class RecordingController {
 
   _recording = []
@@ -39,8 +38,8 @@ class RecordingController {
     $chrome.extension.onConnect.addListener(port => {
       console.debug('listeners connected')
       port.onMessage.addListener(msg => {
+        console.log('backgroud: receive message: ',msg);
         if (msg.action && msg.action === actions.START){
-
             $chrome.browserAction.setIcon({ path: './images/icon-green.png' })
             $chrome.browserAction.setBadgeText({ text: this._badgeState })
             $chrome.browserAction.setBadgeBackgroundColor({ color: '#FF0000' })
@@ -54,7 +53,6 @@ class RecordingController {
                 isHit=true;
                 this.start();
             });
-
         }
         if (msg.action && msg.action === actions.STOP) this.stop()
         if (msg.action && msg.action === actions.CLEAN_UP) this.cleanUp()
@@ -360,7 +358,10 @@ class RecordingController {
   }
 
   injectScript () {
-    $chrome.tabs.executeScript({ file: 'content-script.js', allFrames: true })
+    console.log('向tab页注入script代码::beg');
+    $chrome.tabs.executeScript({ file: 'static/js/content-bundle.js', allFrames: true },(results)=>{
+      console.log('script inject 结果: ',results);
+    })
   }
 }
 

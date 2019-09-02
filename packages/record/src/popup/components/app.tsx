@@ -22,6 +22,7 @@ interface IAppP {
 interface IAppS {
   code: string;
   options: any;
+  //是否显示结果页;
   showResultsTab: boolean;
   showHelp: boolean;
   liveEvents: any[];
@@ -38,7 +39,8 @@ export default class App extends React.Component<IAppP, IAppS> {
   static defaultProps = {};
 
   bus: any;
-  $chrome: any;
+  //@ts-ignore
+  $chrome: any = window.chrome;
   constructor(props) {
     super(props);
     this.state = {
@@ -94,51 +96,58 @@ export default class App extends React.Component<IAppP, IAppS> {
               : null}
             <a
               href="#"
-              //          @click="toggleShowHelp"
+              onClick={this.toggleShowHelp}
               className="header-button"
             >
               <img src="/images/help.svg" alt="help" width="18px" />
             </a>
-            <a
-              href="#"
-              //          @click="openOptions"
-              className="header-button"
-            >
+            <a href="#" onClick={this.openOptions} className="header-button">
               <img src="/images/settings.svg" alt="settings" width="18px" />
             </a>
           </div>
         </div>
 
         <div className="main">
-          {this.state.showHelp
-            ? <HelpTab v-show="showHelp" />
-            : <div className="tabs" v-show="!showHelp">
-                <RecordingTab
-                  isRecording={this.state.isRecording}
-                  liveEvents={this.state.liveEvents}
-                  />
-                <div className="recording-footer" v-show="!showResultsTab">
-                  <button className={"btn btn-sm "+(this.state.isRecording?"btn-danger":"btn-primary")}
+          <div className="tabs">
+            <RecordingTab
+              isRecording={this.state.isRecording}
+              liveEvents={this.state.liveEvents}
+            />
+            <div className="recording-footer" v-show="!showResultsTab">
+              <button
+                className={
+                  'btn btn-sm ' +
+                  (this.state.isRecording ? 'btn-danger' : 'btn-primary')
+                }
+                onClick={this.toggleRecord}
+              >
+                {this.state.isRecording ? 'Stop' : 'Record'}
+              </button>
+              {this.state.isRecording
+                ? <button
+                    className="btn btn-sm btn-primary btn-outline-primary"
+                    onClick={this.togglePause}
                   >
-                    {this.state.isRecording ? 'Stop' : 'Record'}
-                  </button>
-                  <button className="btn btn-sm btn-primary btn-outline-primary">
-                  //              @click="togglePause" v-show="isRecording"
                     {this.state.isPaused ? 'Resume' : 'Pause'}
                   </button>
-                  <a href="#">
-                  //      @click="showResultsTab = true" v-show="code"
-                    view code
-                  </a>
-                </div>
-                <ResultsTab
-                 code={this.state.code}
-                />
-              </div>}
+                : null}
+              <a
+                href="#"
+                onClick={this._showResult}
+              >
+                view code
+              </a>
+            </div>
+            <ResultsTab code={this.state.code} />
+          </div>
         </div>
       </div>
     );
   }
+
+  _showResult = () => {
+    this.setState({showResultsTab: true});
+  };
 
   toggleRecord = () => {
     if (this.state.isRecording) {
@@ -152,7 +161,6 @@ export default class App extends React.Component<IAppP, IAppS> {
     });
     this.storeState();
   };
-
 
   togglePause = () => {
     if (this.state.isPaused) {
@@ -169,26 +177,25 @@ export default class App extends React.Component<IAppP, IAppS> {
     this.storeState();
   };
 
-
   start = () => {
-    this.trackEvent('Start');
+    // this.trackEvent('Start');
     this.cleanUp();
     console.debug('start recorder');
     this.bus.postMessage({action: actions.START});
   };
 
-
   stop = () => {
-    this.trackEvent('Stop');
+    // this.trackEvent('Stop');
     console.debug('stop recorder');
     this.bus.postMessage({action: actions.STOP});
 
+    debugger;
     this.$chrome.storage.local.get(
       ['recording', 'options', 'network'],
       ({recording, options, network}) => {
         console.debug('loaded recording', recording);
         console.debug('loaded options', options);
-
+        debugger;
         this.setState({
           recording,
         });
@@ -204,13 +211,11 @@ export default class App extends React.Component<IAppP, IAppS> {
     );
   };
 
-
   restart = () => {
     console.log('restart');
     this.cleanUp();
     this.bus.postMessage({action: actions.CLEAN_UP});
   };
-
 
   cleanUp = () => {
     this.setState({
@@ -224,19 +229,19 @@ export default class App extends React.Component<IAppP, IAppS> {
     this.storeState();
   };
 
-
   openOptions = () => {
-    this.trackEvent('Options');
+    // this.trackEvent('Options');
     if (this.$chrome.runtime.openOptionsPage) {
       this.$chrome.runtime.openOptionsPage();
     }
   };
 
-
   loadState = cb => {
     this.$chrome.storage.local.get(
       ['controls', 'code', 'options'],
       ({controls, code, options}) => {
+        console.log('加载状态信息:',controls, code, options,new Date().toLocaleString());
+
         let result = {};
         if (controls) {
           result = {
@@ -259,52 +264,51 @@ export default class App extends React.Component<IAppP, IAppS> {
             options,
           };
         }
-
         this.setState(result);
         cb();
       },
     );
   };
 
-
   storeState = () => {
+
     this.$chrome.storage.local.set({
       code: this.state.code,
       controls: {
         isRecording: this.state.isRecording,
         isPaused: this.state.isPaused,
       },
+    }, function(){
+      console.log('state 保存成功');
+
     });
   };
 
-
   setCopying = () => {
-    this.trackEvent('Copy');
+    // this.trackEvent('Copy');
     this.setState({
-      isCopying : true
+      isCopying: true,
     });
     setTimeout(() => {
       this.setState({
-        isCopying : false
+        isCopying: false,
       });
     }, 1500);
   };
 
-
   goHome = () => {
     this.setState({
-      showResultsTab : false,
-      showHelp : false
+      showResultsTab: false,
+      showHelp: false,
     });
   };
 
   toggleShowHelp = () => {
-    this.trackEvent('Help');
+    // this.trackEvent('Help');
     this.setState({
-      showHelp : this.state.showHelp
+      showHelp: this.state.showHelp,
     });
-  }
-
+  };
 
   trackEvent = event => {
     // if (
@@ -314,8 +318,7 @@ export default class App extends React.Component<IAppP, IAppS> {
     // ) {
     //   if (window._gaq) window._gaq.push(['_trackEvent', event, 'clicked']);
     // }
-  }
-
+  };
 
   trackPageView = () => {
     // if (

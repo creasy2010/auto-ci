@@ -7,7 +7,7 @@ import finder from '@medv/finder';
 const DEFAULT_MOUSE_CURSOR = 'default';
 
 //@ts-ignore
-let $chrome:any = chrome;
+let $chrome:any = window.chrome;
 
 //@ts-ignore
 let $window:any =  window;
@@ -44,6 +44,7 @@ export default class EventRecorder {
   }
 
   _initializeRecorder () {
+    console.log('初始化Recorder');
     const events = Object.values(eventsToRecord)
     if (!$window.pptRecorderAddedControlListeners) {
       this._addAllListeners(events)
@@ -90,6 +91,7 @@ export default class EventRecorder {
     // filter messages based on enabled / disabled features
     if (msg.action === 'click' && !this._isRecordingClicks) return
 
+    console.log('contentScript发送消息:',msg);
     try {
       // poor man's way of detecting whether this script was injected by an actual extension, or is loaded for
       // testing purposes
