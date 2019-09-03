@@ -27,7 +27,6 @@ export default class EventRecorder {
   }
 
   boot () {
-    console.log('content-scripts:: boot');
     // We need to check the existence of chrome for testing purposes
     if ($chrome.storage && $chrome.storage.local) {
       $chrome.storage.local.get(['options'], ({options}) => {
@@ -71,10 +70,12 @@ export default class EventRecorder {
   }
 
   _handleBackgroundMessage = (msg, sender, sendResponse)=> {
-    console.debug('content-script: message from background', msg)
+    console.log('content-script: 接收到消息:', msg,sender)
     if (msg && msg.action) {
+
       switch (msg.action) {
         case actions.CLEAN_UP:
+        case actions.STOP:
           this._clearup();
           break
         case actions.TOGGLE_SCREENSHOT_MODE:

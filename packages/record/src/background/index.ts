@@ -8,15 +8,11 @@ let $chrome = chrome;
 class RecordingController {
   _recording = [];
   _network = {};
-  _boundedMessageHandler = null;
-  _boundedNavigationHandler = null;
-  _boundedWaitHandler = null;
-  _boundedMenuHandler = null;
-  _boundedKeyCommandHandler = null;
   _badgeState = '';
   _isPaused = false;
   _tabId = null;
   _requestRel;
+
 
   // Some events are sent double on page navigations to simplify the event recorder.
   // We keep some simple state to disregard events if needed.
@@ -37,6 +33,9 @@ class RecordingController {
       console.log('boot sucessfully,listeners connected');
       port.onMessage.addListener(msg => {
         console.log('backgroud: receive message: ', msg);
+        if(this._tabId) {
+          $chrome.tabs.sendMessage(this._tabId,msg);//事件转发一次. 到contentscript;
+        }
         if (msg.action && msg.action === actions.START) {
           $chrome.browserAction.setIcon({path: './images/icon-green.png'});
           $chrome.browserAction.setBadgeText({text: this._badgeState});
@@ -69,16 +68,13 @@ class RecordingController {
 
       await this.injectScript();
 
-      this._boundedMessageHandler = this.handleMessage.bind(this);
-      this._boundedNavigationHandler = this.handleNavigation.bind(this);
-      this._boundedWaitHandler = this.handleWait.bind(this);
 
-      $chrome.runtime.onMessage.addListener(this._boundedMessageHandler);
+      $chrome.runtime.onMessage.addListener(this.handleMessage);
       $chrome.webNavigation.onCompleted.addListener(
-        this._boundedNavigationHandler,
+        this.handleNavigation,
       );
       $chrome.webNavigation.onBeforeNavigate.addListener(
-        this._boundedWaitHandler,
+        this.handleWait
       );
 
       // $chrome.browserAction.setIcon({ path: './images/icon-green.png' })
@@ -87,6 +83,7 @@ class RecordingController {
 
       $chrome.tabs.query({active: true, currentWindow: true}, tab => {
         this._tabId = tab[0].id;
+
         this._requestRel = {};
         $chrome.debugger.attach({tabId: this._tabId}, '1.0', result => {
           $chrome.debugger.onEvent.addListener(this.handleNetwork);
@@ -139,12 +136,8 @@ class RecordingController {
         contexts: ['all'],
       });
       // add the handlers
-
-      this._boundedMenuHandler = this.handleMenuInteraction.bind(this);
-      $chrome.contextMenus.onClicked.addListener(this._boundedMenuHandler);
-
-      this._boundedKeyCommandHandler = this.handleKeyCommands.bind(this);
-      $chrome.commands.onCommand.addListener(this._boundedKeyCommandHandler);
+      $chrome.contextMenus.onClicked.addListener(this.handleMenuInteraction);
+      $chrome.commands.onCommand.addListener(this.handleKeyCommands);
     });
   }
 
@@ -154,14 +147,14 @@ class RecordingController {
 
     $chrome.debugger.detach({tabId: this._tabId});
 
-    $chrome.runtime.onMessage.removeListener(this._boundedMessageHandler);
+    $chrome.runtime.onMessage.removeListener(this.handleMessage);
     $chrome.webNavigation.onCompleted.removeListener(
-      this._boundedNavigationHandler,
+      this.handleNavigation
     );
     $chrome.webNavigation.onBeforeNavigate.removeListener(
-      this._boundedWaitHandler,
+      this.handleWait
     );
-    $chrome.contextMenus.onClicked.removeListener(this._boundedMenuHandler);
+    $chrome.contextMenus.onClicked.removeListener(this.handleMenuInteraction);
     $chrome.debugger.onEvent.removeListener(this.handleNetwork);
     $chrome.browserAction.setIcon({path: './images/icon-black.png'});
     $chrome.browserAction.setBadgeText({text: this._badgeState});
@@ -304,7 +297,8 @@ class RecordingController {
     }
   };
 
-  handleMessage(msg, sender?) {
+  handleMessage=(msg, sender?) =>{
+    console.log('接收到消息:',msg,sender);
     if (msg.control) return this.handleControlMessage(msg, sender);
 
     // to account for clicks etc. we need to record the frameId and url to later target the frame in playback
@@ -346,7 +340,7 @@ class RecordingController {
     if (msg.control === ctrl.GET_SCREENSHOT) this.recordScreenshot(msg.value);
   }
 
-  handleNavigation({frameId}) {
+  handleNavigation=({frameId})=> {
     console.debug('frameId is:', frameId);
     this.injectScript();
     if (frameId === 0) {
@@ -354,7 +348,7 @@ class RecordingController {
     }
   }
 
-  handleMenuInteraction(info, tab) {
+  handleMenuInteraction=(info, tab)=> {
     console.debug('context menu clicked');
     switch (info.menuItemId) {
       case this._menuId + this._menuOptions.SCREENSHOT:
@@ -366,7 +360,7 @@ class RecordingController {
     }
   }
 
-  handleKeyCommands(command) {
+  handleKeyCommands=(command)=> {
     switch (command) {
       case actions.TOGGLE_SCREENSHOT_MODE:
         this.toggleScreenShotMode(actions.TOGGLE_SCREENSHOT_MODE);
@@ -384,7 +378,7 @@ class RecordingController {
     });
   }
 
-  handleWait() {
+  handleWait=()=> {
     $chrome.browserAction.setBadgeText({text: 'wait'});
   }
 
