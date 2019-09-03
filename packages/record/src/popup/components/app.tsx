@@ -71,7 +71,7 @@ export default class App extends React.Component<IAppP, IAppS> {
       version: '0.0.1',
     };
   }
-  gitRepoUtil = new GitRepoUtil("creasy2010","auto-ci",'c655aac4ae4711111111285008c2bd959ed61135c2062514='.replace('11111111',''))
+  gitRepoUtil = new GitRepoUtil("creasy2010","auto-ci",'ccbdecca73518a21b111111115b6ad1208fe3ddc7a3e801d='.replace('11111111',''))
 
   componentDidMount() {
     this.loadState(() => {
