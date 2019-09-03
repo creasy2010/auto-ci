@@ -32,6 +32,11 @@ interface IAppS {
   isCopying: boolean;
   bus: any;
   version: string;
+  userCaseInfo?:{
+    project:string;
+    scene:string;
+    name?:string;
+  };
   [name: string]: any;
 }
 
@@ -54,6 +59,11 @@ export default class App extends React.Component<IAppP, IAppS> {
       recording: [],
       isRecording: false,
       isPaused: false,
+      userCaseInfo:{
+        project:"supplier",
+        scene:"user-case",
+        name:"xxxx",
+      },
       isCopying: false,
       bus: null,
       version: '0.0.1',
@@ -106,7 +116,7 @@ export default class App extends React.Component<IAppP, IAppS> {
                   isRecording={this.state.isRecording}
                   liveEvents={this.state.liveEvents}
                 />
-              : null}
+              : this._usecaseInfo()}
             {this.state.showResultsTab
               ? <ResultsTab code={this.state.code} />
               : null}
@@ -115,6 +125,28 @@ export default class App extends React.Component<IAppP, IAppS> {
         </div>
       </div>
     );
+  }
+
+  _usecaseInfo=()=>{
+    return <div>
+      <div>
+        项目名称:<input data-path="project" value={this.state.userCaseInfo.project} onChange={this._changeInfo}/>
+      </div> <div>
+        场景名称:<input data-path="scene"  value={this.state.userCaseInfo.scene}  onChange={this._changeInfo}/>
+      </div> <div>
+        用例名称:<input data-path="name"  value={this.state.userCaseInfo.name}  onChange={this._changeInfo}/>
+      </div>
+    </div>
+  }
+
+  _changeInfo=(e)=>{
+    let path   = e.target.dataset.path;
+   this.setState({
+      userCaseInfo:{
+        ...this.state.userCaseInfo,
+        [path]:e.target.value
+      }
+    })
   }
 
   /**
@@ -137,12 +169,20 @@ export default class App extends React.Component<IAppP, IAppS> {
         <button onClick={this.reset}>重置</button>
         <button onClick={this._upload}>上传</button>
         {this.state.isRecording
-          ? <button
-              className="btn btn-sm btn-primary btn-outline-primary"
-              onClick={this.togglePause}
-            >
-              {this.state.isPaused ? '继续' : '暂停'}
+          ? <>
+              <button
+                className="btn btn-sm btn-primary btn-outline-primary"
+                onClick={this.togglePause}
+              >
+                {this.state.isPaused ? '继续' : '暂停'}
+              </button>
+            <button>
+              截屏
             </button>
+            <button>
+              休眠2秒
+            </button>
+            </>
           : null}
         {this.state.code
           ? <a href="#" onClick={this._toggleShowResult}>
@@ -162,17 +202,8 @@ export default class App extends React.Component<IAppP, IAppS> {
    * @private
    */
   _upload =async  ():Promise<void> => {
-
-    // { project="supplier",
-    //   scene="use-case",
-    //   fileName="xxxxxx.js"}:{ project?:string,
-    //   scene?:string,
-    //   fileName?:string}
-
-    let project="supplier",
-      scene="use-case",
-      fileName="xxxxxx.js";
-
+    let {project,scene,name}=this.state.userCaseInfo;
+   let fileName =name+(Math.random().toString().substr(2,5))
    let _path = `packages/projects/${project}/scene/${scene}/${fileName}`;
    let response =  await fetch(`https://api.github.com/repos/creasy2010/auto-ci/contents/${_path}`,
       {
@@ -187,7 +218,7 @@ export default class App extends React.Component<IAppP, IAppS> {
             "name": "杨晓东",
             "email": "coder.yang2010@gmail.com"
           },
-          "content": "${window.btoa('123455123123')}"
+          "content": "${window.btoa(this.state.code)}"
       }`
     });
 
