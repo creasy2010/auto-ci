@@ -66,7 +66,7 @@ export default class App extends React.Component<IAppP, IAppS> {
       userCaseInfo:{
         project:"",
         scene:"",
-        name:"xxxx",
+        name:"uc-",
       },
       isCopying: false,
       bus: null,
