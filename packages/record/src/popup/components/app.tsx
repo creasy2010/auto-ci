@@ -282,7 +282,7 @@ export default class App extends React.Component<IAppP, IAppS> {
    */
   _upload =async  ():Promise<void> => {
     let {project,scene,name}=this.state.userCaseInfo;
-   let fileName =name+(Math.random().toString().substr(2,5));
+   let fileName =name+(Math.random().toString().substr(2,5))+".js";
 
     try{
       let response = await this.gitRepoUtil.createFile(`packages/projects/${project}/scene/${scene}/${fileName}`,

@@ -233,9 +233,9 @@ export default class CodeGenerator {
 
         block.addLine({
             type: domEvents.KEYDOWN,
-            value: `${pressDownStr}
+            value: `${pressDownStr.join("")}
               await sleep(0.2); 
-            ${pressUpStr}
+            ${pressUpStr.join("")}
               await sleep(0.5); 
       `,
         });

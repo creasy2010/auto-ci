@@ -196,9 +196,10 @@ SPU编码
   await page.click('.ant-row:nth-child(3) > .ant-col > .ant-form-item-control > .ant-form-item-children > .ant-input-group-wrapper > .ant-input-wrapper > .ant-input'); 
       await sleep(1)
   
-  await page.keyboard.pressDown('Meta');,await page.keyboard.pressDown('a');
+  await page.keyboard.pressDown('Meta');
+      await page.keyboard.pressDown('a');
               await sleep(0.2); 
-            await page.keyboard.pressUp('Meta');,await page.keyboard.pressUp('a');
+            await page.keyboard.pressUp('Meta');await page.keyboard.pressUp('a');
               await sleep(0.5); 
       
   
@@ -210,9 +211,9 @@ SPU编码
   await page.click('.ant-row:nth-child(2) > .ant-col > .ant-form-item-control > .ant-form-item-children > .ant-input-group-wrapper > .ant-input-wrapper > .ant-input'); 
       await sleep(1)
   
-  await page.keyboard.pressDown('Meta');,await page.keyboard.pressDown('a');
+  await page.keyboard.pressDown('Meta');await page.keyboard.pressDown('a');
               await sleep(0.2); 
-            await page.keyboard.pressUp('Meta');,await page.keyboard.pressUp('a');
+            await page.keyboard.pressUp('Meta');await page.keyboard.pressUp('a');
               await sleep(0.5); 
       
   
@@ -229,9 +230,9 @@ SPU编码
   await page.click('.ant-row:nth-child(1) > .ant-col > .ant-form-item-control > .ant-form-item-children > .ant-input-group-wrapper > .ant-input-wrapper > .ant-input'); 
       await sleep(1)
   
-  await page.keyboard.pressDown('Meta');,await page.keyboard.pressDown('a');
+  await page.keyboard.pressDown('Meta');await page.keyboard.pressDown('a');
               await sleep(0.2); 
-            await page.keyboard.pressUp('Meta');,await page.keyboard.pressUp('a');
+            await page.keyboard.pressUp('Meta');await page.keyboard.pressUp('a');
               await sleep(0.5); 
       
   
@@ -248,9 +249,9 @@ SPU编码
   await page.click('.ant-table-body > table > .ant-table-tbody > .ant-table-row:nth-child(1) > .nameBox'); 
       await sleep(1)
   
-  await page.keyboard.pressDown('Meta');,await page.keyboard.pressDown('c');
+  await page.keyboard.pressDown('Meta');await page.keyboard.pressDown('c');
               await sleep(0.2); 
-            await page.keyboard.pressUp('Meta');,await page.keyboard.pressUp('c');
+            await page.keyboard.pressUp('Meta');await page.keyboard.pressUp('c');
               await sleep(0.5); 
       
   
@@ -262,9 +263,9 @@ SPU编码
   await waitElementVisiable('.ant-row:nth-child(1) > .ant-col > .ant-form-item-control > .ant-form-item-children > .ant-input-group-wrapper > .ant-input-wrapper > .ant-input')
   await page.type('.ant-row:nth-child(1) > .ant-col > .ant-form-item-control > .ant-form-item-children > .ant-input-group-wrapper > .ant-input-wrapper > .ant-input','null')
   
-  await page.keyboard.pressDown('Meta');,await page.keyboard.pressDown('v');
+  await page.keyboard.pressDown('Meta');await page.keyboard.pressDown('v');
               await sleep(0.2); 
-            await page.keyboard.pressUp('Meta');,await page.keyboard.pressUp('v');
+            await page.keyboard.pressUp('Meta');await page.keyboard.pressUp('v');
               await sleep(0.5); 
       
   
