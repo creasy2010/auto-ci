@@ -39,6 +39,10 @@ interface IAppS {
     scene:string;
     name?:string;
   };
+  git:{
+    projects:string[],
+    scene?:string[],
+  }
   [name: string]: any;
 }
 
@@ -69,11 +73,15 @@ export default class App extends React.Component<IAppP, IAppS> {
       isCopying: false,
       bus: null,
       version: '0.0.1',
+      git:{
+        projects:[],
+        scene:[],
+      }
     };
   }
   gitRepoUtil = new GitRepoUtil("creasy2010","auto-ci",'ccbdecca73518a21b5b6ad111111111208fe3ddc7a3e801d'.replace('11111111',''))
 
-  componentDidMount() {
+  async componentDidMount() {
     this.loadState(() => {
       this.trackPageView();
       if (this.state.isRecording) {
@@ -92,16 +100,14 @@ export default class App extends React.Component<IAppP, IAppS> {
 
     this.bus = this.$chrome.extension.connect({name: 'recordControls'});
 
-    (async()=>{
-      setInterval(async ()=>{
-        try {
-          let result = await this.gitRepoUtil.getContent("packages/projects");
-          console.log("库返回值::",result);
-        } catch (err) {
-
-        }
-      },10000);
-    })();
+    let result = await this.gitRepoUtil.getContent("packages/projects");
+    console.log("库返回值::",result);
+    this.setState({
+      git:{
+        ...this.state.git,
+        projects:result.filter(item=>item.type==='dir').map(item=>item.name),
+      }
+    });
   }
 
   render() {
@@ -143,15 +149,57 @@ export default class App extends React.Component<IAppP, IAppS> {
   }
 
   _usecaseInfo=()=>{
+
+    let projectOptions = this.state.git.projects.map(item=><option value={item}>{item}</option>);
+    let sceneOptions = this.state.git.scene.map(item=><option value={item}>{item}</option>);
+
     return <div>
       <div>
-        项目名称:<input data-path="project" value={this.state.userCaseInfo.project} onChange={this._changeInfo}/>
-      </div> <div>
-        场景名称:<input data-path="scene"  value={this.state.userCaseInfo.scene}  onChange={this._changeInfo}/>
-      </div> <div>
+        项目名称:
+        <select data-path="project" value={this.state.userCaseInfo.project} onChange={this._changeChoose}>
+          <option value={""}>请选择项目</option>
+          {projectOptions}
+        </select>
+        {/*<input data-path="project" value={this.state.userCaseInfo.project} onChange={this._changeInfo}/>*/}
+      </div>
+      <div>
+        场景名称:
+      <select  data-path="scene" value={this.state.userCaseInfo.scene}  onChange={this._changeChoose}>
+        <option  value={""}>请选择场景</option>
+        {
+          sceneOptions
+        }
+      </select>
+      {/*<input data-path="scene"  value={this.state.userCaseInfo.scene}  onChange={this._changeInfo}/>*/}
+      </div>
+      <div>
         用例名称:<input data-path="name"  value={this.state.userCaseInfo.name}  onChange={this._changeInfo}/>
       </div>
     </div>
+  }
+
+  _changeChoose=async (e)=>{
+    let path   = e.target.dataset.path;
+    let value = e.target.value;
+    if(value) {
+      if(path === 'project') {
+        let result = await this.gitRepoUtil.getContent(`packages/projects/${value}/scene`);
+        console.log("库返回值::",result);
+        this.setState({
+          git:{
+            ...this.state.git,
+            scene:result.filter(item=>item.type==='dir').map(item=>item.name)
+          }
+        });
+      }
+    }
+
+    this.setState({
+      userCaseInfo:{
+        ...this.state.userCaseInfo,
+        [path]:value
+      }
+    })
   }
 
   _changeInfo=(e)=>{

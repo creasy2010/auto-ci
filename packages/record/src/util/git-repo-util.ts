@@ -9,6 +9,29 @@
 
 import {Base64} from 'js-base64';
 
+
+interface IContentResult {
+  download_url?: any;
+  git_url: string;
+  html_url: string;
+  name: string;
+  path: string;
+  sha: string;
+  size: number;
+  type: "dir"|"file";
+  url: string;
+  _links: ILinks;
+  git: string;
+  html: string;
+  self: string;
+}
+
+interface ILinks {
+  git: string;
+  html: string;
+  self: string;
+}
+
 export default class GitRepoUtil {
   owner: string;
   repo: string;
@@ -26,7 +49,7 @@ export default class GitRepoUtil {
    * @param {string} path  a/b/c
    * @returns {Promise<Response>}
    */
-  getContent = async (path: string) => {
+  getContent = async (path: string):Promise<IContentResult[]> => {
     let response = await fetch(
       `https://api.github.com/repos/${this.owner}/${this
         .repo}/contents/${path}`,
@@ -38,8 +61,8 @@ export default class GitRepoUtil {
         mode: 'cors',
       },
     );
-    response = await response.json();
-    return response;
+
+     return (await response.json()) as IContentResult[] ;
   };
 
   /**
