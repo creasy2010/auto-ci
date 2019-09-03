@@ -71,6 +71,7 @@ export default class App extends React.Component<IAppP, IAppS> {
       version: '0.0.1',
     };
   }
+  gitRepoUtil = new GitRepoUtil("creasy2010","auto-ci",'c655aac4ae4711111111285008c2bd959ed61135c2062514='.replace('11111111',''))
 
   componentDidMount() {
     this.loadState(() => {
@@ -91,11 +92,8 @@ export default class App extends React.Component<IAppP, IAppS> {
 
     this.bus = this.$chrome.extension.connect({name: 'recordControls'});
 
-
-    let gitRepoUtil  = new GitRepoUtil("creasy2010","auto-ci",'c655aac4ae4711111111285008c2bd959ed61135c2062514='.replace('11111111',''));
-
     (async()=>{
-      let result = gitRepoUtil.getContent("packages/projects");
+      let result = this.gitRepoUtil.getContent("packages/projects");
       console.log("库返回值::",result);
     })();
   }
@@ -215,31 +213,23 @@ export default class App extends React.Component<IAppP, IAppS> {
   _upload =async  ():Promise<void> => {
     let {project,scene,name}=this.state.userCaseInfo;
    let fileName =name+(Math.random().toString().substr(2,5))
-   let _path = `packages/projects/${project}/scene/${scene}/${fileName}`;
-   let response =  await fetch(`https://api.github.com/repos/creasy2010/auto-ci/contents/${_path}`,
-      {
-        method:"PUT",
-        headers:{
-          Authorization: `token ${'c655aac4ae4711111111285008c2bd959ed61135c2062514='.replace('11111111','')}`
-        },
-        mode: 'cors',
-        body:`{
+
+    try{
+      let response = await this.gitRepoUtil.createFile(`packages/projects/${project}/scene/${scene}/${fileName}`,
+        {
           "message": "添加一个用例测试project:${project}下scene[${scene}]fileName${fileName}",
           "committer": {
             "name": "杨晓东",
             "email": "coder.yang2010@gmail.com"
           },
-          "content": "${Base64.encode(this.state.code)}"
-      }`
-    });
-
-   if(response.status ===422) {
-     throw new Error('创建文件失败,路径冲突:'+_path);
-   }else if(response.status ===401){
-     throw new Error('认证失败,可能是token失效了');
-   }
-   console.log(response);
-   this.reset();
+          "content":this.state.code
+        });
+      console.log(response);
+      this.reset();
+    }catch (e) {
+     console.warn(e);
+     window.alert("上传文件发生错误"+e.toString());
+    }
   };
 
   toggleRecord = () => {
