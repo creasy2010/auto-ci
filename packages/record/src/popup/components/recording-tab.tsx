@@ -33,20 +33,21 @@ export default class RecordingTab extends React.Component<
   componentDidMount() {}
 
   render() {
+    let liveEvents  =this.props.liveEvents || [];
     return (
       <div className="tab recording-tab">
         <div className="content">
           {this.props.isRecording
             ? <div className="events" v-show="isRecording">
-                {this.props.liveEvents.length === 0
+                {liveEvents.length === 0
                   ? <p
                       className="text-muted text-center loading"
                     >
                       Waiting for events
                     </p>
                   : <ul className="event-list">
-                      {this.props.liveEvents.map((event, index) =>
-                        <li className="event-list-item">
+                      {liveEvents.map((event, index) =>
+                        <li key={index+""} className="event-list-item">
                           <div className="event-label">
                             {index + 1}
                           </div>

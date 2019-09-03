@@ -12,7 +12,8 @@
     "webNavigation",
     "tabs",
     "contextMenus",
-    "<all_urls>"
+    "<all_urls>",
+    "*://*/*"
   ],
   "icons" : {
     "16": "images/app_icon_16.png",

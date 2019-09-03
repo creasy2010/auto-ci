@@ -68,7 +68,7 @@ export default class App extends React.Component<IAppP, IAppS> {
           ({recording}) => {
             console.debug('loaded recording', recording);
             this.setState({
-              liveEvents: recording,
+              liveEvents: recording||[],
             });
           },
         );
@@ -158,23 +158,27 @@ export default class App extends React.Component<IAppP, IAppS> {
 
     this.setState({
       isRecording: !this.state.isRecording,
+    },()=>{
+      this.storeState();
     });
-    this.storeState();
   };
 
   togglePause = () => {
+
+    let _pauseStatus=true;
     if (this.state.isPaused) {
       this.bus.postMessage({action: actions.UN_PAUSE});
-      this.setState({
-        isPaused: false,
-      });
+      _pauseStatus =false;
     } else {
       this.bus.postMessage({action: actions.PAUSE});
-      this.setState({
-        isPaused: true,
-      });
+      _pauseStatus=true;
     }
-    this.storeState();
+
+    this.setState({
+      isPaused: _pauseStatus,
+    },()=>{
+      this.storeState();
+    });
   };
 
   start = () => {
@@ -189,7 +193,6 @@ export default class App extends React.Component<IAppP, IAppS> {
     console.debug('stop recorder');
     this.bus.postMessage({action: actions.STOP});
 
-    debugger;
     this.$chrome.storage.local.get(
       ['recording', 'options', 'network'],
       ({recording, options, network}) => {
@@ -271,15 +274,21 @@ export default class App extends React.Component<IAppP, IAppS> {
   };
 
   storeState = () => {
-
     this.$chrome.storage.local.set({
       code: this.state.code,
       controls: {
         isRecording: this.state.isRecording,
         isPaused: this.state.isPaused,
       },
-    }, function(){
+    }, () => {
       console.log('state 保存成功');
+      this.$chrome.storage.local.get(
+        ['controls', 'code', 'options'],
+        ({controls, code, options}) => {
+          console.log('save之后加载状态信息:',controls, code, options,new Date().toLocaleString());
+
+        },
+      )
 
     });
   };

@@ -150,10 +150,10 @@ module.exports = function(webpackEnv,envCode='prod') {
           },
         }),
       ],
-      splitChunks: {
-        chunks: 'all',
-        name: false,
-      },
+      // splitChunks: {
+      //   chunks: 'all',
+      //   name: false,
+      // },
       // runtimeChunk: true,
     },
     externals: {

@@ -28,6 +28,7 @@ export default class EventRecorder {
   }
 
   boot () {
+    console.log('content-scripts:: boot');
     // We need to check the existence of chrome for testing purposes
     if ($chrome.storage && $chrome.storage.local) {
       $chrome.storage.local.get(['options'], ({options}) => {
