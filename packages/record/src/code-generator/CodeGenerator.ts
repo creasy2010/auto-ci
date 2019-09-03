@@ -141,7 +141,7 @@ export default class CodeGenerator {
 
           break;
         case 'scroll':
-            this._blocks.push(this._handleScroll(selector, value));
+            // this._blocks.push(this._handleScroll(selector, value));
             break;
         case 'click':
           this._blocks.push(this._handleClick(selector, events[i].mark));
