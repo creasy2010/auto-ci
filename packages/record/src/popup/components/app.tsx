@@ -35,6 +35,8 @@ interface IAppS {
   [name: string]: any;
 }
 
+
+
 export default class App extends React.Component<IAppP, IAppS> {
   static defaultProps = {};
 
@@ -73,12 +75,6 @@ export default class App extends React.Component<IAppP, IAppS> {
           },
         );
       }
-
-      if (!this.state.isRecording && this.state.code) {
-        this.setState({
-          showResultsTab: true,
-        });
-      }
     });
     this.bus = this.$chrome.extension.connect({name: 'recordControls'});
   }
@@ -114,7 +110,7 @@ export default class App extends React.Component<IAppP, IAppS> {
             {this.state.showResultsTab
               ? <ResultsTab code={this.state.code} />
               : null}
-            {this._getControlBtsn()}
+            {this._getControlBtns()}
           </div>
         </div>
       </div>
@@ -126,7 +122,7 @@ export default class App extends React.Component<IAppP, IAppS> {
    * @returns {any}
    * @private
    */
-  _getControlBtsn = () => {
+  _getControlBtns = () => {
     return (
       <div className="recording-footer">
         <button
@@ -136,27 +132,71 @@ export default class App extends React.Component<IAppP, IAppS> {
           }
           onClick={this.toggleRecord}
         >
-          {this.state.isRecording ? 'Stop' : 'Record'}
+          {this.state.isRecording ? '停止' : '录制'}
         </button>
+        <button onClick={this.reset}>重置</button>
+        <button onClick={this._upload}>上传</button>
         {this.state.isRecording
           ? <button
               className="btn btn-sm btn-primary btn-outline-primary"
               onClick={this.togglePause}
             >
-              {this.state.isPaused ? 'Resume' : 'Pause'}
+              {this.state.isPaused ? '继续' : '暂停'}
             </button>
           : null}
         {this.state.code
-          ? <a href="#" onClick={this._showResult}>
-              view code
+          ? <a href="#" onClick={this._toggleShowResult}>
+              {this.state.showResultsTab ? '隐藏代码' : '显示代码'}
             </a>
           : null}
       </div>
     );
   };
 
-  _showResult = () => {
-    this.setState({showResultsTab: true});
+  _toggleShowResult = () => {
+    this.setState({showResultsTab: !this.state.showResultsTab});
+  };
+
+  /**
+   * 将代码上传至服务端. ;
+   * @private
+   */
+  _upload =async  ():Promise<void> => {
+
+    // { project="supplier",
+    //   scene="use-case",
+    //   fileName="xxxxxx.js"}:{ project?:string,
+    //   scene?:string,
+    //   fileName?:string}
+
+    let project="supplier",
+      scene="use-case",
+      fileName="xxxxxx.js";
+
+   let _path = `packages/projects/${project}/scene/${scene}/${fileName}`;
+   let response =  await fetch(`https://api.github.com/repos/creasy2010/auto-ci/contents/${_path}`,
+      {
+        method:"PUT",
+        headers:{
+          Authorization: `token c655aac4ae47285008c2bd959ed61135c2062514`
+        },
+        mode: 'cors',
+        body:`{
+          "message": "添加一个用例测试project:${project}下scene[${scene}]fileName${fileName}",
+          "committer": {
+            "name": "杨晓东",
+            "email": "coder.yang2010@gmail.com"
+          },
+          "content": "${window.btoa('123455123123')}"
+      }`
+    });
+
+   if(response.status ===422) {
+     throw new Error('创建文件失败,路径冲突:'+_path);
+   }else if(response.status ===401){
+     throw new Error('认证失败,可能是token失效了');
+   }
+   console.log(response);
   };
 
   toggleRecord = () => {
@@ -231,8 +271,8 @@ export default class App extends React.Component<IAppP, IAppS> {
     );
   };
 
-  restart = () => {
-    console.log('restart');
+  reset = () => {
+    console.log('reset');
     this.cleanUp();
     this.bus.postMessage({action: actions.CLEAN_UP});
   };

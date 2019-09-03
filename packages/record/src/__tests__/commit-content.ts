@@ -7,14 +7,15 @@
  * @Date    2019/8/23
  **/
 
-import {request} from  'urllib';
-let token= "7f6528de38ae6a38a51d46f4a230486b582cc15d";
+// import * as urlLib from  'urllib';
+
+var urllib = require('urllib');
+let token= "c655aac4ae47285008c2bd959ed61135c2062514";
 
 (async()=>{
 
-  let result = await request(`https://api.github.com/repos/creasy2010/auto-ci/contents/test.txt`,{
+  let result = await urllib.request(`https://api.github.com/repos/creasy2010/auto-ci/contents/test11.txt`,{
     method:"PUT",
-    content:"",
     headers:{
       Authorization: `token ${token}`
     },
