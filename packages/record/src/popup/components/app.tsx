@@ -162,7 +162,7 @@ export default class App extends React.Component<IAppP, IAppS> {
     return <div>
       <div>
         项目名称:
-        <select data-path="project" defaultValue={this.state.userCaseInfo.project} onChange={this._changeChoose}>
+        <select data-path="project" value={this.state.userCaseInfo.project} onChange={this._changeChoose}>
           <option value={""}>请选择项目</option>
           {projectOptions}
         </select>
@@ -170,7 +170,7 @@ export default class App extends React.Component<IAppP, IAppS> {
       </div>
       <div>
         场景名称:
-      <select  data-path="scene" defaultValue={this.state.userCaseInfo.scene}  onChange={this._changeChoose}>
+      <select  data-path="scene" value={this.state.userCaseInfo.scene}  onChange={this._changeChoose}>
         <option  value={""}>请选择场景</option>
         {
           sceneOptions
@@ -179,7 +179,7 @@ export default class App extends React.Component<IAppP, IAppS> {
       {/*<input data-path="scene"  value={this.state.userCaseInfo.scene}  onChange={this._changeInfo}/>*/}
       </div>
       <div>
-        用例名称:<input data-path="name"  defaultValue={this.state.userCaseInfo.name}  onChange={this._changeInfo}/>
+        用例名称:<input data-path="name"  value={this.state.userCaseInfo.name}  onChange={this._changeInfo}/>
       </div>
     </div>
   }
