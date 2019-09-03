@@ -229,6 +229,7 @@ export default class App extends React.Component<IAppP, IAppS> {
      throw new Error('认证失败,可能是token失效了');
    }
    console.log(response);
+   this.reset();
   };
 
   toggleRecord = () => {

@@ -63,9 +63,10 @@ export default class EventRecorder {
     }
   }
 
-  _clearup(){
+  _clearup() {
+    console.log('清除事件');
     this._removeAllListeners(Object.values(eventsToRecord));
-    $chrome.runtime.onMessage.removeListener(this._handleBackgroundMessage)
+    $chrome.runtime.onMessage.removeListener(this._handleBackgroundMessage);
     $window.document.pptRecorderAddedControlListeners=false;
   }
 
@@ -75,6 +76,7 @@ export default class EventRecorder {
       switch (msg.action) {
         case actions.CLEAN_UP:
           this._clearup();
+          break
         case actions.TOGGLE_SCREENSHOT_MODE:
           this._handleScreenshotMode(false)
           break
