@@ -33,7 +33,7 @@ export async function openIntercepRequest(page, mockData): Promise<UnListenFunc>
           requestInfo.response.headers['Content-Type'] || 'text/plain',
           body: requestInfo.response.body,
         });
-        console.log('拦截后返回值: ', url);
+        console.log('mock返回: ', url);
       } else {
         console.warn('mock数据已用尽,访问真正接口 ', url, requestInfo.response.body);
         interceptedRequest.continue();
@@ -46,7 +46,10 @@ export async function openIntercepRequest(page, mockData): Promise<UnListenFunc>
   page.on('request', interceptFunc);
 
   return async () => {
+
+    console.debug('清除相关设置;page.setRequestInterception(true);');
     await page.setRequestInterception(true);
+    console.debug('清除相关设置;page.off(\'request\', interceptFunc);');
     await page.off('request', interceptFunc);
   };
 }

@@ -17,9 +17,6 @@ module.exports = {
   ) {
     await page.evaluate(`window.__testContext__.goto('/cashier')`);
     await sleep(2);
-
-    // await page.setViewport({ width: 2133, height: 691 })
-
     log(`[clicking]输入会员手机号 `);
     await waitElementVisiable(
       '.fl > .ant-select > .ant-select-selection > .ant-select-selection__rendered > .ant-select-selection__placeholder',

@@ -5,13 +5,8 @@ module.exports =   {
     {page},
     {sleep, log, screenshot, waitElementVisiable},
   ) {
-      
-  
       await page.evaluate(`window.__testContext__.goto('/goods-list')`)
       await sleep(2);
-      
-  
-  await page.setViewport({ width: 1920, height: 434 })
   
   log(`[clicking] `);
         await waitElementVisiable('.ant-row:nth-child(1) > .ant-col > .ant-form-item-control > .ant-form-item-children > .ant-input-group-wrapper > .ant-input-wrapper > .ant-input');
@@ -82,15 +77,15 @@ module.exports =   {
       await sleep(1)
   
   await page.keyboard.press('ArrowDown'); 
-              await sleep(0.5*Speed)
+              await sleep(0.5)
       
   
   await page.keyboard.press('ArrowDown'); 
-              await sleep(0.5*Speed)
+              await sleep(0.5)
       
   
   await page.keyboard.press('ArrowDown'); 
-              await sleep(0.5*Speed)
+              await sleep(0.5)
       
   
   log(`[clicking]默认分类 `);
@@ -196,10 +191,10 @@ SPU编码
   await page.click('.ant-row:nth-child(3) > .ant-col > .ant-form-item-control > .ant-form-item-children > .ant-input-group-wrapper > .ant-input-wrapper > .ant-input'); 
       await sleep(1)
   
-  await page.keyboard.pressDown('Meta');
-      await page.keyboard.pressDown('a');
+  await page.keyboard.down('Meta');
+      await page.keyboard.down('a');
               await sleep(0.2); 
-            await page.keyboard.pressUp('Meta');await page.keyboard.pressUp('a');
+            await page.keyboard.up('Meta');await page.keyboard.up('a');
               await sleep(0.5); 
       
   
@@ -211,9 +206,9 @@ SPU编码
   await page.click('.ant-row:nth-child(2) > .ant-col > .ant-form-item-control > .ant-form-item-children > .ant-input-group-wrapper > .ant-input-wrapper > .ant-input'); 
       await sleep(1)
   
-  await page.keyboard.pressDown('Meta');await page.keyboard.pressDown('a');
+  await page.keyboard.down('Meta');await page.keyboard.down('a');
               await sleep(0.2); 
-            await page.keyboard.pressUp('Meta');await page.keyboard.pressUp('a');
+            await page.keyboard.up('Meta');await page.keyboard.up('a');
               await sleep(0.5); 
       
   
@@ -230,9 +225,9 @@ SPU编码
   await page.click('.ant-row:nth-child(1) > .ant-col > .ant-form-item-control > .ant-form-item-children > .ant-input-group-wrapper > .ant-input-wrapper > .ant-input'); 
       await sleep(1)
   
-  await page.keyboard.pressDown('Meta');await page.keyboard.pressDown('a');
+  await page.keyboard.down('Meta');await page.keyboard.down('a');
               await sleep(0.2); 
-            await page.keyboard.pressUp('Meta');await page.keyboard.pressUp('a');
+            await page.keyboard.up('Meta');await page.keyboard.up('a');
               await sleep(0.5); 
       
   
@@ -249,9 +244,9 @@ SPU编码
   await page.click('.ant-table-body > table > .ant-table-tbody > .ant-table-row:nth-child(1) > .nameBox'); 
       await sleep(1)
   
-  await page.keyboard.pressDown('Meta');await page.keyboard.pressDown('c');
+  await page.keyboard.down('Meta');await page.keyboard.down('c');
               await sleep(0.2); 
-            await page.keyboard.pressUp('Meta');await page.keyboard.pressUp('c');
+            await page.keyboard.up('Meta');await page.keyboard.up('c');
               await sleep(0.5); 
       
   
@@ -263,9 +258,9 @@ SPU编码
   await waitElementVisiable('.ant-row:nth-child(1) > .ant-col > .ant-form-item-control > .ant-form-item-children > .ant-input-group-wrapper > .ant-input-wrapper > .ant-input')
   await page.type('.ant-row:nth-child(1) > .ant-col > .ant-form-item-control > .ant-form-item-children > .ant-input-group-wrapper > .ant-input-wrapper > .ant-input','null')
   
-  await page.keyboard.pressDown('Meta');await page.keyboard.pressDown('v');
+  await page.keyboard.down('Meta');await page.keyboard.down('v');
               await sleep(0.2); 
-            await page.keyboard.pressUp('Meta');await page.keyboard.pressUp('v');
+            await page.keyboard.up('Meta');await page.keyboard.up('v');
               await sleep(0.5); 
       
   

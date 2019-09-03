@@ -137,7 +137,7 @@ export default class EventRecorder {
         if(e.type ==='input') {
             value=e.data;
           if(value===null) {
-            //delete时会导致输入值为null;过滤掉, 只记录delete按键
+            console.log('delete时会导致输入值为null;过滤掉, 只记录delete按键')
             return ;
           }
         } else if(e.type === 'keydown') {

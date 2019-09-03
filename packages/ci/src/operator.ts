@@ -54,16 +54,22 @@ export default class Operator {
   }
 
   async run() {
-    await this.init();
-    await this.useCase.exec(
-      {
-        page: this.context.page,
-      },
-      this.util,
-    );
-
-    await this.check();
-    await this.clean();
+    try{
+      await this.init();
+      await sleep(2);
+      await this.useCase.exec(
+       {
+          page: this.context.page,
+        },
+        this.util,
+      );
+      await this.check();
+    } catch(err) {
+      // console.warn('当前处理失败;;');
+      throw err;
+    } finally {
+      await this.clean();
+    }
   }
 
   private async check(){
@@ -73,6 +79,7 @@ export default class Operator {
 
   private async clean() {
     if (this.cancelFunc) {
+      console.debug('清除相关设置;');
       await this.cancelFunc();
     }
   }

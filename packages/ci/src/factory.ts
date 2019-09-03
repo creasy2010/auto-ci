@@ -17,6 +17,6 @@ export function createOperator(context:IEcecuteContext,useCase:IUseCase):Operato
   return new Operator(context,useCase);
 }
 
-export function createScreen(page,useCases:IUseCase[],dir:string):Scene{
-  return new Scene(page,useCases,dir);
+export function createScreen(context:IEcecuteContext,useCases:IUseCase[]):Scene{
+  return new Scene(context,useCases);
 }
