@@ -93,8 +93,14 @@ export default class App extends React.Component<IAppP, IAppS> {
     this.bus = this.$chrome.extension.connect({name: 'recordControls'});
 
     (async()=>{
-      let result = this.gitRepoUtil.getContent("packages/projects");
-      console.log("库返回值::",result);
+      setInterval(async ()=>{
+        try {
+          let result = await this.gitRepoUtil.getContent("packages/projects");
+          console.log("库返回值::",result);
+        } catch (err) {
+
+        }
+      },10000);
     })();
   }
 
