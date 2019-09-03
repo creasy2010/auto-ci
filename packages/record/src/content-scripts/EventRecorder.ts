@@ -15,7 +15,6 @@ let $window:any =  window;
 export default class EventRecorder {
 
 
-  _boundedMessageListener = null;
   _eventLog = [];
   _previousEvent = null;
   _dataAttribute = null;
@@ -46,16 +45,14 @@ export default class EventRecorder {
 
   _initializeRecorder () {
     console.log('初始化Recorder');
-    const events = Object.values(eventsToRecord)
     if (!$window.pptRecorderAddedControlListeners) {
-      this._addAllListeners(events)
-      this._boundedMessageListener = this._boundedMessageListener || this._handleBackgroundMessage.bind(this)
-      $chrome.runtime.onMessage.addListener(this._boundedMessageListener)
-      $window.pptRecorderAddedControlListeners = true
+      this._addAllListeners(Object.values(eventsToRecord));
+      $chrome.runtime.onMessage.addListener(this._handleBackgroundMessage);
+      $window.pptRecorderAddedControlListeners = true;
     }
 
     if (!$window.document.pptRecorderAddedControlListeners && $chrome.runtime && $chrome.runtime.onMessage) {
-      $window.document.pptRecorderAddedControlListeners = true
+      $window.document.pptRecorderAddedControlListeners = true;
     }
 
     if (this._isTopFrame) {
@@ -66,10 +63,18 @@ export default class EventRecorder {
     }
   }
 
-  _handleBackgroundMessage (msg, sender, sendResponse) {
+  _clearup(){
+    this._removeAllListeners(Object.values(eventsToRecord));
+    $chrome.runtime.onMessage.removeListener(this._handleBackgroundMessage)
+    $window.document.pptRecorderAddedControlListeners=false;
+  }
+
+  _handleBackgroundMessage = (msg, sender, sendResponse)=> {
     console.debug('content-script: message from background', msg)
     if (msg && msg.action) {
       switch (msg.action) {
+        case actions.CLEAN_UP:
+          this._clearup();
         case actions.TOGGLE_SCREENSHOT_MODE:
           this._handleScreenshotMode(false)
           break
@@ -81,10 +86,15 @@ export default class EventRecorder {
     }
   }
 
-  _addAllListeners (events) {
-    const boundedRecordEvent = this._recordEvent.bind(this)
+  _removeAllListeners(events){
     events.forEach(type => {
-      $window.addEventListener(type, boundedRecordEvent, true)
+      $window.removeEventListener(type, this._recordEvent, true)
+    })
+  }
+
+  _addAllListeners (events) {
+    events.forEach(type => {
+      $window.addEventListener(type, this._recordEvent, true)
     })
   }
 
@@ -107,7 +117,7 @@ export default class EventRecorder {
   }
 
   keyDowns=[];
-  _recordEvent (e) {
+  _recordEvent =  (e) => {
     if (this._previousEvent && this._previousEvent.timeStamp === e.timeStamp) return
     this._previousEvent = e
 
