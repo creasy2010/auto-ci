@@ -136,12 +136,16 @@ export default class EventRecorder {
       //TODO 这里的写法不太合适.
         if(e.type ==='input') {
             value=e.data;
+          if(value===null) {
+            //delete时会导致输入值为null;过滤掉, 只记录delete按键
+            return ;
+          }
         } else if(e.type === 'keydown') {
             this.keyDowns.push({
                 keyCode: e.keyCode,
                 key:e.key
             })
-            console.log(`this.keyDowns:${JSON.stringify(this.keyDowns)}`);
+            console.log(`this.keyDowns:${JSON.stringify(this.keyDowns)},记录下来处理组合键逻辑`);
             return ;
 
         } else if(e.type === 'scroll') {
@@ -186,6 +190,7 @@ export default class EventRecorder {
           //@ts-ignore
             msg.mark = e.target.innerText;
         }
+        console.log(`记录操作[${msg.action}]`,msg);
       this._sendMessage(msg)
     } catch (e) {}
   }

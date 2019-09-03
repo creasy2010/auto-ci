@@ -35,7 +35,8 @@ const toRecordKeyCode=[
     "ArrowDown","ArrowUp","ArrowLeft" ,"ArrowRight",
 
     /*del*/
-    "Delete"
+    "Delete",
+    "Backspace"
 ]
 export const defaults = {
   wrapAsync: true,
@@ -228,8 +229,8 @@ export default class CodeGenerator {
       console.log('_handleCompositeKeyDown',keyCodes);
         const block = new Block(this._frameId);
 
-        let pressDownStr = keyCodes.map(keyCode=>`await ${this._frame}.keyboard.pressDown('${keyCode}');`)
-        let pressUpStr = keyCodes.map(keyCode=>`await ${this._frame}.keyboard.pressUp('${keyCode}');`)
+        let pressDownStr = keyCodes.map(keyCode=>`await ${this._frame}.keyboard.down('${keyCode}');`)
+        let pressUpStr = keyCodes.map(keyCode=>`await ${this._frame}.keyboard.up('${keyCode}');`)
 
         block.addLine({
             type: domEvents.KEYDOWN,
@@ -247,7 +248,7 @@ export default class CodeGenerator {
     block.addLine({
       type: domEvents.KEYDOWN,
       value: `await ${this._frame}.keyboard.press('${keyCode}'); 
-              await sleep(0.5*Speed)
+              await sleep(0.5)
       `,
     });
     return block;
@@ -263,7 +264,7 @@ export default class CodeGenerator {
                    document.querySelector('${selector}').scrollTo(${left},${top})
                 });
            });
-           await sleep(1*Speed);
+           await sleep(1);
       `,
       });
       return block;
