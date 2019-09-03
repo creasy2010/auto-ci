@@ -8,6 +8,7 @@
  **/
 
 import * as React from 'react';
+import { Base64 } from 'js-base64';
 import HelpTab from './help-tab';
 import RecordingTab from './recording-tab';
 import ResultsTab from './results-tab';
@@ -61,7 +62,7 @@ export default class App extends React.Component<IAppP, IAppS> {
       isPaused: false,
       userCaseInfo:{
         project:"supplier",
-        scene:"user-case",
+        scene:"use-case",
         name:"xxxx",
       },
       isCopying: false,
@@ -218,7 +219,7 @@ export default class App extends React.Component<IAppP, IAppS> {
             "name": "杨晓东",
             "email": "coder.yang2010@gmail.com"
           },
-          "content": "${window.btoa(this.state.code)}"
+          "content": "${Base64.encode(this.state.code)}"
       }`
     });
 
