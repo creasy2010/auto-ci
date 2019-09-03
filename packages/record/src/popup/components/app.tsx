@@ -66,8 +66,8 @@ export default class App extends React.Component<IAppP, IAppS> {
       isRecording: false,
       isPaused: false,
       userCaseInfo:{
-        project:"supplier",
-        scene:"use-case",
+        project:"",
+        scene:"",
         name:"xxxx",
       },
       isCopying: false,
@@ -106,6 +106,10 @@ export default class App extends React.Component<IAppP, IAppS> {
       git:{
         ...this.state.git,
         projects:result.filter(item=>item.type==='dir').map(item=>item.name),
+      }
+    },async ()=>{
+      if(this.state.userCaseInfo.project) {
+        await this._loadGitScene();
       }
     });
   }
@@ -183,14 +187,8 @@ export default class App extends React.Component<IAppP, IAppS> {
     let value = e.target.value;
     if(value) {
       if(path === 'project') {
-        let result = await this.gitRepoUtil.getContent(`packages/projects/${value}/scene`);
-        console.log("库返回值::",result);
-        this.setState({
-          git:{
-            ...this.state.git,
-            scene:result.filter(item=>item.type==='dir').map(item=>item.name)
-          }
-        });
+        await this._loadGitScene(value);
+
       }
     }
 
@@ -200,6 +198,19 @@ export default class App extends React.Component<IAppP, IAppS> {
         [path]:value
       }
     })
+  }
+
+  _loadGitScene= async (project:string = this.state.userCaseInfo.project)=>{
+
+    let result = await this.gitRepoUtil.getContent(`packages/projects/${project}/scene`);
+    console.log("库返回值::",result);
+    this.setState({
+      git:{
+        ...this.state.git,
+        scene:result.filter(item=>item.type==='dir').map(item=>item.name)
+      }
+    });
+
   }
 
   _changeInfo=(e)=>{
@@ -324,7 +335,6 @@ export default class App extends React.Component<IAppP, IAppS> {
   };
 
   start = () => {
-    // this.trackEvent('Start');
     this.cleanUp();
     console.debug('start recorder');
     this.bus.postMessage({action: actions.START});
@@ -385,39 +395,47 @@ export default class App extends React.Component<IAppP, IAppS> {
 
   loadState = cb => {
     this.$chrome.storage.local.get(
-      ['controls', 'code', 'options'],
-      ({controls, code, options}) => {
+      ['controls', 'code', 'options','userCaseInfo'],
+      ({controls, code, options,userCaseInfo}) => {
         console.log(
           '加载状态信息:',
           controls,
           code,
           options,
+          userCaseInfo,
           new Date().toLocaleString(),
         );
 
-        let result = {};
+        let oldState = {};
         if (controls) {
-          result = {
-            ...result,
+          oldState = {
+            ...oldState,
             isRecording: controls.isRecording,
             isPaused: controls.isPaused,
           };
         }
 
+        if(userCaseInfo) {
+          oldState = {
+            ...oldState,
+            userCaseInfo
+          };
+        }
+
         if (code) {
-          result = {
-            ...result,
+          oldState = {
+            ...oldState,
             code,
           };
         }
 
         if (options) {
-          result = {
-            ...result,
+          oldState = {
+            ...oldState,
             options,
           };
         }
-        this.setState(result);
+        this.setState(oldState);
         cb();
       },
     );
@@ -427,6 +445,7 @@ export default class App extends React.Component<IAppP, IAppS> {
     this.$chrome.storage.local.set(
       {
         code: this.state.code,
+        userCaseInfo:this.state.userCaseInfo,
         controls: {
           isRecording: this.state.isRecording,
           isPaused: this.state.isPaused,
@@ -434,32 +453,8 @@ export default class App extends React.Component<IAppP, IAppS> {
       },
       () => {
         console.log('state 保存成功');
-        this.$chrome.storage.local.get(
-          ['controls', 'code', 'options'],
-          ({controls, code, options}) => {
-            console.log(
-              'save之后加载状态信息:',
-              controls,
-              code,
-              options,
-              new Date().toLocaleString(),
-            );
-          },
-        );
       },
     );
-  };
-
-  setCopying = () => {
-    // this.trackEvent('Copy');
-    this.setState({
-      isCopying: true,
-    });
-    setTimeout(() => {
-      this.setState({
-        isCopying: false,
-      });
-    }, 1500);
   };
 
   goHome = () => {
