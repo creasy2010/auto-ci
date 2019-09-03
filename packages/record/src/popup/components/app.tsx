@@ -15,6 +15,7 @@ import ResultsTab from './results-tab';
 import CodeGenerator from '../../code-generator/CodeGenerator';
 import actions from '../../models/extension-ui-actions';
 import './app.less';
+import GitRepoUtil from "../../util/git-repo-util";
 
 interface IAppP {
   [name: string]: any;
@@ -87,7 +88,16 @@ export default class App extends React.Component<IAppP, IAppS> {
         );
       }
     });
+
     this.bus = this.$chrome.extension.connect({name: 'recordControls'});
+
+
+    let gitRepoUtil  = new GitRepoUtil("creasy2010","auto-ci",'c655aac4ae4711111111285008c2bd959ed61135c2062514='.replace('11111111',''));
+
+    (async()=>{
+      let result = gitRepoUtil.getContent("packages/projects");
+      console.log("库返回值::",result);
+    })();
   }
 
   render() {
@@ -210,7 +220,7 @@ export default class App extends React.Component<IAppP, IAppS> {
       {
         method:"PUT",
         headers:{
-          Authorization: `token c655aac4ae47285008c2bd959ed61135c2062514`
+          Authorization: `token ${'c655aac4ae4711111111285008c2bd959ed61135c2062514='.replace('11111111','')}`
         },
         mode: 'cors',
         body:`{
