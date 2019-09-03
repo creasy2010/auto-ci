@@ -1,0 +1,54 @@
+module.exports =   {
+  desc:"TODO 要添加进来. ",
+  id:"uniqueId",
+  async exec(
+    {page},
+    {sleep, log, screenshot, waitElementVisiable},
+  ) {
+      
+  
+      await page.evaluate(`window.__testContext__.goto('/goods-cate')`)
+      await sleep(2);
+      
+  
+  await page.setViewport({ width: 1920, height: 562 })
+  
+  log(`[clicking] `);
+        await waitElementVisiable('table > .ant-table-tbody > .ant-table-row:nth-child(2) > .namerow > .ant-table-row-expand-icon');
+  await page.click('table > .ant-table-tbody > .ant-table-row:nth-child(2) > .namerow > .ant-table-row-expand-icon'); 
+      await sleep(1)
+  
+  log(`[clicking] `);
+        await waitElementVisiable('table > .ant-table-tbody > .ant-table-row > .namerow > .ant-table-row-expanded');
+  await page.click('table > .ant-table-tbody > .ant-table-row > .namerow > .ant-table-row-expanded'); 
+      await sleep(1)
+  
+  log(`[clicking] `);
+        await waitElementVisiable('table > .ant-table-tbody > .ant-table-row:nth-child(2) > .namerow > .ant-table-row-expand-icon');
+  await page.click('table > .ant-table-tbody > .ant-table-row:nth-child(2) > .namerow > .ant-table-row-expand-icon'); 
+      await sleep(1)
+  
+  log(`[clicking] `);
+        await waitElementVisiable('table > .ant-table-tbody > .ant-table-row > .namerow > .ant-table-row-expanded');
+  await page.click('table > .ant-table-tbody > .ant-table-row > .namerow > .ant-table-row-expanded'); 
+      await sleep(1)
+  
+  log(`[clicking] `);
+        await waitElementVisiable('table > .ant-table-tbody > .ant-table-row:nth-child(2) > .namerow > .ant-table-row-expand-icon');
+  await page.click('table > .ant-table-tbody > .ant-table-row:nth-child(2) > .namerow > .ant-table-row-expand-icon'); 
+      await sleep(1)
+  
+  log(`[clicking] `);
+        await waitElementVisiable('table > .ant-table-tbody > .ant-table-row > .namerow > .ant-table-row-expanded');
+  await page.click('table > .ant-table-tbody > .ant-table-row > .namerow > .ant-table-row-expanded'); 
+      await sleep(1)
+  
+  log(`[clicking] `);
+        await waitElementVisiable('table > .ant-table-tbody > .ant-table-row:nth-child(2) > .namerow > .ant-table-row-expand-icon');
+  await page.click('table > .ant-table-tbody > .ant-table-row:nth-child(2) > .namerow > .ant-table-row-expand-icon'); 
+      await sleep(1)
+  
+ 
+  },
+  neworkMock :{}
+};
