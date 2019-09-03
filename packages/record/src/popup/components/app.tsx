@@ -8,8 +8,6 @@
  **/
 
 import * as React from 'react';
-import { Base64 } from 'js-base64';
-import HelpTab from './help-tab';
 import RecordingTab from './recording-tab';
 import ResultsTab from './results-tab';
 import CodeGenerator from '../../code-generator/CodeGenerator';
@@ -114,6 +112,10 @@ export default class App extends React.Component<IAppP, IAppS> {
     });
   }
 
+  componentWillUnmount(){
+    this.storeState();
+  }
+
   render() {
     return (
       <div id="puppeteer-recorder" className="recorder">
@@ -160,7 +162,7 @@ export default class App extends React.Component<IAppP, IAppS> {
     return <div>
       <div>
         项目名称:
-        <select data-path="project" value={this.state.userCaseInfo.project} onChange={this._changeChoose}>
+        <select data-path="project" defaultValue={this.state.userCaseInfo.project} onChange={this._changeChoose}>
           <option value={""}>请选择项目</option>
           {projectOptions}
         </select>
@@ -168,7 +170,7 @@ export default class App extends React.Component<IAppP, IAppS> {
       </div>
       <div>
         场景名称:
-      <select  data-path="scene" value={this.state.userCaseInfo.scene}  onChange={this._changeChoose}>
+      <select  data-path="scene" defaultValue={this.state.userCaseInfo.scene}  onChange={this._changeChoose}>
         <option  value={""}>请选择场景</option>
         {
           sceneOptions
@@ -177,7 +179,7 @@ export default class App extends React.Component<IAppP, IAppS> {
       {/*<input data-path="scene"  value={this.state.userCaseInfo.scene}  onChange={this._changeInfo}/>*/}
       </div>
       <div>
-        用例名称:<input data-path="name"  value={this.state.userCaseInfo.name}  onChange={this._changeInfo}/>
+        用例名称:<input data-path="name"  defaultValue={this.state.userCaseInfo.name}  onChange={this._changeInfo}/>
       </div>
     </div>
   }
@@ -188,7 +190,6 @@ export default class App extends React.Component<IAppP, IAppS> {
     if(value) {
       if(path === 'project') {
         await this._loadGitScene(value);
-
       }
     }
 
@@ -197,6 +198,8 @@ export default class App extends React.Component<IAppP, IAppS> {
         ...this.state.userCaseInfo,
         [path]:value
       }
+    },()=>{
+      this.storeState()
     })
   }
 
@@ -220,7 +223,9 @@ export default class App extends React.Component<IAppP, IAppS> {
         ...this.state.userCaseInfo,
         [path]:e.target.value
       }
-    })
+    },()=>{
+     this.storeState();
+   })
   }
 
   /**
@@ -277,7 +282,7 @@ export default class App extends React.Component<IAppP, IAppS> {
    */
   _upload =async  ():Promise<void> => {
     let {project,scene,name}=this.state.userCaseInfo;
-   let fileName =name+(Math.random().toString().substr(2,5))
+   let fileName =name+(Math.random().toString().substr(2,5));
 
     try{
       let response = await this.gitRepoUtil.createFile(`packages/projects/${project}/scene/${scene}/${fileName}`,
@@ -441,6 +446,9 @@ export default class App extends React.Component<IAppP, IAppS> {
     );
   };
 
+  /**
+   * 把状态持久化起来
+   */
   storeState = () => {
     this.$chrome.storage.local.set(
       {
