@@ -38,7 +38,7 @@ export default class RecordingTab extends React.Component<
       <div className="tab recording-tab">
         <div className="content">
           {this.props.isRecording
-            ? <div className="events" v-show="isRecording">
+            ? <div className="events">
                 {liveEvents.length === 0
                   ? <p
                       className="text-muted text-center loading"
@@ -54,7 +54,7 @@ export default class RecordingTab extends React.Component<
                           <div className="event-description">
                             <div className="event-action">{event.action}</div>
                             <div className="event-props text-muted">
-                              {event.selector || this.parseEventValue(event)} :{event.value}{' '}
+                              {event.selector || this.parseEventValue(event)} :{JSON.stringify(event.value)+' '}
                             </div>
                           </div>
                         </li>,

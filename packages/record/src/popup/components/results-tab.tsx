@@ -30,17 +30,14 @@ export default class ResultsTab extends React.Component<
     this.state = {};
   }
 
-  componentDidMount() {}
-
   render() {
     return (
       <div className="tab results-tab">
         <div className="content">
           <div className="generated-code">
-
             <pre>
               {this.props.code
-                ? <code className="javascript" />
+                ? <code className="javascript">{this.props.code}</code>
                 : <code>No code yet...</code>}
             </pre>
           </div>

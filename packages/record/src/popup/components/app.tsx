@@ -68,7 +68,7 @@ export default class App extends React.Component<IAppP, IAppS> {
           ({recording}) => {
             console.debug('loaded recording', recording);
             this.setState({
-              liveEvents: recording||[],
+              liveEvents: recording || [],
             });
           },
         );
@@ -94,11 +94,7 @@ export default class App extends React.Component<IAppP, IAppS> {
                   {this.state.isPaused ? 'paused' : 'recording'}
                 </div>
               : null}
-            <a
-              href="#"
-              onClick={this.toggleShowHelp}
-              className="header-button"
-            >
+            <a href="#" onClick={this.toggleShowHelp} className="header-button">
               <img src="/images/help.svg" alt="help" width="18px" />
             </a>
             <a href="#" onClick={this.openOptions} className="header-button">
@@ -109,41 +105,55 @@ export default class App extends React.Component<IAppP, IAppS> {
 
         <div className="main">
           <div className="tabs">
-            <RecordingTab
-              isRecording={this.state.isRecording}
-              liveEvents={this.state.liveEvents}
-            />
-            <div className="recording-footer" v-show="!showResultsTab">
-              <button
-                className={
-                  'btn btn-sm ' +
-                  (this.state.isRecording ? 'btn-danger' : 'btn-primary')
-                }
-                onClick={this.toggleRecord}
-              >
-                {this.state.isRecording ? 'Stop' : 'Record'}
-              </button>
-              {this.state.isRecording
-                ? <button
-                    className="btn btn-sm btn-primary btn-outline-primary"
-                    onClick={this.togglePause}
-                  >
-                    {this.state.isPaused ? 'Resume' : 'Pause'}
-                  </button>
-                : null}
-              <a
-                href="#"
-                onClick={this._showResult}
-              >
-                view code
-              </a>
-            </div>
-            <ResultsTab code={this.state.code} />
+            {this.state.isRecording
+              ? <RecordingTab
+                  isRecording={this.state.isRecording}
+                  liveEvents={this.state.liveEvents}
+                />
+              : null}
+            {this.state.showResultsTab
+              ? <ResultsTab code={this.state.code} />
+              : null}
+            {this._getControlBtsn()}
           </div>
         </div>
       </div>
     );
   }
+
+  /**
+   * 获取控制按钮;
+   * @returns {any}
+   * @private
+   */
+  _getControlBtsn = () => {
+    return (
+      <div className="recording-footer">
+        <button
+          className={
+            'btn btn-sm ' +
+            (this.state.isRecording ? 'btn-danger' : 'btn-primary')
+          }
+          onClick={this.toggleRecord}
+        >
+          {this.state.isRecording ? 'Stop' : 'Record'}
+        </button>
+        {this.state.isRecording
+          ? <button
+              className="btn btn-sm btn-primary btn-outline-primary"
+              onClick={this.togglePause}
+            >
+              {this.state.isPaused ? 'Resume' : 'Pause'}
+            </button>
+          : null}
+        {this.state.code
+          ? <a href="#" onClick={this._showResult}>
+              view code
+            </a>
+          : null}
+      </div>
+    );
+  };
 
   _showResult = () => {
     this.setState({showResultsTab: true});
@@ -156,29 +166,34 @@ export default class App extends React.Component<IAppP, IAppS> {
       this.start();
     }
 
-    this.setState({
-      isRecording: !this.state.isRecording,
-    },()=>{
-      this.storeState();
-    });
+    this.setState(
+      {
+        isRecording: !this.state.isRecording,
+      },
+      () => {
+        this.storeState();
+      },
+    );
   };
 
   togglePause = () => {
-
-    let _pauseStatus=true;
+    let _pauseStatus = true;
     if (this.state.isPaused) {
       this.bus.postMessage({action: actions.UN_PAUSE});
-      _pauseStatus =false;
+      _pauseStatus = false;
     } else {
       this.bus.postMessage({action: actions.PAUSE});
-      _pauseStatus=true;
+      _pauseStatus = true;
     }
 
-    this.setState({
-      isPaused: _pauseStatus,
-    },()=>{
-      this.storeState();
-    });
+    this.setState(
+      {
+        isPaused: _pauseStatus,
+      },
+      () => {
+        this.storeState();
+      },
+    );
   };
 
   start = () => {
@@ -194,19 +209,21 @@ export default class App extends React.Component<IAppP, IAppS> {
     this.bus.postMessage({action: actions.STOP});
 
     this.$chrome.storage.local.get(
-      ['recording', 'options', 'network'],
+      ['recording', 'code', 'options', 'network'],
       ({recording, options, network}) => {
         console.debug('loaded recording', recording);
         console.debug('loaded options', options);
-        debugger;
-        this.setState({
-          recording,
-        });
-        const codeOptions = options ? options.code : {};
 
+        //TODO 这里只读即可了..
+        const codeOptions = options ? options.code : {};
         const codeGen = new CodeGenerator(codeOptions);
+        let code = codeGen.generate(recording, network);
         this.setState({
-          code: codeGen.generate(this.state.recording, network),
+          isPaused: false,
+          isRecording: false,
+
+          recording,
+          code,
           showResultsTab: true,
         });
         this.storeState();
@@ -243,7 +260,13 @@ export default class App extends React.Component<IAppP, IAppS> {
     this.$chrome.storage.local.get(
       ['controls', 'code', 'options'],
       ({controls, code, options}) => {
-        console.log('加载状态信息:',controls, code, options,new Date().toLocaleString());
+        console.log(
+          '加载状态信息:',
+          controls,
+          code,
+          options,
+          new Date().toLocaleString(),
+        );
 
         let result = {};
         if (controls) {
@@ -274,23 +297,30 @@ export default class App extends React.Component<IAppP, IAppS> {
   };
 
   storeState = () => {
-    this.$chrome.storage.local.set({
-      code: this.state.code,
-      controls: {
-        isRecording: this.state.isRecording,
-        isPaused: this.state.isPaused,
-      },
-    }, () => {
-      console.log('state 保存成功');
-      this.$chrome.storage.local.get(
-        ['controls', 'code', 'options'],
-        ({controls, code, options}) => {
-          console.log('save之后加载状态信息:',controls, code, options,new Date().toLocaleString());
-
+    this.$chrome.storage.local.set(
+      {
+        code: this.state.code,
+        controls: {
+          isRecording: this.state.isRecording,
+          isPaused: this.state.isPaused,
         },
-      )
-
-    });
+      },
+      () => {
+        console.log('state 保存成功');
+        this.$chrome.storage.local.get(
+          ['controls', 'code', 'options'],
+          ({controls, code, options}) => {
+            console.log(
+              'save之后加载状态信息:',
+              controls,
+              code,
+              options,
+              new Date().toLocaleString(),
+            );
+          },
+        );
+      },
+    );
   };
 
   setCopying = () => {

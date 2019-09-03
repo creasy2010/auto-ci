@@ -121,9 +121,7 @@ export default class CodeGenerator {
       switch (action) {
           case 'keyup':
             //TODO  单键, 或组合键 ;
-              debugger;
               if( value instanceof Array) {
-                  debugger;
                 let isCheck = value.filter(item=>toRecordKeyCode.includes(item))
                     .length === value.length;
                 console.log('快捷键生成:',JSON.stringify(value));

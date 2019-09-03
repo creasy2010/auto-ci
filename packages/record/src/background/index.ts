@@ -61,13 +61,13 @@ class RecordingController {
 
   start() {
     console.debug('start recording');
-    this.cleanUp(() => {
+    this.cleanUp(async () => {
       this._badgeState = 'rec';
 
       this._hasGoto = false;
       this._hasViewPort = false;
 
-      this.injectScript();
+      await this.injectScript();
 
       this._boundedMessageHandler = this.handleMessage.bind(this);
       this._boundedNavigationHandler = this.handleNavigation.bind(this);
