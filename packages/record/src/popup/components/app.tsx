@@ -14,6 +14,7 @@ import CodeGenerator from '../../code-generator/CodeGenerator';
 import actions from '../../models/extension-ui-actions';
 import './app.less';
 import GitRepoUtil from "../../util/git-repo-util";
+import pptrActions from "../../code-generator/pptr-actions";
 
 interface IAppP {
   [name: string]: any;
@@ -245,8 +246,12 @@ export default class App extends React.Component<IAppP, IAppS> {
         >
           {this.state.isRecording ? '停止' : '录制'}
         </button>
-        <button onClick={this.reset}>重置</button>
-        <button onClick={this._upload}>上传</button>
+        {!this.state.isRecording && this.state.code &&
+        <>
+          <button onClick={this.reset}>重置</button>
+          <button onClick={this._upload}>上传</button>
+          </>
+        }
         {this.state.isRecording
           ? <>
               <button
@@ -255,11 +260,11 @@ export default class App extends React.Component<IAppP, IAppS> {
               >
                 {this.state.isPaused ? '继续' : '暂停'}
               </button>
-            <button>
+            <button onClick={this._sendScreenshotCodeRecord}>
               截屏
             </button>
-            <button>
-              休眠2秒
+            <button onClick={this._sendSleepCodeRecord}>
+              休眠1秒
             </button>
             </>
           : null}
@@ -271,6 +276,20 @@ export default class App extends React.Component<IAppP, IAppS> {
       </div>
     );
   };
+
+  _sendScreenshotCodeRecord=()=>{
+    this.$chrome.runtime.sendMessage({
+      action:pptrActions.SCREENSHOT,
+    })
+  }
+
+
+  _sendSleepCodeRecord=()=>{
+    this.$chrome.runtime.sendMessage({
+      action:pptrActions.SlEEP,
+      value:1
+    })
+  }
 
   _toggleShowResult = () => {
     this.setState({showResultsTab: !this.state.showResultsTab});
@@ -298,6 +317,7 @@ export default class App extends React.Component<IAppP, IAppS> {
       this.reset();
     }catch (e) {
      console.warn(e);
+     //@ts-ignore
      window.alert("上传文件发生错误"+e.toString());
     }
   };

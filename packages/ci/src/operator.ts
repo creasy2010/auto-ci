@@ -57,8 +57,7 @@ export default class Operator {
     try{
       await this.init();
       await sleep(2);
-      await this.useCase.exec(
-       {
+      await this.useCase.exec({
           page: this.context.page,
         },
         this.util,

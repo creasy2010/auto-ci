@@ -172,7 +172,10 @@ export default class CodeGenerator {
           this._hasNavigation = true;
           break;
         case pptrActions.SCREENSHOT:
-          this._blocks.push(this._handleScreenshot(value));
+          this._blocks.push(this._handleScreenshot());
+          break;
+          case pptrActions.SlEEP:
+          this._blocks.push(this._handleSleep(value));
           break;
       }
     }
@@ -355,32 +358,49 @@ export default class CodeGenerator {
     });
   }
 
-  _handleScreenshot(options) :Block{
-    let block;
+  _handleSleep(value:number=1):Block{
 
-    if (options && options.x && options.y && options.width && options.height) {
-      // remove the tailing 'px'
-      for (let prop in options) {
-        if (options.hasOwnProperty(prop) && options[prop].slice(-2) === 'px') {
-          options[prop] = options[prop].substring(0, options[prop].length - 2);
-        }
-      }
+    const block = new Block(this._frameId);
+    block.addLine({
+      type: pptrActions.SlEEP,
+      value: `await sleep(${value})`,
+    })
 
-      block = new Block(this._frameId, {
-        type: pptrActions.SCREENSHOT,
-        value: `await ${this._frame}.screenshot({ path: 'screenshot_${this
-          ._screenshotCounter}.png', clip: { x: ${options.x}, y: ${options.y}, width: ${options.width}, height: ${options.height} } })`,
-      });
-    } else {
-      block = new Block(this._frameId, {
-        type: pptrActions.SCREENSHOT,
-        value: `await ${this._frame}.screenshot({ path: 'screenshot_${this
-          ._screenshotCounter}.png' })`,
-      });
-    }
-
-    this._screenshotCounter++;
     return block;
+  }
+
+  _handleScreenshot() :Block{
+   return  new Block(this._frameId, {
+      type: pptrActions.SCREENSHOT,
+      value: `
+      await screenshot( '${this._screenshotCounter++}')
+      `,
+    })
+
+    // let block;
+    // if (options && options.x && options.y && options.width && options.height) {
+    //   // remove the tailing 'px'
+    //   for (let prop in options) {
+    //     if (options.hasOwnProperty(prop) && options[prop].slice(-2) === 'px') {
+    //       options[prop] = options[prop].substring(0, options[prop].length - 2);
+    //     }
+    //   }
+    //
+    //   block = new Block(this._frameId, {
+    //     type: pptrActions.SCREENSHOT,
+    //     value: `await ${this._frame}.screenshot({ path: 'screenshot_${this
+    //       ._screenshotCounter}.png', clip: { x: ${options.x}, y: ${options.y}, width: ${options.width}, height: ${options.height} } })`,
+    //   });
+    // } else {
+    //   block = new Block(this._frameId, {
+    //     type: pptrActions.SCREENSHOT,
+    //     value: `await ${this._frame}.screenshot({ path: 'screenshot_${this
+    //       ._screenshotCounter}.png' })`,
+    //   });
+    // }
+    //
+    // this._screenshotCounter++;
+    // return block;
   }
 
   _handleWaitForNavigation() :Block{
