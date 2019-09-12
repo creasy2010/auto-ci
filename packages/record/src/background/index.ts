@@ -37,7 +37,7 @@ class RecordingController {
           $chrome.tabs.sendMessage(this._tabId,msg);//事件转发一次. 到contentscript;
         }
         if (msg.action && msg.action === actions.START) {
-          $chrome.browserAction.setIcon({path: './images/icon-green.png'});
+          $chrome.browserAction.setIcon({path: './images/icon_wait.png'});
           $chrome.browserAction.setBadgeText({text: this._badgeState});
           $chrome.browserAction.setBadgeBackgroundColor({color: '#FF0000'});
 
@@ -46,6 +46,8 @@ class RecordingController {
             if (isHit) {
               return;
             }
+
+            $chrome.browserAction.setIcon({path: './images/icon-green.png'});
             isHit = true;
             this.start();
           });
@@ -397,13 +399,6 @@ window.recordingController = new RecordingController();
 //@ts-ignore
 window.recordingController.boot();
 
-
-async function loadScriptsAsync(scripts:string[]):Promise<Array<Array<any>>>{
-
-  return new Promise(async (resolve,reject)=>{
-
-  })
-}
 
 async function loadScript(scriptPath):Promise<Array<any>>{
   return new Promise((resolve,reject)=>{

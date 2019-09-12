@@ -89,12 +89,12 @@ const compJsonReg = /checkResult start:: (.*) checkResult ent::/;
  * 将两次的结果进行对比, 把相似度不为100的区分 出来
  * @returns {Promise<IMatchResultItem[]>}
  */
-export async function compScreen(): Promise<IMatchResultItem[]> {
-  let baseDir = join(__dirname, 'screenshot-base'),
-    compDir = join(__dirname, 'screenshot');
+export async function compScreen(baseDir:string, compDir:string): Promise<IMatchResultItem[]> {
+
+  console.log('对比图片:',baseDir,compDir);
   return new Promise<IMatchResultItem[]>((resolve, reject) => {
     exec(
-      `./copmarePicture.py ${baseDir} ${compDir}`,
+      `/Users/dong/wanmi/sbc/sbc-supplier/__tests__/copmarePicture.py ${baseDir} ${compDir}`,
       {
         cwd: __dirname,
       },
@@ -116,10 +116,14 @@ export async function compScreen(): Promise<IMatchResultItem[]> {
             console.log('jsonStr', jsonStr);
             resolve(result);
             return ;
+          }else{
+            resolve([]);
+            return;
           }
         }else {
           console.warn('can\'t find result or the compare !' );
           resolve([]);
+          return ;
         }
       },
     );
@@ -127,6 +131,7 @@ export async function compScreen(): Promise<IMatchResultItem[]> {
 }
 
 export function sleep(time: number) {
+  console.log('sleep:',time,'s');
   return new Promise(resolve => {
     setTimeout(resolve, time * 1000);
   });

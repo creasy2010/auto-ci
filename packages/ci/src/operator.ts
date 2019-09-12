@@ -4,7 +4,7 @@ import {
   sleep,
   log,
   screenshot,
-  waitElementVisiable,
+  waitElementVisiable, compScreen,
 } from './util';
 import {join} from 'path';
 import {ensureDirSync} from "fs-extra";
@@ -71,14 +71,13 @@ export default class Operator {
     }
   }
 
-  private async check(){
-
-
+  private async check() {
+    // let result  =   await compScreen(join(this.dir, 'screenshot-base'),join(this.dir, 'screenshot'));
+    // console.log(`用例对比结果:${result}`);s
   }
 
   private async clean() {
     if (this.cancelFunc) {
-      console.debug('清除相关设置;');
       await this.cancelFunc();
     }
   }

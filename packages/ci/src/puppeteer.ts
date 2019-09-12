@@ -19,7 +19,7 @@ import {Page} from "puppeteer";
     timeout:10000,
     ignoreHTTPSErrors: true,
     dumpio: true,
-    devtools: false,
+    devtools: true,
     headless: false,
     args: ['--start-maximized'],
   });
@@ -29,7 +29,7 @@ import {Page} from "puppeteer";
 
   await setPage(page);
 
-  await page.goto('http://127.0.0.1:3001/');
+  await page.goto('http://seller.s2btest.kstore.shop/');
 
   let projects = await listDirFiles(join(__dirname, '../../projects'));
 
@@ -53,7 +53,11 @@ import {Page} from "puppeteer";
           dir: join(__dirname, scene),
           projectConfig,
         },
-        useCases.map(item => require(join(basePah, item))),
+        useCases.map(item => {
+          let useCase= require(join(basePah, item));
+          useCase.id =item;
+          return useCase;
+        }),
       );
       try {
         await screen.run();
@@ -83,7 +87,7 @@ function  getBrowserManager(browser:Browser){
 async function setPage(page:Page){
   await page.setViewport({width: 0, height: 0});
   // page.setDefaultNavigationTimeout(5000);
-  page.setDefaultTimeout(8000);
+  page.setDefaultTimeout(100000);
 }
 
 

@@ -1,8 +1,9 @@
 import {Page} from 'puppeteer';
 import {IEcecuteContext, IUseCase} from '../typings';
 import {createOperator} from './factory';
-import {sleep} from "./util";
+import {compScreen, sleep} from "./util";
 import {ensureDirSync} from  'fs-extra';
+import {join} from "path";
 
 /**
  * @desc
@@ -48,6 +49,7 @@ export default class Scene {
 
     for (let i = 0, iLen = this.userCases.length; i < iLen; i++) {
       let userCase = this.userCases[i];
+      console.log(`###useCase begin:userCase[${userCase.id+userCase.desc}]`);
       let operator = createOperator(this.context, userCase);
   
       
@@ -55,8 +57,9 @@ export default class Scene {
         await operator.run();
       } catch (err) {
         //TODO 拍照保住现场;
-        console.warn('发生异常,reload页面,继续下一用例;',err);
-
+        console.warn(`[${userCase.id+userCase.desc}]`,'发生异常,reload页面,继续下一用例;',err);
+        console.log('sleep 100 秒,定位问题.');
+        await sleep(100);
         try {
           let newPage = await this.context.browserManager.getNewPage();
           await Promise.all([this.context.page.close(),newPage.goto(this.context.projectConfig.webSite)]);
@@ -68,9 +71,9 @@ export default class Scene {
         }
       }
       await sleep(3);
-      console.log(`userCase:${userCase.id+userCase.desc} end`)
+      console.log(`###userCase end:${userCase.id+userCase.desc} `);
+      console.log('###############################################');
     }
-
     await this.clean();
   }
 

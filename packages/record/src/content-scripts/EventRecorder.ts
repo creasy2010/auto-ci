@@ -188,7 +188,7 @@ export default class EventRecorder {
       }
         if(e.type === 'click') {
           //@ts-ignore
-            msg.mark = e.target.innerText;
+            msg.mark = getTargetText( e.target);
         }
         console.log(`记录操作[${msg.action}]`,msg);
       this._sendMessage(msg)
@@ -249,4 +249,17 @@ export default class EventRecorder {
   static _formatDataSelector (element, attribute) {
     return `[${attribute}="${element.getAttribute(attribute)}"]`
   }
+}
+
+/**
+ * 根据目标节点,找到相关文字 方便以后定位,
+ * 如果本节点没有则向上寻找;
+ * @param target
+ */
+function getTargetText(target):string{
+  let textFlag=  target.outerText;
+  if(!textFlag) {
+    textFlag = getTargetText(target.parentNode) +"下的节点";
+  }
+  return textFlag;
 }

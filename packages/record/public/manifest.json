@@ -1,8 +1,8 @@
 {
-  "name": "Puppeteer Recorder",
-  "version": "0.7.0",
+  "name": "auto ci - record",
+  "version": "0.0.1.1",
   "manifest_version": 2,
-  "description": "A Chrome extension for recording browser interaction and generating Puppeteer scripts",
+  "description": "记录页面操作生成 autoci执行脚本",
   "permissions": [
     "storage",
     "history",
@@ -22,7 +22,7 @@
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "browser_action": {
     "default_icon": "images/icon-black.png",
-    "default_title": "Puppeteer Recorder",
+    "default_title": "auto ci - record",
     "default_popup": "index.html"
   },
   "commands": {

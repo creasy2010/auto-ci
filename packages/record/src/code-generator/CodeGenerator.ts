@@ -164,13 +164,13 @@ export default class CodeGenerator {
         case pptrActions.GOTO:
           this._blocks.push(this._handleGoto(href));
           break;
-        case pptrActions.VIEWPORT:
-          this._blocks.push(this._handleViewport(value.width, value.height));
-          break;
-        case pptrActions.NAVIGATION:
-          this._blocks.push(this._handleWaitForNavigation());
-          this._hasNavigation = true;
-          break;
+        // case pptrActions.VIEWPORT:
+        //   this._blocks.push(this._handleViewport(value.width, value.height));
+        //   break;
+        // case pptrActions.NAVIGATION:
+        //   this._blocks.push(this._handleWaitForNavigation());
+        //   this._hasNavigation = true;
+        //   break;
         case pptrActions.SCREENSHOT:
           this._blocks.push(this._handleScreenshot());
           break;
@@ -231,18 +231,31 @@ export default class CodeGenerator {
     _handleCompositeKeyDown(selector, keyCodes) {
       console.log('_handleCompositeKeyDown',keyCodes);
         const block = new Block(this._frameId);
+        let keyCodeStr = keyCodes.join('-');
 
-        let pressDownStr = keyCodes.map(keyCode=>`await ${this._frame}.keyboard.down('${keyCode}');`)
-        let pressUpStr = keyCodes.map(keyCode=>`await ${this._frame}.keyboard.up('${keyCode}');`)
-
-        block.addLine({
+        if(keyCodeStr ==='Meta-a' || keyCodeStr ==='Ctrl-a'){
+          block.addLine({
             type: domEvents.KEYDOWN,
-            value: `${pressDownStr.join("")}
+            value: `
+             await page.evaluate( () => document.execCommand( 'selectall', false, null ) );
+      `});
+        }else {
+          //TODO 这个暂时不起任何使用呀.
+          let pressDownStr = keyCodes.map(keyCode=>`await ${this._frame}.keyboard.down('${keyCode}');`)
+          let pressUpStr = keyCodes.map(keyCode=>`await ${this._frame}.keyboard.up('${keyCode}');`)
+
+          block.addLine({
+            type: domEvents.KEYDOWN,
+            value: `
+            log('点击组合键:${keyCodeStr}')
+            ${pressDownStr.join("")}
               await sleep(0.2); 
             ${pressUpStr.join("")}
               await sleep(0.5); 
       `,
-        });
+          });
+        }
+
         return block;
     }
 
