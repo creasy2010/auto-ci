@@ -2,10 +2,10 @@ import {join} from 'path';
 import * as puppeteer from 'puppeteer';
 import {createScreen} from './factory';
 
-import {readdir, promises as fsPromise} from 'fs';
+import {existsSync,readdir, promises as fsPromise} from 'fs';
 import {getProjectConfig} from './project-config';
-import {Browser} from "puppeteer";
-import {Page} from "puppeteer";
+import {Browser} from 'puppeteer';
+import {Page} from 'puppeteer';
 /**
  * @desc
  *
@@ -13,10 +13,13 @@ import {Page} from "puppeteer";
  *
  * @Date    2019/7/27
  **/
+import * as useCaseManager from './use-case-manager';
+import {ISceneConfig} from "../typings";
 
+const initConfig ={};
 (async () => {
   const browser = await puppeteer.launch({
-    timeout:10000,
+    timeout: 10000,
     ignoreHTTPSErrors: true,
     dumpio: true,
     devtools: true,
@@ -25,7 +28,6 @@ import {Page} from "puppeteer";
   });
 
   const [page] = await browser.pages();
-
 
   await setPage(page);
 
@@ -41,23 +43,31 @@ import {Page} from "puppeteer";
 
     let projectConfig = await getProjectConfig(project);
 
-    for (let scene of scenes) {
-      let basePah = join(__dirname, '../../projects', project, 'scene', scene);
-      let useCases = await listDirFiles(basePah);
 
-      //删除排序输入法;TODO
+    for (let scene of scenes) {
+      let sceneConfig:ISceneConfig=initConfig ;
+
+      let basePah = join(project, 'scene', scene);
+      if(!existsSync(join(basePah,'config/config.js'))){
+        sceneConfig = require(join(basePah,'config/config.js'));
+
+      }
+
+      let useCases = (await listDirFiles(basePah)).filter(useCaseId=>useCaseId.endsWith(".js"));
+
+      if(sceneConfig.afterUseCases){
+        useCases =useCases.concat(sceneConfig.afterUseCases);
+      }
+
       let screen = createScreen(
         {
-          browserManager:getBrowserManager(browser),
+          sceneConfig,
+          browserManager: getBrowserManager(browser),
           page,
           dir: join(__dirname, scene),
           projectConfig,
         },
-        useCases.map(item => {
-          let useCase= require(join(basePah, item));
-          useCase.id =item;
-          return useCase;
-        }),
+        useCases.map(item => useCaseManager.loadUseCase(join(basePah, item))),
       );
       try {
         await screen.run();
@@ -65,7 +75,7 @@ import {Page} from "puppeteer";
         console.error('场景执行异常', err);
       }
       useCases.map(item => {
-        delete require.cache[require.resolve(join(basePah, item))];
+        useCaseManager.unloadUseCase(join(basePah, item));
       });
     }
   }
@@ -73,25 +83,21 @@ import {Page} from "puppeteer";
   await browser.close();
 })();
 
-function  getBrowserManager(browser:Browser){
-
+function getBrowserManager(browser: Browser) {
   return {
-    getNewPage:async ():Promise<Page>=>{
+    getNewPage: async (): Promise<Page> => {
       let page = await browser.newPage();
       await setPage(page);
-        return page;
-    }
-  }
+      return page;
+    },
+  };
 }
 
-async function setPage(page:Page){
+async function setPage(page: Page) {
   await page.setViewport({width: 0, height: 0});
   // page.setDefaultNavigationTimeout(5000);
   page.setDefaultTimeout(100000);
 }
-
-
-
 
 async function listDirFiles(dir: string): Promise<string[]> {
   try {
