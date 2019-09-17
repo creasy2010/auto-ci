@@ -55,22 +55,9 @@ module.exports =   {
   await page.type('.cashierMain:nth-child(3) > .cart:nth-child(1) > .cartHeader:nth-child(1) .fl:nth-child(2) > .ant-select:nth-child(1) > .ant-select-selection:nth-child(1) > .ant-select-selection__rendered:nth-child(1) > .ant-select-search:nth-child(2) > .ant-select-search__field__wrap:nth-child(1) > .ant-select-search__field:nth-child(1)','1')
   
   await sleep(1)
-  
-  await sleep(1)
-  
-  log(`[clicking]输入会员手机号 `);
-        await waitElementVisiable('.cashierMain:nth-child(3) > .cart > .cartHeader > div > .fl > .ant-select > .ant-select-selection > .ant-select-selection__rendered > .ant-select-selection__placeholder');
-  await page.click('.cashierMain:nth-child(3) > .cart > .cartHeader > div > .fl > .ant-select > .ant-select-selection > .ant-select-selection__rendered > .ant-select-selection__placeholder'); 
-      await sleep(1)
-  
-  log(`[clicking] 下的节点 `);
-        await waitElementVisiable('.cashierMain:nth-child(3) > .cart:nth-child(1) > .cartHeader:nth-child(1) .fl:nth-child(2) > .ant-select:nth-child(1) > .ant-select-selection:nth-child(1) > .ant-select-selection__rendered:nth-child(1) > .ant-select-search:nth-child(2) > .ant-select-search__field__wrap:nth-child(1) > .ant-select-search__field:nth-child(1)');
-  await page.click('.cashierMain:nth-child(3) > .cart:nth-child(1) > .cartHeader:nth-child(1) .fl:nth-child(2) > .ant-select:nth-child(1) > .ant-select-selection:nth-child(1) > .ant-select-selection__rendered:nth-child(1) > .ant-select-search:nth-child(2) > .ant-select-search__field__wrap:nth-child(1) > .ant-select-search__field:nth-child(1)'); 
-      await sleep(1)
-  
+
   await page.keyboard.press('ArrowDown'); 
               await sleep(0.5)
-      
   
   log(`[clicking]确 定 `);
         await waitElementVisiable('.cashierMain:nth-child(3) > .cart > .cartHeader > div > .fl > .ant-btn');
@@ -114,7 +101,8 @@ module.exports =   {
   
   await waitElementVisiable('.cashierMain:nth-child(3) > .cart:nth-child(1) > .cartHeader:nth-child(1) .fl:nth-child(2) > .ant-select:nth-child(1) > .ant-select-selection:nth-child(1) > .ant-select-selection__rendered:nth-child(1) > .ant-select-search:nth-child(2) > .ant-select-search__field__wrap:nth-child(1) > .ant-select-search__field:nth-child(1)')
   await page.type('.cashierMain:nth-child(3) > .cart:nth-child(1) > .cartHeader:nth-child(1) .fl:nth-child(2) > .ant-select:nth-child(1) > .ant-select-selection:nth-child(1) > .ant-select-selection__rendered:nth-child(1) > .ant-select-search:nth-child(2) > .ant-select-search__field__wrap:nth-child(1) > .ant-select-search__field:nth-child(1)','1')
-  
+
+      await sleep(1)
   await page.keyboard.press('ArrowDown'); 
               await sleep(0.5)
       

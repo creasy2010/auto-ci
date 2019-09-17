@@ -53,14 +53,11 @@ module.exports =   {
   
   await waitElementVisiable('.buy-card:nth-child(1) > .cartHeader:nth-child(1) > div:nth-child(1) > .fl:nth-child(2) > .ant-select:nth-child(1) > .ant-select-selection:nth-child(1) > .ant-select-selection__rendered:nth-child(1) > .ant-select-search:nth-child(2) > .ant-select-search__field__wrap:nth-child(1) > .ant-select-search__field:nth-child(1)')
   await page.type('.buy-card:nth-child(1) > .cartHeader:nth-child(1) > div:nth-child(1) > .fl:nth-child(2) > .ant-select:nth-child(1) > .ant-select-selection:nth-child(1) > .ant-select-selection__rendered:nth-child(1) > .ant-select-search:nth-child(2) > .ant-select-search__field__wrap:nth-child(1) > .ant-select-search__field:nth-child(1)','1')
-  
+
+      await sleep(1)
   await page.keyboard.press('ArrowDown'); 
               await sleep(0.5)
-      
-  
-  await page.keyboard.press('ArrowDown'); 
-              await sleep(0.5)
-      
+
   
   await page.keyboard.press('Enter'); 
               await sleep(0.5)

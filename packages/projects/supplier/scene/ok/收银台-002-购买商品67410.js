@@ -48,8 +48,9 @@ module.exports =   {
   
   await waitElementVisiable('.ant-select-selection > .ant-select-selection__rendered > .ant-select-search > .ant-select-search__field__wrap > .ant-select-search__field')
   await page.type('.ant-select-selection > .ant-select-selection__rendered > .ant-select-search > .ant-select-search__field__wrap > .ant-select-search__field','1')
-  
-  await page.keyboard.press('ArrowDown'); 
+      await sleep(1);
+
+      await page.keyboard.press('ArrowDown');
               await sleep(0.5)
       
   
