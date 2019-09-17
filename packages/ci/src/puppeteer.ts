@@ -24,7 +24,7 @@ const ProjectPath = join(__dirname, "../../projects");
     timeout: 10000,
     ignoreHTTPSErrors: true,
     dumpio: true,
-    devtools: true,
+    devtools: false,
     headless: false,
     args: ["--start-maximized"]
   });
