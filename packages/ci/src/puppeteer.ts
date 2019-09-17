@@ -59,6 +59,11 @@ const ProjectPath = join(__dirname, "../../projects");
         useCaseId.endsWith(".js")
       );
 
+
+      if(sceneConfig.filter){
+        useCases= sceneConfig.filter(useCases);
+      }
+
       if (sceneConfig.afterUseCases) {
         useCases = useCases.concat(sceneConfig.afterUseCases);
       }
