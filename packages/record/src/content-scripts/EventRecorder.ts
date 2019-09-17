@@ -130,7 +130,11 @@ export default class EventRecorder {
       const optimizedMinLength = (e.target.id) ? 2 : 10 // if the target has an id, use that instead of multiple other selectors
       const selector = this._dataAttribute && e.target.hasAttribute && e.target.hasAttribute(this._dataAttribute)
         ? EventRecorder._formatDataSelector(e.target, this._dataAttribute)
-        : finder(e.target, {seedMinLength: 5, optimizedMinLength: optimizedMinLength})
+        : finder(e.target, {
+          className:(className:string):boolean=>!className.includes("active"),
+          seedMinLength: 5,
+          optimizedMinLength: optimizedMinLength
+        })
 
         let value = e.target.value;
       //TODO 这里的写法不太合适.
