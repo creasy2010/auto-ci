@@ -66,6 +66,7 @@ export default class EventRecorder {
     console.log('清除事件');
     this._removeAllListeners(Object.values(eventsToRecord));
     $chrome.runtime.onMessage.removeListener(this._handleBackgroundMessage);
+    $window.pptRecorderAddedControlListeners = false;
     $window.document.pptRecorderAddedControlListeners=false;
   }
 

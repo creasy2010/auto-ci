@@ -406,7 +406,7 @@ async function loadScript(scriptPath):Promise<Array<any>>{
       {
         file: scriptPath,
         allFrames: true,
-        runAt: 'document_end',
+        runAt: 'document_idle',
       },
       results => {
         resolve(results);
