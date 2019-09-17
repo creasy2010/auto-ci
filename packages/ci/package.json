@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "ci": "ts-node --inspect ./src/puppeteer.ts",
+    "ci": "ts-node  ./src/puppeteer.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -15,6 +15,7 @@
     "@types/urllib": "^2.33.0",
     "fs-extra": "^8.1.0",
     "puppeteer": "^1.19.0",
+    "typescript": "^3.6.3",
     "urllib": "^2.34.0"
   }
 }

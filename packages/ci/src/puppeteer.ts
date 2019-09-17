@@ -1,11 +1,11 @@
-import {join} from 'path';
-import * as puppeteer from 'puppeteer';
-import {createScreen} from './factory';
+import { join, dirname } from "path";
+import * as puppeteer from "puppeteer";
+import { createScreen } from "./factory";
 
-import {existsSync,readdir, promises as fsPromise} from 'fs';
-import {getProjectConfig} from './project-config';
-import {Browser} from 'puppeteer';
-import {Page} from 'puppeteer';
+import { existsSync, readdir, promises as fsPromise } from "fs";
+import { getProjectConfig } from "./project-config";
+import { Browser } from "puppeteer";
+import { Page } from "puppeteer";
 /**
  * @desc
  *
@@ -13,10 +13,12 @@ import {Page} from 'puppeteer';
  *
  * @Date    2019/7/27
  **/
-import * as useCaseManager from './use-case-manager';
-import {ISceneConfig} from "../typings";
+import * as useCaseManager from "./use-case-manager";
+import { ISceneConfig } from "../typings";
 
-const initConfig ={};
+const initConfig = {};
+
+const ProjectPath = join(__dirname, "../../projects");
 (async () => {
   const browser = await puppeteer.launch({
     timeout: 10000,
@@ -24,39 +26,37 @@ const initConfig ={};
     dumpio: true,
     devtools: true,
     headless: false,
-    args: ['--start-maximized'],
+    args: ["--start-maximized"]
   });
 
   const [page] = await browser.pages();
 
   await setPage(page);
 
-  await page.goto('http://seller.s2btest.kstore.shop/');
+  await page.goto("http://seller.s2btest.kstore.shop/");
 
-  let projects = await listDirFiles(join(__dirname, '../../projects'));
+  let projects = await listDirFiles(ProjectPath);
 
   for (let project of projects) {
-    let scenes = await listDirFiles(
-      join(__dirname, '../../projects', project, 'scene'),
-    );
+    let scenes = await listDirFiles(join(ProjectPath, project, "scene"));
     console.log(`项目[${project}]场景列表:${scenes}`);
 
     let projectConfig = await getProjectConfig(project);
 
-
     for (let scene of scenes) {
-      let sceneConfig:ISceneConfig=initConfig ;
+      let sceneConfig: ISceneConfig = initConfig;
 
-      let basePah = join(project, 'scene', scene);
-      if(!existsSync(join(basePah,'config/config.js'))){
-        sceneConfig = require(join(basePah,'config/config.js'));
-
+      let basePah = join(ProjectPath, project, "scene", scene);
+      if (!existsSync(join(basePah, "config/config.js"))) {
+        sceneConfig = require(join(basePah, "config/config.js"));
       }
 
-      let useCases = (await listDirFiles(basePah)).filter(useCaseId=>useCaseId.endsWith(".js"));
+      let useCases = (await listDirFiles(basePah)).filter(useCaseId =>
+        useCaseId.endsWith(".js")
+      );
 
-      if(sceneConfig.afterUseCases){
-        useCases =useCases.concat(sceneConfig.afterUseCases);
+      if (sceneConfig.afterUseCases) {
+        useCases = useCases.concat(sceneConfig.afterUseCases);
       }
 
       let screen = createScreen(
@@ -65,14 +65,16 @@ const initConfig ={};
           browserManager: getBrowserManager(browser),
           page,
           dir: join(__dirname, scene),
-          projectConfig,
+          projectConfig
         },
-        useCases.map(item => useCaseManager.loadUseCase(join(basePah, item))),
+        useCases.map(item =>
+          useCaseManager.loadUseCase(join(project, "scene", scene, item))
+        )
       );
       try {
         await screen.run();
       } catch (err) {
-        console.error('场景执行异常', err);
+        console.error("场景执行异常", err);
       }
       useCases.map(item => {
         useCaseManager.unloadUseCase(join(basePah, item));
@@ -89,12 +91,12 @@ function getBrowserManager(browser: Browser) {
       let page = await browser.newPage();
       await setPage(page);
       return page;
-    },
+    }
   };
 }
 
 async function setPage(page: Page) {
-  await page.setViewport({width: 0, height: 0});
+  await page.setViewport({ width: 0, height: 0 });
   // page.setDefaultNavigationTimeout(5000);
   page.setDefaultTimeout(100000);
 }
