@@ -79,8 +79,8 @@ export default class Scene {
       } catch (err) {
         //TODO 拍照保住现场;
         console.warn(`[${userCase.id+userCase.desc}]`,'发生异常,reload页面,继续下一用例;',err);
-        console.log('sleep 100 秒,定位问题.');
-        await sleep(100);
+        // console.log('sleep 100 秒,定位问题.');
+        // await sleep(100);
         try {
           let newPage = await this.context.browserManager.getNewPage();
           await Promise.all([this.context.page.close(),newPage.goto(this.context.projectConfig.webSite)]);

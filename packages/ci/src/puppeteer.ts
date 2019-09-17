@@ -33,7 +33,9 @@ const ProjectPath = join(__dirname, "../../projects");
 
   await setPage(page);
 
-  await page.goto("http://seller.s2btest.kstore.shop/");
+  await page.goto("http://seller.s2btest.kstore.shop/",{
+    timeout:100000,
+  });
 
   let projects = await listDirFiles(ProjectPath);
 
