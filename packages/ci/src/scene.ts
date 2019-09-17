@@ -3,6 +3,7 @@ import {createOperator} from './factory';
 import { sleep } from "./util";
 import {ensureDirSync} from  'fs-extra';
 import {loadUseCase} from "./use-case-manager";
+
 /**
  * @desc
  *  操纵者;
@@ -10,7 +11,6 @@ import {loadUseCase} from "./use-case-manager";
  *
  * @Date    2019/8/22
  **/
-
 export default class Scene {
 
  private context:IEcecuteContext;
@@ -36,12 +36,15 @@ export default class Scene {
    */
   private async  pre() {
     let {beforeUseCases} =  this.context.sceneConfig;
+    console.log('beforeUseCases:',beforeUseCases)
     if(beforeUseCases) {
       for (let i = 0, iLen = beforeUseCases.length; i < iLen; i++) {
         let useCaseItem = beforeUseCases[i];
+        console.log(`场景 pre 开始[${useCaseItem}]:`);
         let useCase  = await loadUseCase(useCaseItem);
         let operator = createOperator(this.context, useCase);
         await operator.run();
+        await sleep(3);
       }
     }
   }
@@ -54,6 +57,7 @@ export default class Scene {
     if(afterUseCases) {
       for (let i = 0, iLen = afterUseCases.length; i < iLen; i++) {
         let useCaseItem = afterUseCases[i];
+        console.log(`场景 post 开始[${useCaseItem}]:`);
         let useCase  = await loadUseCase(useCaseItem);
         let operator = createOperator(this.context, useCase);
         await operator.run();

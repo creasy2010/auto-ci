@@ -47,8 +47,10 @@ const ProjectPath = join(__dirname, "../../projects");
       let sceneConfig: ISceneConfig = initConfig;
 
       let basePah = join(ProjectPath, project, "scene", scene);
-      if (!existsSync(join(basePah, "config/config.js"))) {
+      if (existsSync(join(basePah, "config/config.js"))) {
         sceneConfig = require(join(basePah, "config/config.js"));
+      }else{
+        console.warn('配置文件不存在',basePah);
       }
 
       let useCases = (await listDirFiles(basePah)).filter(useCaseId =>

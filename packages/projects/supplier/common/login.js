@@ -90,9 +90,9 @@ module.exports={
     await page.type('.ant-row #input-form_password', '2');
 
     await page.waitForSelector(
-      '.login > .right-login-info > .form-box > .ant-form > .btn',
+      '.loginInner > .right-login-info > .form-box  div.btn',
     );
-    await page.click('.login > .right-login-info > .form-box > .ant-form > .btn');
+    await page.click('.loginInner > .right-login-info > .form-box  div.btn');
 
   }
 }

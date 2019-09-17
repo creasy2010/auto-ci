@@ -7,11 +7,11 @@
  * @Date    2019/9/12
  **/
 
-export default {
+module.exports = {
   before:({page})=>{
 
   },
-  beforeUseCases:["common/login.js"],
+  beforeUseCases:["supplier/common/login.js"],
 
   after:({page})=>{
 
