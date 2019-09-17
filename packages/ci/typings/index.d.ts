@@ -40,9 +40,14 @@ export interface IProjectConfig{
 
 export type UseCaseId=string;
 
+
+export interface UseCaseFilter {
+  (files:string[]): string[];
+}
 export interface ISceneConfig{
   before?:PromiseWithContextVoidFunc;
   after?:PromiseWithContextVoidFunc;
+  filter?:UseCaseFilter;
   afterUseCases?:UseCaseId[];
   beforeUseCases?:UseCaseId[];
 }
