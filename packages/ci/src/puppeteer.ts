@@ -63,9 +63,8 @@ const ProjectPath = join(__dirname, "../../projects");
       if(sceneConfig.filter){
         useCases= sceneConfig.filter(useCases);
       }
-
-      if (sceneConfig.afterUseCases) {
-        useCases = useCases.concat(sceneConfig.afterUseCases);
+      if(useCases.length === 0){
+        continue;
       }
 
       let screen = createScreen(
