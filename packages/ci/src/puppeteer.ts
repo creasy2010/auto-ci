@@ -85,7 +85,7 @@ const ProjectPath = join(__dirname, "../../projects");
         console.error("场景执行异常", err);
       }
       useCases.map(item => {
-        useCaseManager.unloadUseCase(join(basePah, item));
+        useCaseManager.unloadUseCase(join(project, "scene", scene, item));
       });
     }
   }
