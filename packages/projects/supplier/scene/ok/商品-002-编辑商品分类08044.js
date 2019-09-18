@@ -21,55 +21,11 @@ module.exports =   {
   await page.click('.ant-row #cateName'); 
       await sleep(1)
   
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','a')
-  
-  await page.keyboard.press('a'); 
-              await sleep(0.5)
-      
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','aa')
-  
-  await page.keyboard.press('a'); 
-              await sleep(0.5)
-      
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','a')
-  
-  await page.keyboard.press('Backspace'); 
-              await sleep(0.5)
-      
-  
-  await page.keyboard.press('Backspace'); 
-              await sleep(0.5)
-      
-  
-  await page.keyboard.press('Meta'); 
-              await sleep(0.5)
-      
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','a')
-  
-  await page.keyboard.press('a'); 
-              await sleep(0.5)
-      
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','a')
-  
-  await page.keyboard.press('a'); 
-              await sleep(0.5)
-      
-  
   log(`[clicking]确 定 `);
         await waitElementVisiable('.ant-modal > .ant-modal-content > .ant-modal-footer > div > .ant-btn-primary');
   await page.click('.ant-modal > .ant-modal-content > .ant-modal-footer > div > .ant-btn-primary'); 
       await sleep(1)
-  
-  
+
       await screenshot( '1')
       
   
@@ -107,21 +63,6 @@ module.exports =   {
   log(`[clicking]删除 `);
         await waitElementVisiable('.ant-table-tbody > .ant-table-row-level-1 > td > div > a:nth-child(2)');
   await page.click('.ant-table-tbody > .ant-table-row-level-1 > td > div > a:nth-child(2)'); 
-      await sleep(1)
-  
-  log(`[clicking]确 定 `);
-        await waitElementVisiable('.ant-modal-content > .ant-modal-body > .ant-modal-confirm-body-wrapper > .ant-modal-confirm-btns > .ant-btn-primary');
-  await page.click('.ant-modal-content > .ant-modal-body > .ant-modal-confirm-body-wrapper > .ant-modal-confirm-btns > .ant-btn-primary'); 
-      await sleep(1)
-  
-  log(`[clicking]删除 `);
-        await waitElementVisiable('.ant-table-tbody > .ant-table-row:nth-child(2) > td > div > a:nth-child(3)');
-  await page.click('.ant-table-tbody > .ant-table-row:nth-child(2) > td > div > a:nth-child(3)'); 
-      await sleep(1)
-  
-  log(`[clicking]确 定 `);
-        await waitElementVisiable('.ant-modal-content > .ant-modal-body > .ant-modal-confirm-body-wrapper > .ant-modal-confirm-btns > .ant-btn-primary');
-  await page.click('.ant-modal-content > .ant-modal-body > .ant-modal-confirm-body-wrapper > .ant-modal-confirm-btns > .ant-btn-primary'); 
       await sleep(1)
   
  

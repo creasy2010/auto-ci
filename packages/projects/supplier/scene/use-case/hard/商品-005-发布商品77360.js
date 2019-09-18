@@ -22,52 +22,18 @@ module.exports =   {
         await waitElementVisiable('.ant-row #goodsName');
   await page.click('.ant-row #goodsName'); 
       await sleep(1)
-  
+      let result  =  await page.$eval('#specSelect input[id]', el => el.id);
+      console.log(`$eval ${result}`);
+
   await waitElementVisiable('.ant-row #goodsName')
-  await page.type('.ant-row #goodsName','i')
-  
-  await waitElementVisiable('.ant-row #goodsName')
-  await page.type('.ant-row #goodsName','im')
-  
-  await waitElementVisiable('.ant-row #goodsName')
-  await page.type('.ant-row #goodsName','imy')
-  
-  await waitElementVisiable('.ant-row #goodsName')
-  await page.type('.ant-row #goodsName','imya')
-  
-  await page.keyboard.press('a'); 
-              await sleep(0.5)
-      
-  
-  await waitElementVisiable('.ant-row #goodsName')
-  await page.type('.ant-row #goodsName','测试')
-  
-  await waitElementVisiable('.ant-row #goodsName')
-  await page.type('.ant-row #goodsName','u')
-  
-  await waitElementVisiable('.ant-row #goodsName')
-  await page.type('.ant-row #goodsName','um')
-  
-  await waitElementVisiable('.ant-row #goodsName')
-  await page.type('.ant-row #goodsName','umk')
-  
-  await waitElementVisiable('.ant-row #goodsName')
-  await page.type('.ant-row #goodsName','umkk')
-  
-  await waitElementVisiable('.ant-row #goodsName')
-  await page.type('.ant-row #goodsName','商品')
-  
+  await page.type('.ant-row #goodsName','测试商品')
+
   log(`[clicking]计量单位下的节点下的节点下的节点下的节点 `);
         await waitElementVisiable('.ant-row #goodsUnit');
   await page.click('.ant-row #goodsUnit'); 
       await sleep(1)
-  
-  await waitElementVisiable('.ant-row #goodsUnit')
-  await page.type('.ant-row #goodsUnit','w')
-  
-  await waitElementVisiable('.ant-row #goodsUnit')
-  await page.type('.ant-row #goodsUnit','wh')
-  
+
+
   await waitElementVisiable('.ant-row #goodsUnit')
   await page.type('.ant-row #goodsUnit','个')
   
@@ -77,25 +43,25 @@ module.exports =   {
       await sleep(1)
   
   log(`[clicking]默认分类下的节点下的节点 `);
-        await waitElementVisiable('#rc-tree-select-list_5 > .ant-select-tree > .ant-select-tree-treenode-switcher-open:nth-child(1) > .ant-select-tree-checkbox > .ant-select-tree-checkbox-inner');
-  await page.click('#rc-tree-select-list_5 > .ant-select-tree > .ant-select-tree-treenode-switcher-open:nth-child(1) > .ant-select-tree-checkbox > .ant-select-tree-checkbox-inner'); 
+        await waitElementVisiable('#rc-tree-select-list_1 > .ant-select-tree > .ant-select-tree-treenode-switcher-open:nth-child(1) > .ant-select-tree-checkbox > .ant-select-tree-checkbox-inner');
+  await page.click('#rc-tree-select-list_1 > .ant-select-tree > .ant-select-tree-treenode-switcher-open:nth-child(1) > .ant-select-tree-checkbox > .ant-select-tree-checkbox-inner'); 
       await sleep(1)
   
   log(`[clicking]15
 ceshixy111下的节点下的节点 `);
-        await waitElementVisiable('#rc-tree-select-list_5 > .ant-select-tree > .ant-select-tree-treenode-switcher-open:nth-child(2) > .ant-select-tree-checkbox > .ant-select-tree-checkbox-inner');
-  await page.click('#rc-tree-select-list_5 > .ant-select-tree > .ant-select-tree-treenode-switcher-open:nth-child(2) > .ant-select-tree-checkbox > .ant-select-tree-checkbox-inner'); 
+        await waitElementVisiable('#rc-tree-select-list_1 > .ant-select-tree > .ant-select-tree-treenode-switcher-open:nth-child(2) > .ant-select-tree-checkbox > .ant-select-tree-checkbox-inner');
+  await page.click('#rc-tree-select-list_1 > .ant-select-tree > .ant-select-tree-treenode-switcher-open:nth-child(2) > .ant-select-tree-checkbox > .ant-select-tree-checkbox-inner'); 
       await sleep(1)
   
   log(`[clicking]默认分类下的节点 `);
-        await waitElementVisiable('.ant-select-dropdown > #rc-tree-select-list_5 > .ant-select-tree > .ant-select-tree-treenode-checkbox-checked > .ant-select-tree-checkbox');
-  await page.click('.ant-select-dropdown > #rc-tree-select-list_5 > .ant-select-tree > .ant-select-tree-treenode-checkbox-checked > .ant-select-tree-checkbox'); 
+        await waitElementVisiable('.ant-select-dropdown > div#rc-tree-select-list_1 > .ant-select-tree > .ant-select-tree-treenode-checkbox-checked > .ant-select-tree-checkbox');
+  await page.click('.ant-select-dropdown > #rc-tree-select-list_1 > .ant-select-tree > .ant-select-tree-treenode-checkbox-checked > .ant-select-tree-checkbox'); 
       await sleep(1)
   
   log(`[clicking]15
 ceshixy111下的节点下的节点 `);
-        await waitElementVisiable('#rc-tree-select-list_5 > .ant-select-tree > .ant-select-tree-treenode-switcher-open:nth-child(2) > .ant-select-tree-checkbox > .ant-select-tree-checkbox-inner');
-  await page.click('#rc-tree-select-list_5 > .ant-select-tree > .ant-select-tree-treenode-switcher-open:nth-child(2) > .ant-select-tree-checkbox > .ant-select-tree-checkbox-inner'); 
+        await waitElementVisiable('#rc-tree-select-list_1 > .ant-select-tree > .ant-select-tree-treenode-switcher-open:nth-child(2) > .ant-select-tree-checkbox > .ant-select-tree-checkbox-inner');
+  await page.click('#rc-tree-select-list_1 > .ant-select-tree > .ant-select-tree-treenode-switcher-open:nth-child(2) > .ant-select-tree-checkbox > .ant-select-tree-checkbox-inner'); 
       await sleep(1)
   
   log(`[clicking]ceshixy111下的节点下的节点 `);
@@ -129,117 +95,12 @@ ceshixy111下的节点下的节点 `);
       await sleep(1)
   
   await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','i')
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','im')
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','imy')
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','imya')
-  
-  await page.keyboard.press('a'); 
-              await sleep(0.5)
-      
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','测试')
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','u')
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','um')
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','umk')
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','umkk')
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','商品')
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','g')
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','gl')
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','glk')
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','gl')
-  
-  await page.keyboard.press('Backspace'); 
-              await sleep(0.5)
-      
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','g')
-  
-  await page.keyboard.press('Backspace'); 
-              await sleep(0.5)
-      
-  
-  await page.keyboard.press('Backspace'); 
-              await sleep(0.5)
-      
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','f')
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','fu')
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','f')
-  
-  await page.keyboard.press('Backspace'); 
-              await sleep(0.5)
-      
-  
-  await page.keyboard.press('Backspace'); 
-              await sleep(0.5)
-      
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','g')
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','gk')
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','gkl')
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','副')
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','s')
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','sf')
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','sfj')
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','sfjg')
-  
-  await waitElementVisiable('.ant-row #goodsSubtitle')
-  await page.type('.ant-row #goodsSubtitle','标题')
+  await page.type('.ant-row #goodsSubtitle','测试商品副标题')
   
   log(`[clicking]下架下的节点下的节点 `);
         await waitElementVisiable('.ant-form-item-children > #addedFlag > .ant-radio-wrapper:nth-child(2) > .ant-radio > .ant-radio-input');
   await page.click('.ant-form-item-children > #addedFlag > .ant-radio-wrapper:nth-child(2) > .ant-radio > .ant-radio-input'); 
       await sleep(1)
-  
-  await waitElementVisiable('.ant-form-item-children > #addedFlag > .ant-radio-wrapper-checked > .ant-radio > .ant-radio-input')
-  await page.type('.ant-form-item-children > #addedFlag > .ant-radio-wrapper-checked > .ant-radio > .ant-radio-input','undefined')
   
   log(`[clicking]建议尺寸:800*800px,单张大小不超过2M,最多可上传10张下的节点下的节点下的节点下的节点下的节点下的节点 `);
         await waitElementVisiable('div > div > div > div > .anticon > svg');
@@ -282,134 +143,66 @@ ceshixy111下的节点下的节点 `);
   
   await waitElementVisiable('.ant-form > div > .ant-checkbox-wrapper > .ant-checkbox > .ant-checkbox-input')
   await page.type('.ant-form > div > .ant-checkbox-wrapper > .ant-checkbox > .ant-checkbox-input','undefined')
-  
-  log(`[clicking]*下的节点下的节点下的节点下的节点下的节点 `);
-        await waitElementVisiable('.ant-row #spec_6570900844457548');
-  await page.click('.ant-row #spec_6570900844457548'); 
+
+
+      let specId = '12123';
+  log(`[clicking]*下的节点下的节点下的节点下的节点下的节点 ${specId}`);
+        await waitElementVisiable('.ant-row #spec_' + specId);
+  await page.click('.ant-row #spec_'+specId); 
       await sleep(1)
   
-  await page.keyboard.press('Backspace'); 
-              await sleep(0.5)
-      
-  
-  await page.keyboard.press('Backspace'); 
-              await sleep(0.5)
-      
-  
-  await page.keyboard.press('Backspace'); 
-              await sleep(0.5)
-      
-  
-  await page.keyboard.press('Backspace'); 
-              await sleep(0.5)
-      
-  
-  await waitElementVisiable('.ant-row #spec_6570900844457548')
-  await page.type('.ant-row #spec_6570900844457548','c')
-  
-  await waitElementVisiable('.ant-row #spec_6570900844457548')
-  await page.type('.ant-row #spec_6570900844457548','co')
-  
-  await waitElementVisiable('.ant-row #spec_6570900844457548')
-  await page.type('.ant-row #spec_6570900844457548','c')
-  
-  await page.keyboard.press('Backspace'); 
-              await sleep(0.5)
-      
-  
-  
-            log('点击组合键:Backspace-Meta')
-            await page.keyboard.down('Backspace');await page.keyboard.down('Meta');
-              await sleep(0.2); 
-            await page.keyboard.up('Backspace');await page.keyboard.up('Meta');
-              await sleep(0.5); 
-      
-  
-  await waitElementVisiable('.ant-row #spec_6570900844457548')
-  await page.type('.ant-row #spec_6570900844457548',' ')
-  
-  await waitElementVisiable('.ant-row #spec_6570900844457548')
-  await page.type('.ant-row #spec_6570900844457548','c')
-  
-  await page.keyboard.press('c'); 
-              await sleep(0.5)
-      
-  
-  await page.keyboard.press('Backspace'); 
-              await sleep(0.5)
-      
-  
-  
-            log('点击组合键:Backspace-Meta')
-            await page.keyboard.down('Backspace');await page.keyboard.down('Meta');
-              await sleep(0.2); 
-            await page.keyboard.up('Backspace');await page.keyboard.up('Meta');
-              await sleep(0.5); 
-      
-  
-  await waitElementVisiable('.ant-row #spec_6570900844457548')
-  await page.type('.ant-row #spec_6570900844457548','c')
-  
-  await waitElementVisiable('.ant-row #spec_6570900844457548')
-  await page.type('.ant-row #spec_6570900844457548','o')
-  
-  await waitElementVisiable('.ant-row #spec_6570900844457548')
-  await page.type('.ant-row #spec_6570900844457548','l')
-  
-  await waitElementVisiable('.ant-row #spec_6570900844457548')
-  await page.type('.ant-row #spec_6570900844457548','o')
-  
-  await waitElementVisiable('.ant-row #spec_6570900844457548')
-  await page.type('.ant-row #spec_6570900844457548','r')
+  await waitElementVisiable('.ant-row #spec_'+specId)
+  await page.type('.ant-row #spec_'+specId,'color')
+
   
   log(`[clicking]请输入规格值 `);
         await waitElementVisiable('.ant-form-item-children > #specval_6570900844457548 > .ant-select-selection > .ant-select-selection__rendered > .ant-select-selection__placeholder');
   await page.click('.ant-form-item-children > #specval_6570900844457548 > .ant-select-selection > .ant-select-selection__rendered > .ant-select-selection__placeholder'); 
       await sleep(1)
   
-  await waitElementVisiable('.ant-select-selection__rendered #specval_6570900844457548')
-  await page.type('.ant-select-selection__rendered #specval_6570900844457548','r')
+  await waitElementVisiable('.ant-select-selection__rendered #specval_'+specId)
+  await page.type('.ant-select-selection__rendered #specval_'+specId,'r')
   
-  await waitElementVisiable('.ant-select-selection__rendered #specval_6570900844457548')
-  await page.type('.ant-select-selection__rendered #specval_6570900844457548','e')
+  await waitElementVisiable('.ant-select-selection__rendered #specval_'+specId)
+  await page.type('.ant-select-selection__rendered #specval_'+specId,'e')
   
-  await waitElementVisiable('.ant-select-selection__rendered #specval_6570900844457548')
-  await page.type('.ant-select-selection__rendered #specval_6570900844457548','d')
-  
-  await page.keyboard.press('Enter'); 
-              await sleep(0.5)
-      
-  
-  await waitElementVisiable('.ant-select-selection__rendered #specval_6570900844457548')
-  await page.type('.ant-select-selection__rendered #specval_6570900844457548','g')
-  
-  await waitElementVisiable('.ant-select-selection__rendered #specval_6570900844457548')
-  await page.type('.ant-select-selection__rendered #specval_6570900844457548','r')
-  
-  await waitElementVisiable('.ant-select-selection__rendered #specval_6570900844457548')
-  await page.type('.ant-select-selection__rendered #specval_6570900844457548','e')
-  
-  await waitElementVisiable('.ant-select-selection__rendered #specval_6570900844457548')
-  await page.type('.ant-select-selection__rendered #specval_6570900844457548','e')
-  
-  await waitElementVisiable('.ant-select-selection__rendered #specval_6570900844457548')
-  await page.type('.ant-select-selection__rendered #specval_6570900844457548','n')
+  await waitElementVisiable('.ant-select-selection__rendered #specval_'+specId)
+  await page.type('.ant-select-selection__rendered #specval_'+specId,'d')
   
   await page.keyboard.press('Enter'); 
               await sleep(0.5)
       
   
-  await waitElementVisiable('.ant-select-selection__rendered #specval_6570900844457548')
-  await page.type('.ant-select-selection__rendered #specval_6570900844457548','b')
+  await waitElementVisiable('.ant-select-selection__rendered #specval_'+specId)
+  await page.type('.ant-select-selection__rendered #specval_'+specId,'g')
   
-  await waitElementVisiable('.ant-select-selection__rendered #specval_6570900844457548')
-  await page.type('.ant-select-selection__rendered #specval_6570900844457548','l')
+  await waitElementVisiable('.ant-select-selection__rendered #specval_'+specId)
+  await page.type('.ant-select-selection__rendered #specval_'+specId,'r')
   
-  await waitElementVisiable('.ant-select-selection__rendered #specval_6570900844457548')
-  await page.type('.ant-select-selection__rendered #specval_6570900844457548','u')
+  await waitElementVisiable('.ant-select-selection__rendered #specval_'+specId)
+  await page.type('.ant-select-selection__rendered #specval_'+specId,'e')
   
-  await waitElementVisiable('.ant-select-selection__rendered #specval_6570900844457548')
-  await page.type('.ant-select-selection__rendered #specval_6570900844457548','e')
+  await waitElementVisiable('.ant-select-selection__rendered #specval_'+specId)
+  await page.type('.ant-select-selection__rendered #specval_'+specId,'e')
+  
+  await waitElementVisiable('.ant-select-selection__rendered #specval_'+specId)
+  await page.type('.ant-select-selection__rendered #specval_'+specId,'n')
+  
+  await page.keyboard.press('Enter'); 
+              await sleep(0.5)
+      
+  
+  await waitElementVisiable('.ant-select-selection__rendered #specval_'+specId)
+  await page.type('.ant-select-selection__rendered #specval_'+specId,'b')
+  
+  await waitElementVisiable('.ant-select-selection__rendered #specval_'+specId)
+  await page.type('.ant-select-selection__rendered #specval_'+specId,'l')
+  
+  await waitElementVisiable('.ant-select-selection__rendered #specval_'+specId)
+  await page.type('.ant-select-selection__rendered #specval_'+specId,'u')
+  
+  await waitElementVisiable('.ant-select-selection__rendered #specval_'+specId)
+  await page.type('.ant-select-selection__rendered #specval_'+specId,'e')
   
   await page.keyboard.press('Enter'); 
               await sleep(0.5)

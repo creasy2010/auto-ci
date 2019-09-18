@@ -20,100 +20,7 @@ module.exports =   {
         await waitElementVisiable('.ant-row #cateName');
   await page.click('.ant-row #cateName'); 
       await sleep(1)
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','c')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','ch')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','cho')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','cho s')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','cho s n')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','chosng')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','cho s n g w')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','cho s n g wu')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','重生能感悟')
-  
-  await page.keyboard.press('Backspace'); 
-              await sleep(0.5)
-      
-  
-  await page.keyboard.press('Backspace'); 
-              await sleep(0.5)
-      
-  
-  await page.keyboard.press('Backspace'); 
-              await sleep(0.5)
-      
-  
-  await page.keyboard.press('Backspace'); 
-              await sleep(0.5)
-      
-  
-  await page.keyboard.press('Backspace'); 
-              await sleep(0.5)
-      
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','c')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','ch')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','cho')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','chon')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','chong')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','chong w')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','chong wu')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','宠物')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','s')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','sh')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','shi')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','shi o')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','shi')
-  
-  await page.keyboard.press('Backspace'); 
-              await sleep(0.5)
-      
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','shi p')
-  
+
   await waitElementVisiable('.ant-row #cateName')
   await page.type('.ant-row #cateName','食品')
   
@@ -141,53 +48,7 @@ module.exports =   {
         await waitElementVisiable('.ant-row #cateName');
   await page.click('.ant-row #cateName'); 
       await sleep(1)
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','r')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','ro')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','rou')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','rou l')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','rou le')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','rou lei')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','肉类')
-  
-  await page.keyboard.press('Backspace'); 
-              await sleep(0.5)
-      
-  
-  await page.keyboard.press('Backspace'); 
-              await sleep(0.5)
-      
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','r')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','ro')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','rou')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','rou l')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','rou le')
-  
-  await waitElementVisiable('.ant-row #cateName')
-  await page.type('.ant-row #cateName','rou lei')
+
   
   await waitElementVisiable('.ant-row #cateName')
   await page.type('.ant-row #cateName','肉类')
@@ -196,8 +57,7 @@ module.exports =   {
         await waitElementVisiable('.ant-modal > .ant-modal-content > .ant-modal-footer > div > .ant-btn-primary');
   await page.click('.ant-modal > .ant-modal-content > .ant-modal-footer > div > .ant-btn-primary'); 
       await sleep(1)
-  
- 
+
   },
   neworkMock :{"https://sellerbff.s2btest.kstore.shop/storeCate?reqId=0.11369224739061567:[GET]":[{"request":{"method":"GET","url":"https://sellerbff.s2btest.kstore.shop/storeCate?reqId=0.11369224739061567"},"requestId":"1000086032.1457","response":{"base64Encoded":false,"body":"{\"code\":\"K-000000\",\"message\":null,\"context\":[{\"storeCateId\":745,\"storeId\":123457687,\"cateName\":\"默认分类\",\"cateParentId\":0,\"cateGrade\":1,\"catePath\":\"0|\",\"delFlag\":0,\"sort\":0,\"isDefault\":1,\"storeCateList\":null},{\"storeCateId\":793,\"storeId\":123457687,\"cateName\":\"宠物食品\",\"cateParentId\":0,\"cateGrade\":1,\"catePath\":\"0|\",\"delFlag\":0,\"sort\":0,\"isDefault\":0,\"storeCateList\":null},{\"storeCateId\":768,\"storeId\":123457687,\"cateName\":\"宠物零食\",\"cateParentId\":0,\"cateGrade\":1,\"catePath\":\"0|\",\"delFlag\":0,\"sort\":0,\"isDefault\":0,\"storeCateList\":null},{\"storeCateId\":746,\"storeId\":123457687,\"cateName\":\"宠物用品\",\"cateParentId\":0,\"cateGrade\":1,\"catePath\":\"0|\",\"delFlag\":0,\"sort\":47,\"isDefault\":0,\"storeCateList\":null}]}","headers":{"Access-Control-Allow-Credentials":"true","Access-Control-Allow-Origin":"https://seller.s2btest.kstore.shop","Connection":"keep-alive","Content-Type":"application/json;charset=UTF-8","Date":"Wed, 18 Sep 2019 02:52:25 GMT","Server":"nginx/1.10.3","Transfer-Encoding":"chunked","Vary":"Origin","X-Application-Context":"sbc-supplier:8087"},"mimeType":"application/json","status":200}}],"https://sellerbff.s2btest.kstore.shop/storeCate?reqId=0.33054314149170994:[POST]":[{"request":{"method":"POST","url":"https://sellerbff.s2btest.kstore.shop/storeCate?reqId=0.33054314149170994"},"requestId":"1000086032.1455","response":{"base64Encoded":false,"body":"{\"code\":\"K-000000\",\"message\":null,\"context\":{\"storeCateId\":793,\"storeId\":123457687,\"cateName\":\"宠物食品\",\"cateParentId\":0,\"cateGrade\":1,\"catePath\":\"0|\",\"delFlag\":0,\"sort\":0,\"isDefault\":0,\"storeCateList\":[]}}","headers":{"Access-Control-Allow-Credentials":"true","Access-Control-Allow-Origin":"https://seller.s2btest.kstore.shop","Connection":"keep-alive","Content-Type":"application/json;charset=UTF-8","Date":"Wed, 18 Sep 2019 02:52:24 GMT","Server":"nginx/1.10.3","Transfer-Encoding":"chunked","Vary":"Origin","X-Application-Context":"sbc-supplier:8087"},"mimeType":"application/json","status":200}}],"https://sellerbff.s2btest.kstore.shop/storeCate?reqId=0.49285481618429205:[GET]":[{"request":{"method":"GET","url":"https://sellerbff.s2btest.kstore.shop/storeCate?reqId=0.49285481618429205"},"requestId":"1000086032.1461","response":{"base64Encoded":false,"body":"{\"code\":\"K-000000\",\"message\":null,\"context\":[{\"storeCateId\":745,\"storeId\":123457687,\"cateName\":\"默认分类\",\"cateParentId\":0,\"cateGrade\":1,\"catePath\":\"0|\",\"delFlag\":0,\"sort\":0,\"isDefault\":1,\"storeCateList\":null},{\"storeCateId\":794,\"storeId\":123457687,\"cateName\":\"肉类\",\"cateParentId\":793,\"cateGrade\":2,\"catePath\":\"0|793|\",\"delFlag\":0,\"sort\":0,\"isDefault\":0,\"storeCateList\":null},{\"storeCateId\":793,\"storeId\":123457687,\"cateName\":\"宠物食品\",\"cateParentId\":0,\"cateGrade\":1,\"catePath\":\"0|\",\"delFlag\":0,\"sort\":0,\"isDefault\":0,\"storeCateList\":null},{\"storeCateId\":768,\"storeId\":123457687,\"cateName\":\"宠物零食\",\"cateParentId\":0,\"cateGrade\":1,\"catePath\":\"0|\",\"delFlag\":0,\"sort\":0,\"isDefault\":0,\"storeCateList\":null},{\"storeCateId\":746,\"storeId\":123457687,\"cateName\":\"宠物用品\",\"cateParentId\":0,\"cateGrade\":1,\"catePath\":\"0|\",\"delFlag\":0,\"sort\":47,\"isDefault\":0,\"storeCateList\":null}]}","headers":{"Access-Control-Allow-Credentials":"true","Access-Control-Allow-Origin":"https://seller.s2btest.kstore.shop","Connection":"keep-alive","Content-Type":"application/json;charset=UTF-8","Date":"Wed, 18 Sep 2019 02:52:42 GMT","Server":"nginx/1.10.3","Transfer-Encoding":"chunked","Vary":"Origin","X-Application-Context":"sbc-supplier:8087"},"mimeType":"application/json","status":200}}],"https://sellerbff.s2btest.kstore.shop/storeCate?reqId=0.7252351355836744:[POST]":[{"request":{"method":"POST","url":"https://sellerbff.s2btest.kstore.shop/storeCate?reqId=0.7252351355836744"},"requestId":"1000086032.1459","response":{"base64Encoded":false,"body":"{\"code\":\"K-000000\",\"message\":null,\"context\":{\"storeCateId\":794,\"storeId\":123457687,\"cateName\":\"肉类\",\"cateParentId\":793,\"cateGrade\":2,\"catePath\":\"0|793|\",\"delFlag\":0,\"sort\":0,\"isDefault\":0,\"storeCateList\":[]}}","headers":{"Access-Control-Allow-Credentials":"true","Access-Control-Allow-Origin":"https://seller.s2btest.kstore.shop","Connection":"keep-alive","Content-Type":"application/json;charset=UTF-8","Date":"Wed, 18 Sep 2019 02:52:41 GMT","Server":"nginx/1.10.3","Transfer-Encoding":"chunked","Vary":"Origin","X-Application-Context":"sbc-supplier:8087"},"mimeType":"application/json","status":200}}]}
 };
