@@ -41,7 +41,7 @@
     "immutability-helper": "^2.8.0",
     "js-base64": "^2.5.1",
     "json-loader": "^0.5.4",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.19",
     "plume2": "^0.3.2",
     "prop-types": "^15.6.0",
     "puppeteer": "^1.19.0",
